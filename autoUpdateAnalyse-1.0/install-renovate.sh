@@ -40,6 +40,8 @@ echo "Node Archive: $NODE_ARCHIVE"
 echo "Node Path: $NODE_PATH"
 echo "Renovate Version: $RENOVATE_VERSION"
 
+
+
 echo "Downloading $NODE_ARCHIVE"
 curl https://nodejs.org/dist/$NODE_VERSION/$NODE_ARCHIVE -o $NODE_ARCHIVE
 echo "Unpacking..."

@@ -69,7 +69,7 @@ cleanup() {
         echo "📄 Original POM wiederhergestellt"
 
         # Führe maven clean aus
-        mvn -f "$POM_FILE" clean -s ~/.m2/settings_normal.xml > /dev/null 2>&1
+        mvn -f "$POM_FILE" clean > /dev/null 2>&1
         echo "🧼 Maven Clean ausgeführt"
     fi
 
@@ -126,7 +126,7 @@ EOF
 # Generate BOM File with Maven
 generateBomFile(){
   echo "⚙️  Generating BOM with Maven..."
-  if ! mvn -f "$POM_FILE" cyclonedx:makeAggregateBom -s ~/.m2/settings_normal.xml; then
+  if ! mvn -f "$POM_FILE" cyclonedx:makeAggregateBom; then
       die "Maven execution failed"
   fi
 

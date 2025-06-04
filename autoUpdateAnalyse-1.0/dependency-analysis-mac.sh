@@ -194,7 +194,7 @@ INNER_EOF
 
     # execute analyze-report
     echo "Erstelle Dependency Analysis Report für $module..."
-    if ! mvn org.apache.maven.plugins:maven-dependency-plugin:3.8.1:analyze-report -s ~/.m2/settings_normal.xml -Doutput.format=xdoc; then
+    if ! mvn org.apache.maven.plugins:maven-dependency-plugin:3.8.1:analyze-report -Doutput.format=xdoc; then
         echo "Fehler beim Ausführen von mvn analyze-report in $module"
         if [ "$module" != "." ]; then
             cd - > /dev/null
@@ -295,7 +295,7 @@ INNER_EOF
 
     # execute process-resources
     echo "Erstelle Dependency Analysis JSON für $module..."
-    if ! mvn process-resources -s ~/.m2/settings_normal.xml; then
+    if ! mvn process-resources; then
         echo "Fehler beim Ausführen von mvn process-resources in $module"
         # restore original pom.xml in case of error
         if [ -f "pom.xml.bak" ]; then

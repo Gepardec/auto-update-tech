@@ -255,7 +255,7 @@ for module in $modules; do
 
     # Execute analyze-report
     echo "Create Dependency Tree for $module..."
-    mvn org.apache.maven.plugins:maven-dependency-plugin:3.8.1:tree -DoutputFile=target/dependency-tree.json -DoutputType=json -s ~/.m2/settings_normal.xml
+    mvn org.apache.maven.plugins:maven-dependency-plugin:3.8.1:tree -DoutputFile=target/dependency-tree.json -DoutputType=json
     if [ $? -ne 0 ]; then
         echo "Error while running mvn analyze-report in $module"
         if [ "$module" != "." ]; then
@@ -305,7 +305,7 @@ for module in $modules; do
 
     # Run oga-maven-plugin check
     echo "Running 'mvn biz.lermitage.oga:oga-maven-plugin:check'..."
-    mvn_output=$(mvn biz.lermitage.oga:oga-maven-plugin:check -s ~/.m2/settings_normal.xml 2>&1)
+    mvn_output=$(mvn biz.lermitage.oga:oga-maven-plugin:check 2>&1)
     echo "$mvn_output"
 
     #Array to collect mappings
@@ -467,7 +467,7 @@ EOF
 
     # Execute process-resources
     echo "Creating Dependency Tree Flattened JSON AND RELOCATION for $module..."
-    mvn process-resources -s ~/.m2/settings_normal.xml
+    mvn process-resources
     if [ $? -ne 0 ]; then
         echo "Error executing mvn process-resources in $module"
         if [ -f "pom.xml.bak" ]; then

@@ -50,11 +50,11 @@ echo "$modules"
 for module in $modules; do
   echo "Executing Renovate in: $module"
   # npx is called from the environment variable PATH, which is set temporally in the previous script
-  cd $module && mkdir reports -p && LOG_FORMAT=json LOG_LEVEL=debug npx --prefix "$NODE_MODULES_PATH" renovate --platform=local --require-config=ignored --enabled-managers=maven > reports/$RENOVATE_LOGFILE
-  cat reports/$RENOVATE_LOGFILE | grep "packageFiles with updates" > reports/$RENOVATE_FILTERED_LOGFILE
+  cd $module && mkdir "gepardec-reports" -p && LOG_FORMAT=json LOG_LEVEL=debug npx --prefix "$NODE_MODULES_PATH" renovate --platform=local --require-config=ignored --enabled-managers=maven > "gepardec-reports/$RENOVATE_LOGFILE"
+  cat "gepardec-reports/$RENOVATE_LOGFILE" | grep "packageFiles with updates" > "gepardec-reports/$RENOVATE_FILTERED_LOGFILE"
 
   # Check if final json file is not empty and exists
-  finished_file="$(pwd)/reports/$RENOVATE_FILTERED_LOGFILE"
+  finished_file="$(pwd)/gepardec-reports/$RENOVATE_FILTERED_LOGFILE"
   if [ ! -e "$finished_file" ]; then
       echo -e "\033[0;31m[ERROR] After running script file does not exist: $finished_file\033[0m"
       exit 2
