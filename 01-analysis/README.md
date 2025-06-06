@@ -13,11 +13,11 @@
   * If you don't have a dependency track user for our dependency track (https://gepardec-dtrack.apps.cloudscale-lpg-2.appuio.cloud/) please contact [Christoph Ruhsam](mailto:christoph.ruhsam@gepardec.com).
   * If you have one please follow these steps:
     * Navigate to **Administration**:
-      ![Navigate to Administration](../img/administration.png)
+      ![Navigate to Administration](img/administration.png)
     * Navigate to **Access Management > Teams**:
-      ![Navigate to Access Management > Teams](../img/teams.png)
+      ![Navigate to Access Management > Teams](img/teams.png)
     * Navigate to **Administrators** and copy the **Api Key**:
-      ![Navigate to Administrators and copy the Api Key](../img/apikey.png)
+      ![Navigate to Administrators and copy the Api Key](img/apikey.png)
 
 ## Usage:
 1. Copy folder (01-analysis) into your project root directory
