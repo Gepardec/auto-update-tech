@@ -155,12 +155,12 @@ if [ "$OS_TYPE" = "macOS" ]; then
     echoHeader_yellow "Installing Renovate"
     cd $AUTO_UPDATE_ROOT
     # source is important so the script runs in the current shell, so any environment variable changes (like PATH) persist in the parent script
-    source install-renovate-mac.sh --node-version $nodeVersion --node-archive $NODE_ARCHIVE --node-path $NODE_PATH --renovate-version $renovateVersion
+    source ./install-renovate-mac.sh --node-version $nodeVersion --node-archive $NODE_ARCHIVE --node-path $NODE_PATH --renovate-version $renovateVersion
 
     echoHeader_yellow "Execute Renovate"
     cd $AUTO_UPDATE_ROOT
     # source is important because environment variables are used which are added in the previous script
-    source execute-renovate-mac.sh --node-path $NODE_PATH --node-modules "$AUTO_UPDATE_ROOT/node_modules"
+    source ./execute-renovate-mac.sh --node-path $NODE_PATH --node-modules "$AUTO_UPDATE_ROOT/node_modules"
 else
     echoHeader_yellow "Running dependency-relocated-date.sh"
     cd $AUTO_UPDATE_ROOT
