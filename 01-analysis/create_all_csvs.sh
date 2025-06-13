@@ -59,6 +59,14 @@ relocations() {
 # Function: vulnerabilities
 # ================================
 vulnerabilities() {
+  jq -r '.[] | select(.vulnerabilities != null) |
+      . as $parent |
+      .vulnerabilities[] |
+      [$parent.groupId, $parent.artifactId, .vulnId, .severity, (.epssScore|tostring), (.description|gsub("\n";" "))] | @csv' "$JSON_FILE" \
+    | awk 'BEGIN { print "\"groupId\",\"artifactId\",\"vulnId\",\"severity\",\"epssScore\",\"description\"" } { print }' \
+    > $DIRECTORY/vulnerabilities.csv
+    echo "✓ vulnerabilities.csv"
+
   jq -r '
     .[] |
     {groupId, artifactId, vulnerabilities} |
@@ -91,8 +99,8 @@ new_versions() {
   jq -r '.[] | select(.newVersions != null) |
     . as $parent |
     .newVersions[] |
-    [$parent.groupId, $parent.artifactId, .updateType, .major, ."non-major"] | @csv' "$JSON_FILE" \
-  | awk 'BEGIN { print "\"groupId\",\"artifactId\",\"updateType\",\"major\",\"nonMajor\"" } { print }' \
+    [$parent.groupId, $parent.artifactId, $parent.version, .updateType, .major, ."non-major"] | @csv' "$JSON_FILE" \
+  | awk 'BEGIN { print "\"groupId\",\"artifactId\",\"version\",\"updateType\",\"major\",\"nonMajor\"" } { print }' \
   > $DIRECTORY/new_versions.csv
   echo "✓ new_versions.csv"
 }
