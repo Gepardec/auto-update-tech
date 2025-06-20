@@ -1,0 +1,28 @@
+dependency-track:
+  common:
+    secretKey:
+      # -- Whether the chart should generate a secret key upon deployment.
+      createSecret: true
+  apiServer:
+    resources:
+      requests:
+        cpu: "1m"
+        memory: 3Gi
+      limits:
+        cpu: "2"
+        memory: 7Gi
+    podSecurityContext:
+      fsGroup: null
+    persistentVolume:
+      enabled: true
+      className: "ssd"
+      size: 50Gi
+  ingress:
+    enabled: false
+    hostname: "gepardec-dtrack-fontend.apps.cloudscale-lpg-2.appuio.cloud"
+
+    .Values:
+      apiServer:
+        persistentVolume:
+          enabled:
+

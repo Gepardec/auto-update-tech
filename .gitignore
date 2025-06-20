@@ -5,3 +5,8 @@
 *.iws
 
 target/
+
+### Helm ###
+# Chart dependencies
+**/charts/*.tgz
+**/Chart.lock
