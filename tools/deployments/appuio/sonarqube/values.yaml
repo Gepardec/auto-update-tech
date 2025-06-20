@@ -1,0 +1,61 @@
+sonarqube:
+  # Default values for SonarQube.
+  # This is a YAML-formatted file.
+  # Declare variables to be passed into your templates.
+
+  edition: "developer"
+  # There should not be more than 1 SonarQube instance connected to the same database. Please set this value to 1 or 0 (in case you need to scale down programmatically).
+  replicaCount: 1
+
+  # How many revisions to retain (Deployment ReplicaSets or StatefulSets)
+  revisionHistoryLimit: 3
+
+  image:
+    pullSecrets:
+      - name: docker-config
+  persistence:
+    enabled: true
+    storageClass: "ssd"
+
+  ## OpenShift specific configuration
+  OpenShift:
+    enabled: true
+    route:
+      enabled: true
+      host: "gepardec-sonarqube.apps.cloudscale-lpg-2.appuio.cloud"
+      path: "/"
+      # Add tls section to secure traffic.
+      tls:
+        termination: edge
+        # certificate:
+        # key:
+        # caCertificate:
+        # insecureEdgeTerminationPolicy: Redirect
+      wildcardPolicy: None
+      annotations: {}
+      # See Openshift/OKD route annotation
+      # https://docs.openshift.com/container-platform/4.10/networking/routes/route-configuration.html#nw-route-specific-annotations_route-configuration
+      # haproxy.router.openshift.io/timeout: 1m
+      # Additional labels for Route manifest file
+      # labels:
+      #  external: 'true'
+  monitoringPasscodeSecretName: monitoring-passcode-secret
+  monitoringPasscodeSecretKey: monitoringPasscode
+
+  resources:
+    limits:
+      ephemeral-storage: 500Mi
+    requests:
+      ephemeral-storage: 150Mi
+
+  postgresql:
+    global:
+      imagePullSecrets:
+        - docker-config
+    securityContext:
+      enabled: false
+    containerSecurityContext:
+      enabled: false
+    persistence:
+      storageClass: "ssd"
+      size: 10Gi
