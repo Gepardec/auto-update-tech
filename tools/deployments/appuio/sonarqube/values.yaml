@@ -3,7 +3,13 @@ sonarqube:
   # This is a YAML-formatted file.
   # Declare variables to be passed into your templates.
 
-  edition: "developer"
+  edition: ""
+
+  community:
+    enabled: true
+    buildNumber: "25.6.0.109173"
+
+
   # There should not be more than 1 SonarQube instance connected to the same database. Please set this value to 1 or 0 (in case you need to scale down programmatically).
   replicaCount: 1
 
