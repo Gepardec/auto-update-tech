@@ -26,13 +26,15 @@ while [[ $# -gt 0 ]]; do
 done
 
 # Check if all required arguments are provided
-if [ -z "$PROJECT_ROOT" ] ; then
+if [ -z "$PROJECT_ROOT" ] || [ -z "$SONAR_PASSWORD"]; then
     echo "Error: All arguments must be provided."
-    echo "Usage: --project-root <path-to-project-root>"
+    echo "Usage: --project-root <path-to-project-root> --sonar-qube-admin-password"
     exit 1
 fi
+
 temp_files=()
 plugin_file=$(mktemp)
+
 temp_files+=("$plugin_file")
 cat << 'EOF' > "$plugin_file"
             <plugin>
