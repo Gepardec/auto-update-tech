@@ -3,106 +3,181 @@
 # ================================
 # Script: generate_all_csvs.sh
 # Purpose: Convert a given JSON file into multiple CSVs
-# Compatible with: macOS (uses awk for headers)
-# Dependencies: jq
+# Dependencies: python3
 # Usage:
 #   ./generate_all_csvs.sh <json_file> [function]
-#   Example:
-#     ./generate_all_csvs.sh plain.json         # runs createAll
-#     ./generate_all_csvs.sh plain.json vulnerabilities
 # ================================
 
-# Input JSON file
-JSON_FILE="$1"
+JSON_FILE=""
 DIRECTORY="final-csv"
 
-# Shift arguments so that $2 becomes $1 in function calls
-shift
+# Parse command-line options using getopt
+OPTS=$(getopt -o "" --long json-file: -- "$@")
 
-# Check if the file is provided and exists
+if [ $? -ne 0 ]; then
+    echo "Error parsing options."
+    exit 1
+fi
+
+eval set -- "$OPTS"
+
+while true; do
+    case "$1" in
+        --json-file) JSON_FILE="$2"; shift 2 ;;
+        --) shift; break ;;
+        *) echo "Unexpected option: $1"; exit 1 ;;
+    esac
+done
+
+
+# Check input file
 if [[ -z "$JSON_FILE" || ! -f "$JSON_FILE" ]]; then
-  echo "❌ Error: Please provide a valid JSON file as the first argument."
-  echo "Usage: $0 <json_file> [function]"
+  echo "❌ Error: Provide a valid JSON file."
+  echo "Usage: --json-file <json_file_path>"
   exit 1
 fi
 
-# Check for jq
-if ! command -v jq &> /dev/null; then
-  echo "❌ Error: 'jq' is required but not installed. Install it with 'brew install jq'."
+# Check for python3
+if ! command -v python3 &> /dev/null; then
+  echo "❌ Error: 'python3' is required but not installed."
   exit 1
 fi
+
+mkdir -p "$DIRECTORY"
 
 # ================================
 # Function: main_artifacts
 # ================================
 main_artifacts() {
-  jq -r '.[] | [.groupId, .artifactId, .version, .scope, .lastUpdatedDate] | @csv' "$JSON_FILE" \
-  | awk 'BEGIN { print "\"groupId\",\"artifactId\",\"version\",\"scope\",\"lastUpdatedDate\"" } { print }' \
-  > $DIRECTORY/main_artifacts.csv
-  echo "✓ main_artifacts.csv"
+python3 - <<EOF
+import json, csv
+with open("$JSON_FILE") as f:
+    data = json.load(f)
+with open("$DIRECTORY/main_artifacts.csv", "w", newline='') as out:
+    writer = csv.writer(out)
+    writer.writerow(["groupId", "artifactId", "version", "scope", "lastUpdatedDate"])
+    for item in data:
+        writer.writerow([
+            item.get("groupId", ""),
+            item.get("artifactId", ""),
+            item.get("version", ""),
+            item.get("scope", ""),
+            item.get("lastUpdatedDate", "")
+        ])
+EOF
+echo "✓ main_artifacts.csv"
 }
 
 # ================================
 # Function: relocations
 # ================================
 relocations() {
-  jq -r '.[] | select(.relocations != null) |
-    . as $parent |
-    .relocations[] |
-    [$parent.groupId, $parent.artifactId, $parent.lastUpdatedDate, .groupId, .artifactId, .lastUpdatedDate] | @csv' "$JSON_FILE" \
-  | awk 'BEGIN { print "\"groupId\",\"artifactId\",\"lastUpdatedDate\",\"relocationGroupId\",\"relocationArtifactId\",\"relocationLastUpdatedDate\"" } { print }' \
-  > $DIRECTORY/relocations.csv
-  echo "✓ relocations.csv"
+python3 - <<EOF
+import json, csv
+with open("$JSON_FILE") as f:
+    data = json.load(f)
+with open("$DIRECTORY/relocations.csv", "w", newline='') as out:
+    writer = csv.writer(out)
+    writer.writerow([
+        "groupId", "artifactId", "lastUpdatedDate",
+        "relocationGroupId", "relocationArtifactId", "relocationLastUpdatedDate"
+    ])
+    for item in data:
+        for r in item.get("relocations", []):
+            writer.writerow([
+                item.get("groupId", ""),
+                item.get("artifactId", ""),
+                item.get("lastUpdatedDate", ""),
+                r.get("groupId", ""),
+                r.get("artifactId", ""),
+                r.get("lastUpdatedDate", "")
+            ])
+EOF
+echo "✓ relocations.csv"
 }
 
 # ================================
 # Function: vulnerabilities
 # ================================
 vulnerabilities() {
-  jq -r '.[] | select(.vulnerabilities != null) |
-      . as $parent |
-      .vulnerabilities[] |
-      [$parent.groupId, $parent.artifactId, .vulnId, .severity, (.epssScore|tostring), (.description|gsub("\n";" "))] | @csv' "$JSON_FILE" \
-    | awk 'BEGIN { print "\"groupId\",\"artifactId\",\"vulnId\",\"severity\",\"epssScore\",\"description\"" } { print }' \
-    > $DIRECTORY/vulnerabilities.csv
-    echo "✓ vulnerabilities.csv"
+python3 - <<EOF
+import json, csv
 
-  jq -r '
-    .[] |
-    {groupId, artifactId, vulnerabilities} |
-    .vulnerabilities as $vulns |
-    {
-      groupId,
-      artifactId,
-      numberOfCritical:   ($vulns | map(select(.severity == "CRITICAL"))   | length),
-      numberOfHigh:       ($vulns | map(select(.severity == "HIGH"))       | length),
-      numberOfMedium:     ($vulns | map(select(.severity == "MEDIUM"))     | length),
-      numberOfLow:        ($vulns | map(select(.severity == "LOW"))        | length),
-      numberOfUnassigned: ($vulns | map(select(.severity == "UNASSIGNED")) | length)
-    } |
-    [.groupId, .artifactId, (.numberOfCritical|tostring), (.numberOfHigh|tostring), (.numberOfMedium|tostring), (.numberOfLow|tostring), (.numberOfUnassigned|tostring)] |
-    @csv
-  ' "$JSON_FILE" |
-  awk 'BEGIN {
-    print "\"groupId\",\"artifactId\",\"numberOfCritical\",\"numberOfHigh\",\"numberOfMedium\",\"numberOfLow\",\"numberOfUnassigned\""
-  } { print }' > $DIRECTORY/vulnerability_summary.csv
+with open("$JSON_FILE") as f:
+    data = json.load(f)
 
-  echo "✓ vulnerability_summary.csv"
+with open("$DIRECTORY/vulnerabilities.csv", "w", newline='') as out:
+    writer = csv.writer(out)
+    writer.writerow(["groupId", "artifactId", "vulnId", "severity", "epssScore", "description"])
+    for item in data:
+        for vuln in item.get("vulnerabilities", []):
+            writer.writerow([
+                item.get("groupId", ""),
+                item.get("artifactId", ""),
+                vuln.get("vulnId", ""),
+                vuln.get("severity", ""),
+                str(vuln.get("epssScore", "")),
+                vuln.get("description", "").replace('\n', ' ')
+            ])
+
+with open("$DIRECTORY/vulnerability_summary.csv", "w", newline='') as out:
+    writer = csv.writer(out)
+    writer.writerow([
+        "groupId", "artifactId",
+        "numberOfCritical", "numberOfHigh", "numberOfMedium",
+        "numberOfLow", "numberOfUnassigned"
+    ])
+    for item in data:
+        vulns = item.get("vulnerabilities", [])
+        sev_count = {
+            "CRITICAL": 0,
+            "HIGH": 0,
+            "MEDIUM": 0,
+            "LOW": 0,
+            "UNASSIGNED": 0
+        }
+        for v in vulns:
+            sev = v.get("severity", "UNASSIGNED").upper()
+            sev_count[sev] = sev_count.get(sev, 0) + 1
+        writer.writerow([
+            item.get("groupId", ""),
+            item.get("artifactId", ""),
+            sev_count["CRITICAL"],
+            sev_count["HIGH"],
+            sev_count["MEDIUM"],
+            sev_count["LOW"],
+            sev_count["UNASSIGNED"]
+        ])
+EOF
+echo "✓ vulnerabilities.csv"
+echo "✓ vulnerability_summary.csv"
 }
-
-
 
 # ================================
 # Function: new_versions
 # ================================
 new_versions() {
-  jq -r '.[] | select(.newVersions != null) |
-    . as $parent |
-    .newVersions[] |
-    [$parent.groupId, $parent.artifactId, $parent.version, .updateType, .major, ."non-major"] | @csv' "$JSON_FILE" \
-  | awk 'BEGIN { print "\"groupId\",\"artifactId\",\"version\",\"updateType\",\"major\",\"nonMajor\"" } { print }' \
-  > $DIRECTORY/new_versions.csv
-  echo "✓ new_versions.csv"
+python3 - <<EOF
+import json, csv
+
+with open("$JSON_FILE") as f:
+    data = json.load(f)
+
+with open("$DIRECTORY/new_versions.csv", "w", newline='') as out:
+    writer = csv.writer(out)
+    writer.writerow(["groupId", "artifactId", "version", "updateType", "major", "nonMajor"])
+    for item in data:
+        for new in item.get("newVersions", []):
+            writer.writerow([
+                item.get("groupId", ""),
+                item.get("artifactId", ""),
+                item.get("version", ""),
+                new.get("updateType", ""),
+                new.get("major", ""),
+                new.get("non-major", "")
+            ])
+EOF
+echo "✓ new_versions.csv"
 }
 
 # ================================
@@ -118,7 +193,7 @@ createAll() {
 }
 
 # ================================
-# Entry point
+# Entry Point
 # ================================
 if [[ $# -eq 0 ]]; then
   createAll
