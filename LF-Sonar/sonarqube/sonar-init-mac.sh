@@ -1,8 +1,8 @@
 #!/bin/bash
 
 SONAR_URL="https://gepardec-sonarqube.apps.cloudscale-lpg-2.appuio.cloud"
-ADMIN_USER="admin"
-ADMIN_PASS="xxx"
+SONAR_USER="admin"
+SONAR_PASSWORD=""
 PROJECT_KEY="multi-module-issues"
 PROJECT_NAME="Multi Module Issues"
 TOKEN_NAME="java-token"
@@ -12,6 +12,10 @@ while [[ $# -gt 0 ]]; do
     case "$1" in
         --project-root)
             PROJECT_ROOT="$2"
+            shift 2
+            ;;
+        --sonar-qube-admin-password)
+            SONAR_PASSWORD="$2"
             shift 2
             ;;
         *)
@@ -27,21 +31,21 @@ if [ -z "$PROJECT_ROOT" ] ; then
     echo "Usage: --project-root <path-to-project-root>"
     exit 1
 fi
-
+temp_files=()
 plugin_file=$(mktemp)
 temp_files+=("$plugin_file")
 cat << 'EOF' > "$plugin_file"
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
-                <version>latest</version>
+                <version>5.1.0.4751</version>
             </plugin>
 EOF
 
 cd $PROJECT_ROOT
 
 # Check if sonar-maven-plugin is already present in pom.xml
-if grep -A 10 "org.sonarsource.scanner.maven:sonar-maven-plugin" pom.xml | grep -q "<version>4.0.0.4121</version>"; then
+if grep -A 10 "org.sonarsource.scanner.maven:sonar-maven-plugin" pom.xml; then
     echo "sonar-maven-plugin mit der gleichen Konfiguration bereits in pom.xml vorhanden, überspringe Änderung"
 else
     echo "Füge sonar-maven-plugin zu pom.xml hinzu..."
@@ -111,7 +115,7 @@ else
 fi
 
 echo "🔐 Creating user token..."
-TOKEN=$(curl -u $ADMIN_USER:"$ADMIN_PASS" -s "$SONAR_URL/api/user_tokens/generate" \
+TOKEN=$(curl -u $SONAR_USER:"$SONAR_PASSWORD" -s "$SONAR_URL/api/user_tokens/generate" \
   -d name="$TOKEN_NAME" | jq -r ".token")
 echo $TOKEN
 
@@ -132,16 +136,25 @@ mvn clean verify sonar:sonar \
   -Dsonar.host.url=$SONAR_URL \
   -Dsonar.token="$TOKEN"
 
+# restore original pom.xml
+if [ -f "pom.xml.bak" ]; then
+    mv pom.xml.bak pom.xml || {
+        echo "Warnung: Konnte pom.xml nicht wiederherstellen"
+    }
+else
+    echo "Warnung: pom.xml.bak nicht gefunden, kann nicht wiederhergestellt werden"
+fi
+
 cd ..
 
 echo "Making ncloc request"
 LINES_OF_CODE=$(curl -u $TOKEN: -s "$SONAR_URL/api/measures/component?component=multi-module-issues&metricKeys=ncloc" | jq -r ".component.measures[0].value")
 
 echo "Making issues request"
-ISSUES=$(curl -u $ADMIN_USER:$ADMIN_PASS -s "$SONAR_URL/api/issues/search?component=multi-module-issues&facets=severities,types" | jq -r ".facets")
+ISSUES=$(curl -u $SONAR_USER:$SONAR_PASSWORD -s "$SONAR_URL/api/issues/search?component=multi-module-issues&facets=severities,types" | jq -r ".facets")
 
 echo "Security hotspots"
-SECURITY_HOTSPOTS=$(curl -u $ADMIN_USER:$ADMIN_PASS -s "$SONAR_URL/api/hotspots/search?component=multi-module-issues&project=$PROJECT_KEY" | jq '.hotspots
+SECURITY_HOTSPOTS=$(curl -u $SONAR_USER:$SONAR_PASSWORD -s "$SONAR_URL/api/hotspots/search?component=multi-module-issues&project=$PROJECT_KEY" | jq '.hotspots
                                                                                                                               | group_by(.vulnerabilityProbability)                                                                                                                          | map({
                                                                                                                                   (.[0].vulnerabilityProbability): {
                                                                                                                                     total: length,
@@ -191,7 +204,7 @@ echo $REPORT | jq
 echo $REPORT | jq >> sonar-report.json
 
 echo "🔐 Revoking user token..."
-TOKEN=$(curl -u $ADMIN_USER:"$ADMIN_PASS" -s "$SONAR_URL/api/user_tokens/revoke" \
+TOKEN=$(curl -u $SONAR_USER:"$SONAR_PASSWORD" -s "$SONAR_URL/api/user_tokens/revoke" \
   -d name="$TOKEN_NAME")
 echo $TOKEN
 

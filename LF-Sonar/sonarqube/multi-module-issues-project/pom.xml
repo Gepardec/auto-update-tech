@@ -16,16 +16,15 @@
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <jacoco.version>latest</jacoco.version>
+    <jacoco.version>0.8.10</jacoco.version>
   </properties>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.sonarsource.scanner.maven</groupId>
-        <artifactId>sonar-maven-plugin</artifactId>
-        <version>latest</version>
-      </plugin>
-    </plugins>
-  </build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>5.1.0.4751</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>
