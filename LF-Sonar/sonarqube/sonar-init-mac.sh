@@ -3,8 +3,8 @@
 SONAR_URL="https://gepardec-sonarqube.apps.cloudscale-lpg-2.appuio.cloud"
 SONAR_USER="admin"
 SONAR_PASSWORD=""
-PROJECT_KEY="multi-module-issues"
-PROJECT_NAME="Multi Module Issues"
+PROJECT_KEY=""
+PROJECT_NAME=""
 TOKEN_NAME="java-token"
 PROJECT_ROOT=""
 
@@ -43,6 +43,9 @@ cat << 'EOF' > "$plugin_file"
 EOF
 
 cd $PROJECT_ROOT
+
+PROJECT_KEY=$(mvn help:evaluate -f ./pom.xml -Dexpression=project.artifactId -q -DforceStdout)
+PROJECT_NAME=$(mvn help:evaluate -f ./pom.xml -Dexpression=project.artifactId -q -DforceStdout)
 
 # Check if sonar-maven-plugin is already present in pom.xml
 if grep -A 10 "org.sonarsource.scanner.maven:sonar-maven-plugin" pom.xml; then
