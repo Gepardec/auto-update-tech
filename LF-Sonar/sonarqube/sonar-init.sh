@@ -188,6 +188,7 @@ REPORT=$(jq -n \
          ')
 
 echo $REPORT | jq
+echo $REPORT | jq >> sonar-report.json
 
 echo "🔐 Revoking user token..."
 TOKEN=$(curl -u $ADMIN_USER:"$ADMIN_PASS" -s "$SONAR_URL/api/user_tokens/revoke" \

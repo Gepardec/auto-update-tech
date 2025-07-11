@@ -16,7 +16,7 @@
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <jacoco.version>0.8.10</jacoco.version>
+    <jacoco.version>latest</jacoco.version>
   </properties>
 
   <build>
@@ -24,7 +24,7 @@
       <plugin>
         <groupId>org.sonarsource.scanner.maven</groupId>
         <artifactId>sonar-maven-plugin</artifactId>
-        <version>3.11.0.3922</version>
+        <version>latest</version>
       </plugin>
     </plugins>
   </build>
