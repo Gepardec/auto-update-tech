@@ -17,26 +17,34 @@ JSON_FILE=""
 DIRECTORY="final-csv"
 
 # Parse command-line options using getopt
-OPTS=$(getopt -o "" --long json-file: -- "$@")
+#OPTS=$(getopt -o "" --long json-file: -- "$@")
+#
+#if [ $? -ne 0 ]; then
+#    echo "Error parsing options."
+#    exit 1
+#fi
+#
+#eval set -- "$OPTS"
 
-if [ $? -ne 0 ]; then
-    echo "Error parsing options."
-    exit 1
-fi
+mkdir -p "$DIRECTORY"
 
-eval set -- "$OPTS"
-
-while true; do
+while [[ $# -gt 0 ]]; do
     case "$1" in
-        --json-file) JSON_FILE="$2"; shift 2 ;;
-        --) shift; break ;;
-        *) echo "Unexpected option: $1"; exit 1 ;;
+        --json-file)
+            JSON_FILE="$2"
+            shift 2
+            ;;
+        *)
+            echo "Unexpected option: $1"
+            exit 1
+            ;;
     esac
 done
 
 shift
 
 # Check input file
+echo $JSON_FILE
 if [[ -z "$JSON_FILE" || ! -f "$JSON_FILE" ]]; then
   echo "❌ Error: Provide a valid JSON file."
   echo "Usage: --json-file <json_file_path>"
