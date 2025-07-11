@@ -6,6 +6,109 @@ ADMIN_PASS="xxx"
 PROJECT_KEY="multi-module-issues"
 PROJECT_NAME="Multi Module Issues"
 TOKEN_NAME="java-token"
+PROJECT_ROOT=""
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --project-root)
+            PROJECT_ROOT="$2"
+            shift 2
+            ;;
+        *)
+            echo "Unexpected option: $1"
+            exit 1
+            ;;
+    esac
+done
+
+# Check if all required arguments are provided
+if [ -z "$PROJECT_ROOT" ] ; then
+    echo "Error: All arguments must be provided."
+    echo "Usage: --project-root <path-to-project-root>"
+    exit 1
+fi
+
+plugin_file=$(mktemp)
+temp_files+=("$plugin_file")
+cat << 'EOF' > "$plugin_file"
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>latest</version>
+            </plugin>
+EOF
+
+cd $PROJECT_ROOT
+
+# Check if sonar-maven-plugin is already present in pom.xml
+if grep -A 10 "org.sonarsource.scanner.maven:sonar-maven-plugin" pom.xml | grep -q "<version>4.0.0.4121</version>"; then
+    echo "sonar-maven-plugin mit der gleichen Konfiguration bereits in pom.xml vorhanden, überspringe Änderung"
+else
+    echo "Füge sonar-maven-plugin zu pom.xml hinzu..."
+
+    # Create backup of pom.xml
+    cp pom.xml pom.xml.bak || {
+        echo "Fehler beim Erstellen eines Backups der pom.xml"
+        cd - > /dev/null
+        exit 1
+    }
+
+    # Create new temp pom.xml
+    temp_file=$(mktemp)
+    temp_files+=("$temp_file")
+
+    # Search for <plugins> and add plugin
+    if grep -q "<plugins>" pom.xml; then
+        awk -v plugin_file="$plugin_file" '
+            /<\/plugins>/ {
+                while ((getline line < plugin_file) > 0) {
+                    print line
+                }
+                close(plugin_file)
+                print
+                next
+            }
+            { print }
+        ' pom.xml > "$temp_file" || {
+            echo "Fehler beim Bearbeiten der pom.xml mit awk"
+            cd - > /dev/null
+            exit 1
+        }
+    else
+        awk -v plugin_file="$plugin_file" '
+            /<\/project>/ {
+                print "    <build>"
+                print "        <plugins>"
+                while ((getline line < plugin_file) > 0) {
+                    print line
+                }
+                close(plugin_file)
+                print "        </plugins>"
+                print "    </build>"
+            }
+            { print }
+        ' pom.xml > "$temp_file" || {
+            echo "Fehler beim Bearbeiten der pom.xml mit awk"
+            cd - > /dev/null
+            exit 1
+        }
+    fi
+
+    # Check if temp file is not empty
+    if [ ! -s "$temp_file" ]; then
+        echo "Fehler: Temporäre pom.xml ist leer"
+        cd - > /dev/null
+        exit 1
+    fi
+
+    # Replace original with modified pom
+    mv "$temp_file" pom.xml || {
+        echo "Fehler beim Aktualisieren der pom.xml"
+        cd - > /dev/null
+        exit 1
+    }
+    temp_files=("${temp_files[@]/$temp_file}")
+fi
 
 echo "🔐 Creating user token..."
 TOKEN=$(curl -u $ADMIN_USER:"$ADMIN_PASS" -s "$SONAR_URL/api/user_tokens/generate" \
@@ -21,7 +124,7 @@ curl -s -u $TOKEN: "$SONAR_URL/api/qualityprofiles/add_project" \
   -d language=java -d project="$PROJECT_KEY" -d qualityProfile="Sonar way"
 
 
-cd multi-module-issues-project
+cd $PROJECT_ROOT
 
 echo "🧪 Running SonarQube analysis..."
 mvn clean verify sonar:sonar \
@@ -91,6 +194,9 @@ TOKEN=$(curl -u $ADMIN_USER:"$ADMIN_PASS" -s "$SONAR_URL/api/user_tokens/revoke"
   -d name="$TOKEN_NAME")
 echo $TOKEN
 
+# Clean up temporary plugin file
+rm -f "$plugin_file"
+temp_files=("${temp_files[@]/$plugin_file}")
 
 #echo "📎 Associating '$NEW_PROFILE_NAME' to project..."
 #curl -s -u $TOKEN: "$SONAR_URL/api/qualityprofiles/add_project" \
