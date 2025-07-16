@@ -18,6 +18,14 @@ while [[ $# -gt 0 ]]; do
             SONAR_PASSWORD="$2"
             shift 2
             ;;
+        --sonar-qube-project-key)
+            SONAR_PASSWORD="$2"
+            shift 2
+            ;;
+        --sonar-qube-project-name)
+            SONAR_PASSWORD="$2"
+            shift 2
+            ;;
         *)
             echo "Unexpected option: $1"
             exit 1
@@ -120,7 +128,7 @@ else
 fi
 
 echo "🔐 Creating user token..."
-TOKEN=$(curl -u $SONAR_USER:"$SONAR_PASSWORD" -s "$SONAR_URL/api/user_tokens/generate" \
+TOKEN=$(curl -u "$SONAR_USER:$SONAR_PASSWORD" -s "$SONAR_URL/api/user_tokens/generate" \
   -d name="$TOKEN_NAME" | jq -r ".token")
 echo $TOKEN
 
@@ -151,6 +159,8 @@ else
 fi
 
 cd ..
+
+sleep 5
 
 echo "Making ncloc request"
 LINES_OF_CODE=$(curl -u $TOKEN: -s "$SONAR_URL/api/measures/component?component=multi-module-issues&metricKeys=ncloc" | jq -r ".component.measures[0].value")
@@ -207,6 +217,10 @@ REPORT=$(jq -n \
 
 echo $REPORT | jq
 echo $REPORT | jq >> sonar-report.json
+
+echo "❌ Deleting project..."
+curl -s -u $TOKEN: "$SONAR_URL/api/projects/delete" \
+  -d project="$PROJECT_KEY"
 
 echo "🔐 Revoking user token..."
 TOKEN=$(curl -u $SONAR_USER:"$SONAR_PASSWORD" -s "$SONAR_URL/api/user_tokens/revoke" \

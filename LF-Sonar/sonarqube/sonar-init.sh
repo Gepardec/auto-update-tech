@@ -20,12 +20,15 @@ fi
 # --- Variables ---
 SONAR_URL="https://gepardec-sonarqube.apps.cloudscale-lpg-2.appuio.cloud"
 ADMIN_USER="admin"
-SONAR_PROJECT_KEY="multi-module-issues"
-SONAR_PROJECT_NAME="Multi-Module Issues Project"
+SONAR_PROJECT_KEY=""
+SONAR_PROJECT_NAME=""
 SONAR_ORG="default"
 SONAR_PROFILE="Sonar way"
 
 cd "$PROJECT_ROOT"
+
+SONAR_PROJECT_KEY=$(mvn help:evaluate -f ./pom.xml -Dexpression=project.artifactId -q -DforceStdout)
+SONAR_PROJECT_NAME=$(mvn help:evaluate -f ./pom.xml -Dexpression=project.artifactId -q -DforceStdout)
 
 echo "↳ Adding sonar‑maven‑plugin to pom.xml …"
 
@@ -65,6 +68,8 @@ mvn clean verify sonar:sonar \
 # --- Report Collection Section ---
 echo "📊 Collecting report metrics..."
 
+sleep 5
+
 # 1. Lines of Code (ncloc)
 echo "➡️  Fetching ncloc..."
 LINES_OF_CODE=$(curl -s -u "$SONAR_TOKEN:" "$SONAR_URL/api/measures/component?component=$SONAR_PROJECT_KEY&metricKeys=ncloc" \
@@ -88,7 +93,7 @@ echo "➡️  Fetching technical debt..."
 TECH_DEBT=$(curl -s -u "$SONAR_TOKEN:" "$SONAR_URL/api/measures/component?component=$SONAR_PROJECT_KEY&metricKeys=sqale_index" | grep -o '"value":"[0-9]*"' | grep -o '[0-9]*')
 
 # --- Combine JSON ---
-echo "📝 Building report…"
+echo "📝 Building report..."
 REPORT=$(cat <<EOF
 {
   "lines_of_code": $LINES_OF_CODE,
@@ -103,6 +108,12 @@ EOF
 )
 
 echo "$REPORT" | tee sonar-report.json
+
+echo "❌ Delete project (if exists)..."
+curl -s -u "$ADMIN_USER:$ADMIN_PWD" -X POST "$SONAR_URL/api/projects/delete" \
+  -d "project=$SONAR_PROJECT_KEY" \
+  > /dev/null || true
+
 
 # --- Revoke Token ---
 echo "🔐 Revoking user token..."

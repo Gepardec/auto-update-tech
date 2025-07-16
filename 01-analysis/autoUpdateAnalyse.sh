@@ -3,6 +3,7 @@
 PROJECT_ROOT=""
 MAVEN_PROJECT_ROOT=""
 DEPENDENCY_TRACK_API_KEY=""
+SONAR_QUBE_ADMIN_PASSWORD=""
 CLEANUP=true
 
 # Detect OS
@@ -36,6 +37,10 @@ if [ "$OS_TYPE" = "macOS" ]; then
               DEPENDENCY_TRACK_API_KEY="$2"
               shift 2
               ;;
+          --sonar-qube-admin-password)
+              SONAR_QUBE_ADMIN_PASSWORD="$2"
+              shift 2
+              ;;
           --cleanup)
               CLEANUP="$2"
               shift 2
@@ -62,6 +67,7 @@ else
           --project-root) PROJECT_ROOT="$2"; shift 2 ;;
           --maven-project-root) MAVEN_PROJECT_ROOT="$2"; shift 2 ;;
           --dependency-track-api-key) DEPENDENCY_TRACK_API_KEY="$2"; shift 2 ;;
+          --sonar-qube-admin-password) SONAR_QUBE_ADMIN_PASSWORD="$2"; shift 2 ;;
           --cleanup) CLEANUP="$2"; shift 2 ;;
           --) shift; break ;;
           *) echo "Unexpected option: $1"; exit 1 ;;
@@ -70,9 +76,9 @@ else
 fi
 
 # Check if all required arguments are provided
-if [ -z "$PROJECT_ROOT" ] || [ -z "$MAVEN_PROJECT_ROOT" ] || [ -z "$DEPENDENCY_TRACK_API_KEY" ]; then
+if [ -z "$PROJECT_ROOT" ] || [ -z "$MAVEN_PROJECT_ROOT" ] || [ -z "$DEPENDENCY_TRACK_API_KEY" ] || [ -z "$SONAR_QUBE_ADMIN_PASSWORD" ] ; then
     echo "Error: All arguments must be provided."
-    echo "Usage: $0 --project-root <path-to-project-root> --maven-project-root <path-to-maven-project-root> --dependency-track-api-key <dependency-track-api-key>"
+    echo "Usage: $0 --project-root <path-to-project-root> --maven-project-root <path-to-maven-project-root> --dependency-track-api-key <dependency-track-api-key> --sonar-qube-admin-password <sonar-qube-admin-password>"
     exit 1
 fi
 
@@ -205,12 +211,21 @@ echoHeader_yellow "Move dependency-track-vulnerability-report.json"
 
 mv "${AUTO_UPDATE_ROOT}/dependency-track-vulnerability-report.json" "${AUTO_UPDATE_ROOT}/final-reports/dependency-track-vulnerability-report.json"
 
-echoHeader_yellow "Create CSV files"
 if [ "$OS_TYPE" = "macOS" ]; then
+  echoHeader_yellow "Create CSV files"
   source ./create-all-csvs-mac.sh --json-file ${AUTO_UPDATE_ROOT}/auto-update-report.json
+
+  echoHeader_yellow "Create Sonar Report"
+  source ./sonar-init-mac.sh --project-root ${AUTO_UPDATE_ROOT} --sonar-qube-admin-password $SONAR_QUBE_ADMIN_PASSWORD
 else
+  echoHeader_yellow "Create CSV files"
   source ./create-all-csvs.sh --json-file ${AUTO_UPDATE_ROOT}/auto-update-report.json
+
+  echoHeader_yellow "Create Sonar Report"
+  source ./sonar-init.sh --project-root ${AUTO_UPDATE_ROOT} --sonar-qube-admin-password $SONAR_QUBE_ADMIN_PASSWORD
 fi
+
+mv "${AUTO_UPDATE_ROOT}/sonar-report.json" "${AUTO_UPDATE_ROOT}/final-reports/sonar-report.json"
 
 if [ "$CLEANUP" = true ]; then
 echoHeader_green "Cleaning up..."
