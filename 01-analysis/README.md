@@ -3,9 +3,12 @@
 ## Prerequisites:
 * mvn clean install has to result in **BUILD SUCCESS**
   * use normal settings.xml (without private registries)
-* Windows: GitBash has to be available
-* Permission to download node (via script) automatically
-* Firewall activation towards our dependency track
+  * __ATTENTION__ if you haven't installed *mvn* you need to add those two lines below ```#!/bin/bash``` in your ``` autoUpdateAnalyse.sh``` file:
+    * ```shopt -s expand_aliases```
+    * ```alias mvn='<path to your mvnd.cmd>'```
+* *Windows:* GitBash has to be available
+* Permission to download sth. on your machine, in that case it is node (via script) automatically
+* Firewall activation towards our dependency track and sonar qube
   * if absolutely not possible docker must be provided for dependency track and the url must be changed *(dependency-track(-mac).sh)*
 
 # Preparation:

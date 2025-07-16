@@ -207,9 +207,9 @@ mv "${AUTO_UPDATE_ROOT}/dependency-track-vulnerability-report.json" "${AUTO_UPDA
 
 echoHeader_yellow "Create CSV files"
 if [ "$OS_TYPE" = "macOS" ]; then
-  source ./create_all_csvs-mac.sh --json-file ${AUTO_UPDATE_ROOT}/auto-update-report.json
+  source ./create-all-csvs-mac.sh --json-file ${AUTO_UPDATE_ROOT}/auto-update-report.json
 else
-  source ./create_all_csvs.sh --json-file ${AUTO_UPDATE_ROOT}/auto-update-report.json
+  source ./create-all-csvs.sh --json-file ${AUTO_UPDATE_ROOT}/auto-update-report.json
 fi
 
 if [ "$CLEANUP" = true ]; then
