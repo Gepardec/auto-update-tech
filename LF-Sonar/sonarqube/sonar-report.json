@@ -474,3 +474,207 @@
     }
   ]
 }
+{
+  "lines_of_code": 160,
+  "technical_debt_min": 175,
+  "issues": {
+    "by_severity": [
+      {
+        "severity": "MINOR",
+        "count": 2576
+      },
+      {
+        "severity": "MAJOR",
+        "count": 2409
+      },
+      {
+        "severity": "CRITICAL",
+        "count": 1160
+      },
+      {
+        "severity": "BLOCKER",
+        "count": 387
+      },
+      {
+        "severity": "INFO",
+        "count": 255
+      }
+    ],
+    "by_type": [
+      {
+        "type": "CODE_SMELL",
+        "count": 6311
+      },
+      {
+        "type": "BUG",
+        "count": 457
+      },
+      {
+        "type": "VULNERABILITY",
+        "count": 19
+      }
+    ]
+  },
+  "security_hotspots": [
+    {
+      "severity": "HIGH",
+      "total": 3,
+      "categories": [
+        {
+          "name": "auth",
+          "number": 2
+        },
+        {
+          "name": "sql-injection",
+          "number": 1
+        }
+      ]
+    },
+    {
+      "severity": "LOW",
+      "total": 1,
+      "categories": [
+        {
+          "name": "insecure-conf",
+          "number": 1
+        }
+      ]
+    }
+  ]
+}
+{
+  "lines_of_code": 160,
+  "technical_debt_min": 175,
+  "issues": {
+    "by_severity": [
+      {
+        "severity": "MINOR",
+        "count": 2576
+      },
+      {
+        "severity": "MAJOR",
+        "count": 2409
+      },
+      {
+        "severity": "CRITICAL",
+        "count": 1160
+      },
+      {
+        "severity": "BLOCKER",
+        "count": 387
+      },
+      {
+        "severity": "INFO",
+        "count": 255
+      }
+    ],
+    "by_type": [
+      {
+        "type": "CODE_SMELL",
+        "count": 6311
+      },
+      {
+        "type": "BUG",
+        "count": 457
+      },
+      {
+        "type": "VULNERABILITY",
+        "count": 19
+      }
+    ]
+  },
+  "security_hotspots": [
+    {
+      "severity": "HIGH",
+      "total": 3,
+      "categories": [
+        {
+          "name": "auth",
+          "number": 2
+        },
+        {
+          "name": "sql-injection",
+          "number": 1
+        }
+      ]
+    },
+    {
+      "severity": "LOW",
+      "total": 1,
+      "categories": [
+        {
+          "name": "insecure-conf",
+          "number": 1
+        }
+      ]
+    }
+  ]
+}
+{
+  "lines_of_code": 160,
+  "technical_debt_min": 175,
+  "issues": {
+    "by_severity": [
+      {
+        "severity": "MAJOR",
+        "count": 10
+      },
+      {
+        "severity": "MINOR",
+        "count": 8
+      },
+      {
+        "severity": "INFO",
+        "count": 4
+      },
+      {
+        "severity": "BLOCKER",
+        "count": 3
+      },
+      {
+        "severity": "CRITICAL",
+        "count": 1
+      }
+    ],
+    "by_type": [
+      {
+        "type": "CODE_SMELL",
+        "count": 21
+      },
+      {
+        "type": "BUG",
+        "count": 4
+      },
+      {
+        "type": "VULNERABILITY",
+        "count": 1
+      }
+    ]
+  },
+  "security_hotspots": [
+    {
+      "severity": "HIGH",
+      "total": 3,
+      "categories": [
+        {
+          "name": "auth",
+          "number": 2
+        },
+        {
+          "name": "sql-injection",
+          "number": 1
+        }
+      ]
+    },
+    {
+      "severity": "LOW",
+      "total": 1,
+      "categories": [
+        {
+          "name": "insecure-conf",
+          "number": 1
+        }
+      ]
+    }
+  ]
+}
