@@ -40,7 +40,6 @@ PROJECT_NAME=$(mvn help:evaluate -f ./pom.xml -Dexpression=project.artifactId -q
 echo "🔐 Creating user token..."
 TOKEN=$(curl -u "$SONAR_USER:$SONAR_PASSWORD" -s "$SONAR_URL/api/user_tokens/generate" \
   -d name="$TOKEN_NAME" | jq -r ".token")
-echo $TOKEN
 
 echo "📁 Creating project..."
 curl -s -u $TOKEN: "$SONAR_URL/api/projects/create" \
