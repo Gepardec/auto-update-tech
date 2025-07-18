@@ -40,6 +40,12 @@ cat << 'EOF' > "$plugin_file"
             </plugin>
 EOF
 
+# create backup of pom.xml
+cp pom.xml pom.xml.bak || {
+    echo "Fehler beim Erstellen eines Backups der pom.xml"
+    return
+}
+
 # create new temp pom.xml
 temp_file=$(mktemp)
 temp_files+=("$temp_file")
@@ -58,7 +64,7 @@ if grep -q "<plugins>" pom.xml; then
         { print }
     ' pom.xml > "$temp_file" || {
         echo "Fehler beim Bearbeiten der pom.xml mit awk"
-        continue
+        return
     }
 else
     awk -v plugin_file="$plugin_file" '
@@ -75,20 +81,20 @@ else
         { print }
     ' pom.xml > "$temp_file" || {
         echo "Fehler beim Bearbeiten der pom.xml mit awk"
-        continue
+        return
     }
 fi
 
 # check if temp file is not empty
 if [ ! -s "$temp_file" ]; then
     echo "Fehler: Temporäre pom.xml ist leer"
-    continue
+    return
 fi
 
 # replace original with modified pom
 mv "$temp_file" pom.xml || {
     echo "Fehler beim Aktualisieren der pom.xml"
-    continue
+    return
 }
 temp_files=("${temp_files[@]/$temp_file}")
 }

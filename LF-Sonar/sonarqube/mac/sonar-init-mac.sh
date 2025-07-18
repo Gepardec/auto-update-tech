@@ -81,6 +81,11 @@ generate_report() {
   ./generate-sonar-report-mac.sh
 }
 
+generate_test_coverage() {
+  echo "📊 Generating Test Coverage..."
+  ./generate-test-coverage-mac.sh
+}
+
 delete_project() {
   echo "🗑️  Deleting project '$PROJECT_KEY'..."
   curl -s -u "$TOKEN:" "$SONAR_URL/api/projects/delete" \
@@ -102,6 +107,7 @@ main() {
   associate_quality_profile
   initialize_project_analysis
   generate_report
+  generate_test_coverage
   delete_project
   revoke_token
 }

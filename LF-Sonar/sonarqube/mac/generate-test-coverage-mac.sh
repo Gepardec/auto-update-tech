@@ -1,14 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
-PROJECT_ROOT="/Users/christoph.ruhsam/Documents/gepardec/auto-update/auto-update-tech/LF-Sonar/sonarqube/test-projects/multi-module-issues-project"
-PROJECT_KEY="multi-module-issues-project"
-SONAR_USER="admin"
-SONAR_PASSWORD="Tn%G;fq!d&(B0*j?C&__"
-SONAR_URL="https://gepardec-sonarqube.apps.cloudscale-lpg-2.appuio.cloud"
-
 # === Required Environment Variables ===
-REQUIRED_ENV_VARS=("PROJECT_ROOT" "PROJECT_KEY")
+REQUIRED_ENV_VARS=("PROJECT_ROOT" "PROJECT_KEY" "SONAR_USER" "SONAR_PASSWORD" "SONAR_URL")
 
 check_env_vars() {
   for var in "${REQUIRED_ENV_VARS[@]}"; do
@@ -84,7 +78,7 @@ main() {
 
   moduleList=$(echo "$results" | jq -s .)
 
-  projectCoverage=$(curl -u "$SONAR_USER:$SONAR_PASSWORD" -s "$SONAR_URL/api/measures/component?component=$PROJECT_KEY&metricKeys=coverage,line_coverage,branch_coverage" | jq "{
+  REPORT=$(curl -u "$SONAR_USER:$SONAR_PASSWORD" -s "$SONAR_URL/api/measures/component?component=$PROJECT_KEY&metricKeys=coverage,line_coverage,branch_coverage" | jq "{
                                                                                                                                                                           name: .component.name,
                                                                                                                                                                           measures: (
                                                                                                                                                                             .component.measures
@@ -95,7 +89,10 @@ main() {
                                                                                                                                                                         }")
 
 
-  echo "Result: $projectCoverage"
+    echo "$REPORT" | jq
+    echo "$REPORT" | jq > test-coverage-report.json
+
+    echo "Report saved to test-coverage-report.json ✅"
 }
 
 main
