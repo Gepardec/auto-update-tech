@@ -17,7 +17,7 @@ check_env_vars() {
 find_modules() {
   find "$PROJECT_ROOT" -type f -name "pom.xml" | grep -v "/target/" | while read -r pom; do
     dir=$(dirname "$pom")
-    rel_path="${dir#$PROJECT_ROOT}"
+    rel_path="${dir#"$PROJECT_ROOT"}"
     module="${rel_path#/}"
       # Strip project root prefix
 
@@ -59,9 +59,7 @@ process_module() {
 main() {
   check_env_vars
 
-  echo "🔎 Searching for modules in: $PROJECT_ROOT"
   modules=$(find_modules)
-  echo "MODULES: " $modules
 
   if [[ -z "$modules" ]]; then
     echo "❌ No modules with pom.xml found."
