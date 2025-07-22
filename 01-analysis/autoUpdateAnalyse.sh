@@ -6,6 +6,13 @@ DEPENDENCY_TRACK_API_KEY=""
 SONAR_QUBE_ADMIN_PASSWORD=""
 CLEANUP=true
 
+# Check for python3
+if ! command -v python3 &> /dev/null; then
+    echo "Error: python3 is not installed. Please install Python 3 to proceed."
+    echo "Download from https://www.python.org/downloads/"
+    exit 1
+fi
+
 # Detect OS
 OS_TYPE="unknown"
 case "$(uname -s)" in
@@ -53,7 +60,7 @@ if [ "$OS_TYPE" = "macOS" ]; then
   done
 else
   # Parse command-line options using getopt
-  OPTS=$(getopt -o "" --long project-root:,maven-project-root:,dependency-track-api-key:,cleanup: -- "$@")
+  OPTS=$(getopt -o "" --long project-root:,maven-project-root:,dependency-track-api-key:,sonar-qube-admin-password:,cleanup: -- "$@")
 
   if [ $? -ne 0 ]; then
       echo "Error parsing options."
@@ -78,7 +85,7 @@ fi
 # Check if all required arguments are provided
 if [ -z "$PROJECT_ROOT" ] || [ -z "$MAVEN_PROJECT_ROOT" ] || [ -z "$DEPENDENCY_TRACK_API_KEY" ] || [ -z "$SONAR_QUBE_ADMIN_PASSWORD" ] ; then
     echo "Error: All arguments must be provided."
-    echo "Usage: $0 --project-root <path-to-project-root> --maven-project-root <path-to-maven-project-root> --dependency-track-api-key <dependency-track-api-key> --sonar-qube-admin-password <sonar-qube-admin-password>"
+    echo "Usage: $0 --project-root <absolute-path-to-project-root> --maven-project-root <absolute-path-to-maven-project-root> --dependency-track-api-key <dependency-track-api-key> --sonar-qube-admin-password <sonar-qube-admin-password>"
     exit 1
 fi
 
@@ -166,7 +173,7 @@ if [ "$OS_TYPE" = "macOS" ]; then
     echoHeader_yellow "Execute Renovate"
     cd $AUTO_UPDATE_ROOT
     # source is important because environment variables are used which are added in the previous script
-    source ./execute-renovate-mac.sh --node-path $NODE_PATH --node-modules "$AUTO_UPDATE_ROOT/node_modules"
+    source ./execute-renovate-mac.sh --node-path $NODE_PATH --node-modules "$AUTO_UPDATE_ROOT/node_modules" --project-root $PROJECT_ROOT
 else
     echoHeader_yellow "Running dependency-relocated-date.sh"
     cd $AUTO_UPDATE_ROOT
@@ -188,7 +195,7 @@ else
     echoHeader_yellow "Execute Renovate"
     cd $AUTO_UPDATE_ROOT
     # source is important because environment variables are used which are added in the previous script
-    source ./execute-renovate.sh --node-path $NODE_PATH --node-modules "$AUTO_UPDATE_ROOT/node_modules"
+    source ./execute-renovate.sh --node-path $NODE_PATH --node-modules "$AUTO_UPDATE_ROOT/node_modules" --project-root $PROJECT_ROOT
 fi
 
 
@@ -213,19 +220,26 @@ mv "${AUTO_UPDATE_ROOT}/dependency-track-vulnerability-report.json" "${AUTO_UPDA
 
 if [ "$OS_TYPE" = "macOS" ]; then
   echoHeader_yellow "Create CSV files"
-  source ./create-all-csvs-mac.sh --json-file ${AUTO_UPDATE_ROOT}/auto-update-report.json
+  cd $AUTO_UPDATE_ROOT
+  source ./create-all-csvs-mac.sh --json-file ./final-reports/auto-update-report.json
 
   echoHeader_yellow "Create Sonar Report"
-  source ./sonar-init-mac.sh --project-root ${AUTO_UPDATE_ROOT} --sonar-qube-admin-password $SONAR_QUBE_ADMIN_PASSWORD
+  cd ./../LF-Sonar/sonarqube/mac
+  source ./sonar-init-mac.sh --project-root ${PROJECT_ROOT} --sonar-qube-admin-password $SONAR_QUBE_ADMIN_PASSWORD
 else
   echoHeader_yellow "Create CSV files"
-  source ./create-all-csvs.sh --json-file ${AUTO_UPDATE_ROOT}/auto-update-report.json
+  cd $AUTO_UPDATE_ROOT
+  source ./create-all-csvs.sh --json-file ./final-reports/auto-update-report.json
 
   echoHeader_yellow "Create Sonar Report"
-  source ./sonar-init.sh --project-root ${AUTO_UPDATE_ROOT} --sonar-qube-admin-password $SONAR_QUBE_ADMIN_PASSWORD
+  cd ./../LF-Sonar/sonarqube
+  source ./sonar-init.sh --project-root ${PROJECT_ROOT} --sonar-qube-admin-password $SONAR_QUBE_ADMIN_PASSWORD
 fi
 
-mv "${AUTO_UPDATE_ROOT}/sonar-report.json" "${AUTO_UPDATE_ROOT}/final-reports/sonar-report.json"
+mv "./sonar-report.json" "${AUTO_UPDATE_ROOT}/final-reports/sonar-report.json"
+mv "./test-coverage-report.json" "${AUTO_UPDATE_ROOT}/final-reports/test-coverage-report.json"
+
+cd $AUTO_UPDATE_ROOT
 
 if [ "$CLEANUP" = true ]; then
 echoHeader_green "Cleaning up..."

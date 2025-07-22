@@ -82,7 +82,18 @@ associate_quality_profile() {
 initialize_project_analysis() {
   echo "🚀 Running project analysis initialization..."
   ./initialize-project.sh
-  sleep 5
+}
+
+sleep_seconds_for_results() {
+  counter=$1
+  echo "💤 Sleep for $counter seconds to wait on result at sonar-qube..."
+  while [ $counter -gt 0 ]
+  do
+    echo -n "$counter..."
+    counter=$(( counter - 1 ))
+    sleep 1
+  done
+  echo "$counter"
 }
 
 generate_report() {
@@ -116,6 +127,7 @@ main() {
   create_project
   associate_quality_profile
   initialize_project_analysis
+  sleep_seconds_for_results 10
   generate_report
   generate_test_coverage
   delete_project

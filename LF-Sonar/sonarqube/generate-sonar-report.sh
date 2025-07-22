@@ -45,36 +45,41 @@ get_security_hotspots() {
 parse_security_hotspots() {
   local json="$1"
 
-  echo "$json" | grep -oE '"vulnerabilityProbability":"[^"]+",.*?"securityCategory":"[^"]+"' | \
-  sed -E 's/.*"vulnerabilityProbability":"([^"]+)".*"securityCategory":"([^"]+)".*/\1,\2/' | \
-  awk -F',' '
-  {
-    vp=$1
-    cat=$2
-    total[vp]++
-    key=vp "|" cat
-    count[key]++
-  }
-  END {
-    printf "  \"security_hotspots\": {\n"
-    n = 0
-    for (vp in total) {
-      if (n++ > 0) printf ",\n"
-      printf "    \"%s\": {\n", vp
-      printf "      \"total\": %d,\n", total[vp]
-      printf "      \"categories\": [\n"
-      m = 0
-      for (k in count) {
-        split(k, parts, "|")
-        if (parts[1] == vp) {
-          if (m++ > 0) printf ",\n"
-          printf "        { \"name\": \"%s\", \"number\": %d }", parts[2], count[k]
-        }
-      }
-      printf "\n      ]\n    }"
+  echo "$json" | awk '
+    BEGIN {
+      print "  \"security_hotspots\": {"
     }
-    printf "\n  }"
-  }'
+    {
+      if ($0 ~ /"vulnerabilityProbability":/) {
+        prob = gensub(/.*"vulnerabilityProbability":"([^"]+)".*/, "\\1", "g")
+      }
+      if ($0 ~ /"securityCategory":/) {
+        cat = gensub(/.*"securityCategory":"([^"]+)".*/, "\\1", "g")
+        key = prob "|" cat
+        count_by_vp[prob]++
+        count_by_pair[key]++
+      }
+    }
+    END {
+      n = 0
+      for (vp in count_by_vp) {
+        if (n++ > 0) print ","
+        printf "    \"%s\": {\n", vp
+        printf "      \"total\": %d,\n", count_by_vp[vp]
+        printf "      \"categories\": [\n"
+        m = 0
+        for (k in count_by_pair) {
+          split(k, parts, "|")
+          if (parts[1] == vp) {
+            if (m++ > 0) print ","
+            printf "        { \"name\": \"%s\", \"number\": %d }", parts[2], count_by_pair[k]
+          }
+        }
+        print "\n      ]\n    }"
+      }
+      print "\n  }"
+    }
+  '
 }
 
 

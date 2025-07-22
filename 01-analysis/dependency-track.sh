@@ -120,7 +120,7 @@ EOF
           { print }
       ' "$POM_FILE" > "${POM_FILE}.new" && mv "${POM_FILE}.new" "$POM_FILE" || die "Fehler beim Aktualisieren der pom.xml"
   else
-      die "<plugins> block not found in pom.xml"
+      die "<plugins> block not found in pom.xml -> add <plugins> block and try again"
   fi
 }
 
