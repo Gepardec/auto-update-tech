@@ -10,31 +10,30 @@ die() {
 }
 
 PROJECT_ROOT=""
-PROJECT_NAME="Analysis Report Dependency"
+PROJECT_NAME="Analyzis Report Dependency"
 API_URL="https://gepardec-dtrack.apps.cloudscale-lpg-2.appuio.cloud/api"
 API_KEY=""
 
-# Parse command-line options using getopt
-OPTS=$(getopt -o "" --long maven-project-root:,dependency-track-api-key: -- "$@")
 
-if [ $? -ne 0 ]; then
-    echo "Error parsing options."
-    exit 1
-fi
-
-eval set -- "$OPTS"
-
-while true; do
+while [[ $# -gt 0 ]]; do
     case "$1" in
-        --maven-project-root) PROJECT_ROOT="$2"; shift 2 ;;
-        --dependency-track-api-key) API_KEY="$2"; shift 2 ;;
-        --) shift; break ;;
-        *) echo "Unexpected option: $1"; exit 1 ;;
+        --maven-project-root)
+            PROJECT_ROOT="$2"
+            shift 2
+            ;;
+        --dependency-track-api-key)
+            API_KEY="$2"
+            shift 2
+            ;;
+        *)
+            echo "Unexpected option: $1"
+            exit 1
+            ;;
     esac
 done
 
 # Check if all required arguments are provided
-if [ -z "$PROJECT_ROOT" ] || [ -z "$API_KEY" ] ; then
+if [ -z "$PROJECT_ROOT" ] || [ -z "$API_KEY" ]; then
     echo "Error: All arguments must be provided."
     echo "Usage: --maven-project-root <path-to-maven-project-root> --dependency-track-api-key <api-key>"
     exit 1
@@ -74,7 +73,7 @@ cleanup() {
         echo "🧼 Maven Clean ausgeführt"
     fi
 
-#     Lösche das Projekt von der API, wenn eine UUID vorhanden ist
+    # Lösche das Projekt von der API, wenn eine UUID vorhanden ist
     if [ -n "$PROJECT_UUID" ]; then
         echo "🗑️  Lösche Projekt von der API: $PROJECT_UUID"
         curl -s -X DELETE "$API_URL/v1/project/$PROJECT_UUID" \
@@ -85,8 +84,8 @@ cleanup() {
     echo "✅ Cleanup abgeschlossen"
 }
 
-# Adds CyclonDx Maven Plugin to POM
-addCyclonDxToPom(){
+# Adds CycloneDx Maven Plugin to POM
+addCycloneDxToPom(){
   echo "🧩 Adding CycloneDX plugin to pom.xml..."
   cat > "$PLUGIN_TMP" <<EOF
   <plugin>
@@ -120,7 +119,33 @@ EOF
           { print }
       ' "$POM_FILE" > "${POM_FILE}.new" && mv "${POM_FILE}.new" "$POM_FILE" || die "Fehler beim Aktualisieren der pom.xml"
   else
-      die "<plugins> block not found in pom.xml -> add <plugins> block and try again"
+      # Fall: <plugins> nicht vorhanden – neuen <plugins>-Block unter <build> einfügen oder <build> erzeugen
+                if grep -q "<build>" "$POM_FILE"; then
+                    awk '
+                        /<build>/ {
+                            print
+                            print "    <plugins>"
+                            while ((getline line < "'"$PLUGIN_TMP"'") > 0) print "        " line
+                            print "    </plugins>"
+                            close("'"$PLUGIN_TMP"'")
+                            next
+                        }
+                        { print }
+                    ' "$POM_FILE" > "${POM_FILE}.new" && mv "${POM_FILE}.new" "$POM_FILE" || die "Fehler beim Hinzufügen von <plugins> zu <build>"
+                else
+                    # Weder <plugins> noch <build> vorhanden – <build>-Block mit <plugins> erzeugen vor </project>
+                    awk '
+                        /<\/project>/ {
+                            print "  <build>"
+                            print "    <plugins>"
+                            while ((getline line < "'"$PLUGIN_TMP"'") > 0) print "      " line
+                            print "    </plugins>"
+                            print "  </build>"
+                            close("'"$PLUGIN_TMP"'")
+                        }
+                        { print }
+                    ' "$POM_FILE" > "${POM_FILE}.new" && mv "${POM_FILE}.new" "$POM_FILE" || die "Fehler beim Einfügen von <build> und <plugins>"
+                fi
   fi
 }
 
@@ -177,15 +202,15 @@ dependencyTrackAnalysis(){
   analyze_response=$(curl -s -X POST "$API_URL/v1/finding/project/$PROJECT_UUID/analyze" \
       -H "X-API-Key: $API_KEY")
 
-  TOKEN_UUID=$(echo "$analyze_response" | grep -oP '"token"\s*:\s*"\K[^"]+')
+TOKEN_UUID=$(echo "$analyze_response" | sed -n 's/.*"token"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
 
-  echo " ... Check if analysis is done..."
+  echo " ... Check if analyzis is done..."
   ANALYSIS_PROCESSING="true"
   while [ "$ANALYSIS_PROCESSING" == "true" ]
   do
   analyze_progress=$(curl -s -X GET "$API_URL/v1/event/token/$TOKEN_UUID" \
       -H "X-API-Key: $API_KEY")
-  ANALYSIS_PROCESSING=$(echo "$analyze_progress" | grep -oP '"processing"\s*:\s*"\K[^"]+')
+  ANALYSIS_PROCESSING=$(echo "$analyze_progress" | sed -n 's/.*"processing"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
   echo " ... Processing: $ANALYSIS_PROCESSING"
   sleep 2
   done
@@ -222,9 +247,17 @@ createDependencyTrackResultFile(){
 
 
 # Registriere die Cleanup-Funktion für verschiedene Signale
-trap cleanup EXIT INT TERM
+exit_handler() {
+  exit_code=$?
+  if [ "$exit_code" -eq 1 ]; then
+    cleanup
+  fi
+  exit "$exit_code"
+}
 
-addCyclonDxToPom
+trap exit_handler EXIT
+
+addCycloneDxToPom
 
 generateBomFile
 
@@ -237,3 +270,5 @@ uploadBomFile
 dependencyTrackAnalysis
 
 createDependencyTrackResultFile
+
+cleanup

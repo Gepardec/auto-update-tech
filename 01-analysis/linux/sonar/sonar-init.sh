@@ -48,31 +48,40 @@ parse_args() {
 extract_project_metadata() {
   echo "📦 Extracting project metadata from pom.xml..."
   PROJECT_KEY=$(mvn help:evaluate -f "$PROJECT_ROOT/pom.xml" -Dexpression=project.artifactId -q -DforceStdout)
-  PROJECT_NAME=$PROJECT_KEY
+  PROJECT_NAME="$PROJECT_KEY"
   export PROJECT_KEY PROJECT_NAME
 }
 
 create_user_token() {
-  TOKEN=$(curl -u "$SONAR_USER:$SONAR_PASSWORD" -s "$SONAR_URL/api/user_tokens/generate" \
-    -d name="$TOKEN_NAME" | jq -r ".token")
+  echo "🔑 Generating user token..."
+  response=$(curl -s -u "$SONAR_USER:$SONAR_PASSWORD" \
+    -d name="$TOKEN_NAME" "$SONAR_URL/api/user_tokens/generate")
+
+  TOKEN=$(echo "$response" | grep -o '"token":"[^"]*"' | cut -d':' -f2 | tr -d '"')
+  if [[ -z "$TOKEN" ]]; then
+    echo "❌ Failed to generate token."
+    echo "$response"
+    exit 1
+  fi
   export TOKEN
+  echo "✅ Token created."
 }
 
 create_project() {
   echo "📁 Creating project '$PROJECT_KEY'..."
   curl -s -u "$TOKEN:" "$SONAR_URL/api/projects/create" \
-    -d name="$PROJECT_NAME" -d project="$PROJECT_KEY"
+    -d name="$PROJECT_NAME" -d project="$PROJECT_KEY" > /dev/null
 }
 
 associate_quality_profile() {
   echo "📎 Associating 'Sonar way' quality profile..."
   curl -s -u "$TOKEN:" "$SONAR_URL/api/qualityprofiles/add_project" \
-    -d language=java -d project="$PROJECT_KEY" -d qualityProfile="Sonar way"
+    -d language=java -d project="$PROJECT_KEY" -d qualityProfile="Sonar way" > /dev/null
 }
 
 initialize_project_analysis() {
   echo "🚀 Running project analysis initialization..."
-  ./initialize-project-mac.sh
+  ./initialize-project.sh
 }
 
 sleep_seconds_for_results() {
@@ -89,23 +98,24 @@ sleep_seconds_for_results() {
 
 generate_report() {
   echo "📊 Generating Sonar report..."
-  ./generate-sonar-report-mac.sh
+  ./generate-sonar-report.sh
 }
 
 generate_test_coverage() {
   echo "📊 Generating Test Coverage..."
-  ./generate-test-coverage-mac.sh
+  ./generate-test-coverage.sh
 }
 
 delete_project() {
   echo "🗑️  Deleting project '$PROJECT_KEY'..."
   curl -s -u "$TOKEN:" "$SONAR_URL/api/projects/delete" \
-    -d project="$PROJECT_KEY"
+    -d project="$PROJECT_KEY" > /dev/null
 }
 
 revoke_token() {
   echo "🔐 Revoking user token..."
-  curl -s -u "$SONAR_USER:$SONAR_PASSWORD" "$SONAR_URL/api/user_tokens/revoke" \
+  curl -s -u "$SONAR_USER:$SONAR_PASSWORD" \
+    "$SONAR_URL/api/user_tokens/revoke" \
     -d name="$TOKEN_NAME" > /dev/null
   echo "✅ Token revoked."
 }

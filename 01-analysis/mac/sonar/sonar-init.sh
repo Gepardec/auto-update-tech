@@ -72,7 +72,7 @@ associate_quality_profile() {
 
 initialize_project_analysis() {
   echo "🚀 Running project analysis initialization..."
-  ./initialize-project-mac.sh
+  ./initialize-project.sh
 }
 
 sleep_seconds_for_results() {
@@ -89,12 +89,12 @@ sleep_seconds_for_results() {
 
 generate_report() {
   echo "📊 Generating Sonar report..."
-  ./generate-sonar-report-mac.sh
+  ./generate-sonar-report.sh
 }
 
 generate_test_coverage() {
   echo "📊 Generating Test Coverage..."
-  ./generate-test-coverage-mac.sh
+  ./generate-test-coverage.sh
 }
 
 delete_project() {

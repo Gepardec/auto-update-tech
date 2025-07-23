@@ -13,6 +13,10 @@ if ! command -v python3 &> /dev/null; then
     exit 1
 fi
 
+# Load profile settings if they exist
+[ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
+[ -f "$HOME/.bash_profile" ] && source "$HOME/.bash_profile"
+
 # Detect OS
 OS_TYPE="unknown"
 case "$(uname -s)" in
@@ -28,12 +32,22 @@ case "$(uname -m)" in
     arm64|aarch64) ARCH_TYPE="arm64";;
 esac
 
+AUTO_UPDATE_ROOT="$(pwd)"
+if [ "$OS_TYPE" = "macOS" ]; then
+  cd "$AUTO_UPDATE_ROOT/mac"
+else
+  cd "$AUTO_UPDATE_ROOT/linux"
+fi
+
+source ./add-env.sh
+
 # Assign Parameters for macos or Windows/Linux
 if [ "$OS_TYPE" = "macOS" ]; then
   while [[ $# -gt 0 ]]; do
       case "$1" in
           --project-root)
               PROJECT_ROOT="$2"
+              MAVEN_PROJECT_ROOT="$2"
               shift 2
               ;;
           --maven-project-root)
@@ -71,7 +85,7 @@ else
 
   while true; do
       case "$1" in
-          --project-root) PROJECT_ROOT="$2"; shift 2 ;;
+          --project-root) PROJECT_ROOT="$2"; MAVEN_PROJECT_ROOT="$2"; shift 2 ;;
           --maven-project-root) MAVEN_PROJECT_ROOT="$2"; shift 2 ;;
           --dependency-track-api-key) DEPENDENCY_TRACK_API_KEY="$2"; shift 2 ;;
           --sonar-qube-admin-password) SONAR_QUBE_ADMIN_PASSWORD="$2"; shift 2 ;;
@@ -85,13 +99,22 @@ fi
 # Check if all required arguments are provided
 if [ -z "$PROJECT_ROOT" ] || [ -z "$MAVEN_PROJECT_ROOT" ] || [ -z "$DEPENDENCY_TRACK_API_KEY" ] || [ -z "$SONAR_QUBE_ADMIN_PASSWORD" ] ; then
     echo "Error: All arguments must be provided."
-    echo "Usage: $0 --project-root <absolute-path-to-project-root> --maven-project-root <absolute-path-to-maven-project-root> --dependency-track-api-key <dependency-track-api-key> --sonar-qube-admin-password <sonar-qube-admin-password>"
+    echo "Usage: $0 --project-root <absolute-path-to-project-root> --maven-project-root <optional-absolute-path-to-maven-project-root> --dependency-track-api-key <dependency-track-api-key> --sonar-qube-admin-password <sonar-qube-admin-password>"
+    exit 1
+fi
+
+POM_FILE="$MAVEN_PROJECT_ROOT/pom.xml"
+
+# Prüfe, ob POM-Datei existiert
+if [ ! -f "$POM_FILE" ]; then
+    echo "Error: pom.xml not found - add --maven-project-root <absolute-path-to-maven-project-root>"
     exit 1
 fi
 
 echo "Using PROJECT_ROOT: $PROJECT_ROOT"
 echo "Using MAVEN_PROJECT_ROOT: $MAVEN_PROJECT_ROOT"
 echo "Using DEPENDENCY_TRACK_API_KEY: $DEPENDENCY_TRACK_API_KEY"
+echo "Using SONAR_QUBE_ADMIN_PASSWORD: $SONAR_QUBE_ADMIN_PASSWORD"
 
 #----------------------------------------------------------
 
@@ -151,60 +174,35 @@ echoHeader_green() {
 
 # Run sh scripts
 echoHeader_green "Start Scripts"
-AUTO_UPDATE_ROOT="$(pwd)"
-if [ "$OS_TYPE" = "macOS" ]; then
-    echoHeader_yellow "Running dependency-relocated-date-mac.sh"
-    cd $AUTO_UPDATE_ROOT
-    source ./dependency-relocated-date-mac.sh --project-root $PROJECT_ROOT
+AUTO_UPDATE_ROOT_SYSTEM="$(pwd)"
 
-    echoHeader_yellow "Running dependency-analysis-mac.sh"
-    cd $AUTO_UPDATE_ROOT
-    source ./dependency-analysis-mac.sh --project-root $PROJECT_ROOT
+echoHeader_yellow "Running dependency-relocated-date.sh"
+cd $AUTO_UPDATE_ROOT_SYSTEM
+source ./dependency-relocated-date.sh --project-root $PROJECT_ROOT
 
-    echoHeader_yellow "Running dependency-track-mac.sh"
-    cd $AUTO_UPDATE_ROOT
-    source ./dependency-track-mac.sh --maven-project-root $MAVEN_PROJECT_ROOT --dependency-track-api-key $DEPENDENCY_TRACK_API_KEY
+echoHeader_yellow "Running dependency-analysis.sh"
+cd $AUTO_UPDATE_ROOT_SYSTEM
+source ./dependency-analysis.sh --project-root $PROJECT_ROOT
 
-    echoHeader_yellow "Installing Renovate"
-    cd $AUTO_UPDATE_ROOT
-    # source is important so the script runs in the current shell, so any environment variable changes (like PATH) persist in the parent script
-    source ./install-renovate-mac.sh --node-version $nodeVersion --node-archive $NODE_ARCHIVE --node-path $NODE_PATH --renovate-version $renovateVersion
+echoHeader_yellow "Running dependency-track.sh"
+cd $AUTO_UPDATE_ROOT_SYSTEM
+source ./dependency-track.sh --maven-project-root $MAVEN_PROJECT_ROOT --dependency-track-api-key $DEPENDENCY_TRACK_API_KEY
 
-    echoHeader_yellow "Execute Renovate"
-    cd $AUTO_UPDATE_ROOT
-    # source is important because environment variables are used which are added in the previous script
-    source ./execute-renovate-mac.sh --node-path $NODE_PATH --node-modules "$AUTO_UPDATE_ROOT/node_modules" --project-root $PROJECT_ROOT
-else
-    echoHeader_yellow "Running dependency-relocated-date.sh"
-    cd $AUTO_UPDATE_ROOT
-    source ./dependency-relocated-date.sh --project-root $PROJECT_ROOT
+echoHeader_yellow "Installing Renovate"
+cd $AUTO_UPDATE_ROOT_SYSTEM
+# source is important so the script runs in the current shell, so any environment variable changes (like PATH) persist in the parent script
+source ./install-renovate.sh --node-version $nodeVersion --node-archive $NODE_ARCHIVE --node-path $NODE_PATH --renovate-version $renovateVersion
 
-    echoHeader_yellow "Running dependency-analysis.sh"
-    cd $AUTO_UPDATE_ROOT
-    source ./dependency-analysis.sh --project-root $PROJECT_ROOT
-
-    echoHeader_yellow "Running dependency-track.sh"
-    cd $AUTO_UPDATE_ROOT
-    source ./dependency-track.sh --maven-project-root $MAVEN_PROJECT_ROOT --dependency-track-api-key $DEPENDENCY_TRACK_API_KEY
-
-    echoHeader_yellow "Installing Renovate"
-    cd $AUTO_UPDATE_ROOT
-    # source is important so the script runs in the current shell, so any environment variable changes (like PATH) persist in the parent script
-    source ./install-renovate.sh --node-version $nodeVersion --node-archive $NODE_ARCHIVE --node-path $NODE_PATH --renovate-version $renovateVersion
-
-    echoHeader_yellow "Execute Renovate"
-    cd $AUTO_UPDATE_ROOT
-    # source is important because environment variables are used which are added in the previous script
-    source ./execute-renovate.sh --node-path $NODE_PATH --node-modules "$AUTO_UPDATE_ROOT/node_modules" --project-root $PROJECT_ROOT
-fi
-
-
+echoHeader_yellow "Execute Renovate"
+cd $AUTO_UPDATE_ROOT_SYSTEM
+# source is important because environment variables are used which are added in the previous script
+source ./execute-renovate.sh --node-path $NODE_PATH --node-modules "$AUTO_UPDATE_ROOT_SYSTEM/node_modules" --project-root $PROJECT_ROOT
 
 mkdir "${AUTO_UPDATE_ROOT}/final-reports"
 
 echoHeader_yellow "Create auto-update-report.json"
-
-$NODE_PATH/node parse.js $PROJECT_ROOT
+cd $AUTO_UPDATE_ROOT_SYSTEM
+$AUTO_UPDATE_ROOT_SYSTEM/$NODE_PATH/node $AUTO_UPDATE_ROOT_SYSTEM/parse.js $PROJECT_ROOT
 
 echoHeader_yellow "Move module dependency-analysis.json Files"
 
@@ -216,39 +214,30 @@ done
 
 echoHeader_yellow "Move dependency-track-vulnerability-report.json"
 
-mv "${AUTO_UPDATE_ROOT}/dependency-track-vulnerability-report.json" "${AUTO_UPDATE_ROOT}/final-reports/dependency-track-vulnerability-report.json"
+mv "${AUTO_UPDATE_ROOT_SYSTEM}/dependency-track-vulnerability-report.json" "${AUTO_UPDATE_ROOT}/final-reports/dependency-track-vulnerability-report.json"
 
-if [ "$OS_TYPE" = "macOS" ]; then
-  echoHeader_yellow "Create CSV files"
-  cd $AUTO_UPDATE_ROOT
-  source ./create-all-csvs-mac.sh --json-file ./final-reports/auto-update-report.json
+echoHeader_yellow "Create CSV files"
+cd $AUTO_UPDATE_ROOT_SYSTEM
+source ./create-all-csvs.sh --json-file ./../final-reports/auto-update-report.json
 
-  echoHeader_yellow "Create Sonar Report"
-  cd ./../LF-Sonar/sonarqube/mac
-  source ./sonar-init-mac.sh --project-root ${PROJECT_ROOT} --sonar-qube-admin-password $SONAR_QUBE_ADMIN_PASSWORD
-else
-  echoHeader_yellow "Create CSV files"
-  cd $AUTO_UPDATE_ROOT
-  source ./create-all-csvs.sh --json-file ./final-reports/auto-update-report.json
-
-  echoHeader_yellow "Create Sonar Report"
-  cd ./../LF-Sonar/sonarqube
-  source ./sonar-init.sh --project-root ${PROJECT_ROOT} --sonar-qube-admin-password $SONAR_QUBE_ADMIN_PASSWORD
-fi
+echoHeader_yellow "Create Sonar Report"
+cd sonar
+source ./sonar-init.sh --project-root ${PROJECT_ROOT} --sonar-qube-admin-password $SONAR_QUBE_ADMIN_PASSWORD
 
 mv "./sonar-report.json" "${AUTO_UPDATE_ROOT}/final-reports/sonar-report.json"
 mv "./test-coverage-report.json" "${AUTO_UPDATE_ROOT}/final-reports/test-coverage-report.json"
 
-cd $AUTO_UPDATE_ROOT
+
 
 if [ "$CLEANUP" = true ]; then
 echoHeader_green "Cleaning up..."
 find "$PROJECT_ROOT" -type d -name "gepardec-reports" -exec rm -rf {} +
-rm -rf "$AUTO_UPDATE_ROOT/$NODE_BASE_PATH"
-rm -rf "$AUTO_UPDATE_ROOT/$NODE_ARCHIVE"
-rm -rf "$AUTO_UPDATE_ROOT/node_modules"
-rm -f "$AUTO_UPDATE_ROOT/package.json"
-rm -f "$AUTO_UPDATE_ROOT/package-lock.json"
+rm -rf "$AUTO_UPDATE_ROOT_SYSTEM/$NODE_BASE_PATH"
+rm -rf "$AUTO_UPDATE_ROOT_SYSTEM/$NODE_ARCHIVE"
+rm -rf "$AUTO_UPDATE_ROOT_SYSTEM/node_modules"
+rm -f "$AUTO_UPDATE_ROOT_SYSTEM/package.json"
+rm -f "$AUTO_UPDATE_ROOT_SYSTEM/package-lock.json"
+source $AUTO_UPDATE_ROOT_SYSTEM/remove-env.sh
 fi
 
 echoHeader_green "Successful finished"

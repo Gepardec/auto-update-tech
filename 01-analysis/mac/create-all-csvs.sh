@@ -14,7 +14,7 @@
 
 # Input JSON file
 JSON_FILE=""
-DIRECTORY="final-csv"
+DIRECTORY="./../final-csv"
 
 # Parse command-line options using getopt
 #OPTS=$(getopt -o "" --long json-file: -- "$@")
