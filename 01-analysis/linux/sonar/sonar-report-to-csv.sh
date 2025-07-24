@@ -1,7 +1,7 @@
 #!/bin/bash
 
 JSON_FILE=""
-DIRECTORY="./final-csv"
+DIRECTORY="./../../final-csv/sonar"
 
 # Parse command-line options using getopt
 OPTS=$(getopt -o "" --long json-file: -- "$@")

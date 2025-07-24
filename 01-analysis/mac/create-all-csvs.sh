@@ -16,16 +16,6 @@
 JSON_FILE=""
 DIRECTORY="./../final-csv"
 
-# Parse command-line options using getopt
-#OPTS=$(getopt -o "" --long json-file: -- "$@")
-#
-#if [ $? -ne 0 ]; then
-#    echo "Error parsing options."
-#    exit 1
-#fi
-#
-#eval set -- "$OPTS"
-
 mkdir -p "$DIRECTORY"
 
 while [[ $# -gt 0 ]]; do

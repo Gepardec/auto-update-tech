@@ -221,12 +221,20 @@ cd $AUTO_UPDATE_ROOT_SYSTEM
 source ./create-all-csvs.sh --json-file ./../final-reports/auto-update-report.json
 
 echoHeader_yellow "Create Sonar Report"
-cd sonar
+cd "$AUTO_UPDATE_ROOT_SYSTEM/sonar"
 source ./sonar-init.sh --project-root ${PROJECT_ROOT} --sonar-qube-admin-password $SONAR_QUBE_ADMIN_PASSWORD
 
 mv "./sonar-report.json" "${AUTO_UPDATE_ROOT}/final-reports/sonar-report.json"
 mv "./test-coverage-report.json" "${AUTO_UPDATE_ROOT}/final-reports/test-coverage-report.json"
 
+echoHeader_yellow "Create Sonar CSV files"
+cd "$AUTO_UPDATE_ROOT_SYSTEM/sonar"
+source ./sonar-report-to-csv.sh --json-file ./../../final-reports/sonar-report.json
+
+echoHeader_yellow "Create Test Coverage CSV file"
+cd "$AUTO_UPDATE_ROOT_SYSTEM/sonar"
+# needs to be sh command other wise it will not work
+sh ./test-coverage-report-to-csv.sh --json-file ./../../final-reports/test-coverage-report.json
 
 
 if [ "$CLEANUP" = true ]; then
