@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Input JSON file
 JSON_FILE=""
 DIRECTORY="./../../final-csv/sonar"
 
@@ -32,82 +33,78 @@ fi
 mkdir -p "$DIRECTORY"
 
 # 1. General summary
-echo "metric,value" > "$DIRECTORY/summary.csv"
-grep -E '"(lines_of_code|technical_debt_min)"' "$JSON_FILE" | \
-sed -E 's/[[:space:]]*"([^"]+)":[[:space:]]*"?([^",}]+)"?,?/\1,\2/' >> "$DIRECTORY/summary.csv"
+echo "metric,value" > $DIRECTORY/summary.csv
+grep -E '"lines_of_code"\s*:\s*[0-9]+' "$JSON_FILE" | sed -E 's/.*"lines_of_code"\s*:\s*([0-9]+).*/lines_of_code,\1/' >> $DIRECTORY/summary.csv
+grep -E '"technical_debt_min"\s*:\s*[0-9]+' "$JSON_FILE" | sed -E 's/.*"technical_debt_min"\s*:\s*([0-9]+).*/technical_debt_min,\1/' >> $DIRECTORY/summary.csv
 
 # 2. Issues by severity
 echo "severity,count" > "$DIRECTORY/issues_by_severity.csv"
-awk '
-  /"by_severity"/ { in_section=1; next }
-  in_section && /]/ { in_section=0; next }
-  in_section {
-    if (/"severity"/) {
-      gsub(/[",]/, "", $0)
-      split($0, a, ":")
-      severity = a[2]
+
+awk -v out_file="$DIRECTORY/issues_by_severity.csv" '
+    /"by_severity"/ { in_section=1; next }
+    in_section && /\]/ { in_section=0 }
+    in_section && /"severity"/ {
+        gsub(/[",]/, "", $0)
+        split($0, a, ": ")
+        severity=a[2]
+        getline
+        gsub(/[",]/, "", $0)
+        split($0, b, ": ")
+        count=b[2]
+        print severity "," count >> out_file
     }
-    if (/"count"/) {
-      gsub(/[",]/, "", $0)
-      split($0, b, ":")
-      count = b[2]
-      print severity "," count
-    }
-  }
-' "$JSON_FILE" >> "$DIRECTORY/issues_by_severity.csv"
+' "$JSON_FILE"
+
 
 # 3. Issues by type
-echo "type,count" > "$DIRECTORY/issues_by_type.csv"
-awk '
-  /"by_type"/ { in_section=1; next }
-  in_section && /]/ { in_section=0; next }
-  in_section {
-    if (/"type"/) {
-      gsub(/[",]/, "", $0)
-      split($0, a, ":")
-      type = a[2]
+echo "type,count" > $DIRECTORY/issues_by_type.csv
+awk -v out_file="$DIRECTORY/issues_by_type.csv" '
+    /"by_type"/ { in_section=1; next }
+    in_section && /\]/ { in_section=0 }
+    in_section && /"type"/ {
+        gsub(/[",]/, "", $0)
+        split($0, a, ": ")
+        type=a[2]
+        getline
+        gsub(/[",]/, "", $0)
+        split($0, b, ": ")
+        count=b[2]
+        print type "," count >> out_file
     }
-    if (/"count"/) {
-      gsub(/[",]/, "", $0)
-      split($0, b, ":")
-      count = b[2]
-      print type "," count
-    }
-  }
-' "$JSON_FILE" >> "$DIRECTORY/issues_by_type.csv"
+' "$JSON_FILE"
 
 # 4. Security hotspots
-echo "severity,total,category_name,category_number" > "$DIRECTORY/security_hotspots.csv"
-awk '
-  /"security_hotspots"/ { in_hotspots=1; next }
-  in_hotspots && /^\s*\]/ { in_hotspots=0; next }
+echo "severity,total,category_name,category_number" > $DIRECTORY/security_hotspots.csv
+awk -v out_file="$DIRECTORY/security_hotspots.csv" '
+    /"security_hotspots"/ { in_hotspots=1; next }
+    in_hotspots && /\]/ { in_hotspots=0 }
 
-  in_hotspots {
-    if (/"severity"/) {
-      gsub(/[",]/, "", $0)
-      split($0, a, ":")
-      severity = a[2]
+    in_hotspots && /"severity"/ {
+        gsub(/[",]/, "", $0)
+        split($0, a, ": ")
+        severity=a[2]
+        getline
+        gsub(/[",]/, "", $0)
+        split($0, b, ": ")
+        total=b[2]
+        # Look ahead for categories
+        while ((getline line) > 0) {
+            if (line ~ /"name"/) {
+                gsub(/[",]/, "", line)
+                split(line, c, ": ")
+                cat_name=c[2]
+                getline
+                gsub(/[",]/, "", $0)
+                split($0, d, ": ")
+                cat_num=d[2]
+                print severity "," total "," cat_name "," cat_num >> out_file
+            }
+            if (line ~ /\]/) break
+        }
     }
-    if (/"total"/) {
-      gsub(/[",]/, "", $0)
-      split($0, b, ":")
-      total = b[2]
-    }
-    if (/"name"/) {
-      gsub(/[",]/, "", $0)
-      split($0, c, ":")
-      name = c[2]
-    }
-    if (/"number"/) {
-      gsub(/[",]/, "", $0)
-      split($0, d, ":")
-      number = d[2]
-      print severity "," total "," name "," number
-    }
-  }
-' "$JSON_FILE" >> "$DIRECTORY/security_hotspots.csv"
+' "$JSON_FILE"
 
-echo "✅ CSV files generated in '$DIRECTORY':
+echo "✅ CSV files generated in $DIRECTORY:
 - summary.csv
 - issues_by_severity.csv
 - issues_by_type.csv

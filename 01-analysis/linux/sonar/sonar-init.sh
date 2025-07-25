@@ -81,7 +81,8 @@ associate_quality_profile() {
 
 initialize_project_analysis() {
   echo "🚀 Running project analysis initialization..."
-  ./initialize-project.sh
+  cd $WORKSPACE
+  source ./initialize-project.sh
 }
 
 sleep_seconds_for_results() {
@@ -98,12 +99,14 @@ sleep_seconds_for_results() {
 
 generate_report() {
   echo "📊 Generating Sonar report..."
-  ./generate-sonar-report.sh
+  cd $WORKSPACE
+  source ./generate-sonar-report.sh
 }
 
 generate_test_coverage() {
   echo "📊 Generating Test Coverage..."
-  ./generate-test-coverage.sh
+  cd $WORKSPACE
+  source ./generate-test-coverage.sh
 }
 
 delete_project() {
@@ -121,6 +124,7 @@ revoke_token() {
 }
 
 main() {
+  WORKSPACE=$(pwd)
   parse_args "$@"
   extract_project_metadata
   create_user_token
