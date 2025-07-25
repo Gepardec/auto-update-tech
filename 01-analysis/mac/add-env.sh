@@ -42,8 +42,6 @@ if [ -z "$DEPENDENCY_TRACK_API_KEY" ]; then
     read -p "Please enter a value for DEPENDENCY_TRACK_API_KEY: " user_input
     export DEPENDENCY_TRACK_API_KEY="$user_input"
     set_env_var "DEPENDENCY_TRACK_API_KEY" "$user_input"
-else
-    echo "Environment variable DEPENDENCY_TRACK_API_KEY is already set to: $DEPENDENCY_TRACK_API_KEY"
 fi
 
 # Check and prompt for SONAR_QUBE_ADMIN_PASSWORD
@@ -52,6 +50,4 @@ if [ -z "$SONAR_QUBE_ADMIN_PASSWORD" ]; then
     read -p "Please enter a value for SONAR_QUBE_ADMIN_PASSWORD: " user_input
     export SONAR_QUBE_ADMIN_PASSWORD="$user_input"
     set_env_var "SONAR_QUBE_ADMIN_PASSWORD" "$user_input"
-else
-    echo "Environment variable SONAR_QUBE_ADMIN_PASSWORD is already set to: $SONAR_QUBE_ADMIN_PASSWORD"
 fi

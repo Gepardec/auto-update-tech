@@ -38,8 +38,6 @@ if [ -z "$DEPENDENCY_TRACK_API_KEY" ]; then
     fi
 
     echo "DEPENDENCY_TRACK_API_KEY variable updated in $profile_file"
-else
-    echo "Environment variable DEPENDENCY_TRACK_API_KEY is already set to: $DEPENDENCY_TRACK_API_KEY"
 fi
 
 if [ -z "$SONAR_QUBE_ADMIN_PASSWORD" ]; then
@@ -63,6 +61,4 @@ if [ -z "$SONAR_QUBE_ADMIN_PASSWORD" ]; then
     fi
 
     echo "SONAR_QUBE_ADMIN_PASSWORD variable updated in $profile_file"
-else
-    echo "Environment variable SONAR_QUBE_ADMIN_PASSWORD is already set to: $SONAR_QUBE_ADMIN_PASSWORD"
 fi

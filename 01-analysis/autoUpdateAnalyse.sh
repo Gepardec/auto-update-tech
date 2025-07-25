@@ -6,43 +6,27 @@ DEPENDENCY_TRACK_API_KEY=""
 SONAR_QUBE_ADMIN_PASSWORD=""
 CLEANUP=true
 
-# Check for python3
-if ! command -v python3 &> /dev/null; then
-    echo "Error: python3 is not installed. Please install Python 3 to proceed."
-    echo "Download from https://www.python.org/downloads/"
-    exit 1
-fi
-
 # Load profile settings if they exist
 [ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
 [ -f "$HOME/.bash_profile" ] && source "$HOME/.bash_profile"
 
-# Detect OS
-OS_TYPE="unknown"
-case "$(uname -s)" in
-    Linux*)     OS_TYPE="Linux";;
-    Darwin*)    OS_TYPE="macOS";;
-    CYGWIN*|MINGW*|MSYS*) OS_TYPE="Windows";;
-esac
-
-# Detect architecture
-ARCH_TYPE="unknown"
-case "$(uname -m)" in
-    x86_64) ARCH_TYPE="x64";;
-    arm64|aarch64) ARCH_TYPE="arm64";;
-esac
-
-AUTO_UPDATE_ROOT="$(pwd)"
-if [ "$OS_TYPE" = "macOS" ]; then
-  cd "$AUTO_UPDATE_ROOT/mac"
-else
-  cd "$AUTO_UPDATE_ROOT/linux"
+if ! command -v jq &> /dev/null; then
+  echo -e "❌ jq is NOT installed.\n"
+  echo "Running check-env.sh ..."
+  source ./check-env.sh
+  echo -e "\nIf everything is installed and accessible rerun this script."
+  exit 1
 fi
 
-source ./add-env.sh
+# 4. Python 3
+if ! command -v python3 &> /dev/null; then
+  echo -e "❌ Python 3 is NOT installed - PLease run check-env.sh\n"
+  echo "Running check-env.sh ..."
+  source ./check-env.sh
+  echo -e "\nIf everything is installed and accessible rerun this script."
+  exit 1
+fi
 
-# Assign Parameters for macos or Windows/Linux
-if [ "$OS_TYPE" = "macOS" ]; then
   while [[ $# -gt 0 ]]; do
       case "$1" in
           --project-root)
@@ -72,34 +56,44 @@ if [ "$OS_TYPE" = "macOS" ]; then
               ;;
       esac
   done
-else
-  # Parse command-line options using getopt
-  OPTS=$(getopt -o "" --long project-root:,maven-project-root:,dependency-track-api-key:,sonar-qube-admin-password:,cleanup: -- "$@")
 
-  if [ $? -ne 0 ]; then
-      echo "Error parsing options."
-      exit 1
-  fi
-
-  eval set -- "$OPTS"
-
-  while true; do
-      case "$1" in
-          --project-root) PROJECT_ROOT="$2"; MAVEN_PROJECT_ROOT="$2"; shift 2 ;;
-          --maven-project-root) MAVEN_PROJECT_ROOT="$2"; shift 2 ;;
-          --dependency-track-api-key) DEPENDENCY_TRACK_API_KEY="$2"; shift 2 ;;
-          --sonar-qube-admin-password) SONAR_QUBE_ADMIN_PASSWORD="$2"; shift 2 ;;
-          --cleanup) CLEANUP="$2"; shift 2 ;;
-          --) shift; break ;;
-          *) echo "Unexpected option: $1"; exit 1 ;;
-      esac
-  done
+if [ -z "$PROJECT_ROOT" ] || [ -z "$MAVEN_PROJECT_ROOT" ] ; then
+    echo "Error: All arguments must be provided."
+    echo "Usage: $0 --project-root <absolute-path-to-project-root>"
+    exit 1
 fi
 
+
+AUTO_UPDATE_ROOT="$(pwd)"
+
+# Detect OS
+OS_TYPE="unknown"
+case "$(uname -s)" in
+    Linux*)     OS_TYPE="Linux";;
+    Darwin*)    OS_TYPE="macOS";;
+    CYGWIN*|MINGW*|MSYS*) OS_TYPE="Windows";;
+esac
+
+# Detect architecture
+ARCH_TYPE="unknown"
+case "$(uname -m)" in
+    x86_64) ARCH_TYPE="x64";;
+    arm64|aarch64) ARCH_TYPE="arm64";;
+esac
+
+
+if [ "$OS_TYPE" = "macOS" ]; then
+  cd "$AUTO_UPDATE_ROOT/mac"
+else
+  cd "$AUTO_UPDATE_ROOT/linux"
+fi
+
+source ./add-env.sh
+
 # Check if all required arguments are provided
-if [ -z "$PROJECT_ROOT" ] || [ -z "$MAVEN_PROJECT_ROOT" ] || [ -z "$DEPENDENCY_TRACK_API_KEY" ] || [ -z "$SONAR_QUBE_ADMIN_PASSWORD" ] ; then
+if [ -z "$DEPENDENCY_TRACK_API_KEY" ] || [ -z "$SONAR_QUBE_ADMIN_PASSWORD" ] ; then
     echo "Error: All arguments must be provided."
-    echo "Usage: $0 --project-root <absolute-path-to-project-root> --maven-project-root <optional-absolute-path-to-maven-project-root> --dependency-track-api-key <dependency-track-api-key> --sonar-qube-admin-password <sonar-qube-admin-password>"
+    echo "Usage: $0 --project-root <absolute-path-to-project-root> --dependency-track-api-key <dependency-track-api-key> --sonar-qube-admin-password <sonar-qube-admin-password>"
     exit 1
 fi
 

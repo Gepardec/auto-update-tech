@@ -78,17 +78,24 @@ case "$OS_TYPE" in
     ;;
 esac
 
-# 3. Python 3
+# 3. jq
+if command_exists jq; then
+  echo "✅ jq is installed: $(jq --version)"
+else
+  echo "❌ jq is NOT installed."
+fi
+
+# 4. Python 3
 if command_exists python3; then
   echo "✅ Python 3 is installed: $(python3 --version)"
 else
   echo "❌ Python 3 is NOT installed."
 fi
 
-# 4. IntelliJ IDEA
+# 5. IntelliJ IDEA
 check_intellij
 
-# 5. Network access
+# 6. Network access
 echo "🌐 Checking network access..."
 check_url "https://nodejs.org/dist/"
 check_url "https://gepardec-sonarqube.apps.cloudscale-lpg-2.appuio.cloud"

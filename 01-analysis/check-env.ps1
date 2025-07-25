@@ -48,15 +48,11 @@ function Check-IntelliJ {
 
 Write-Host "`n🔍 Starting system environment check..."
 
-
-
 # 1. Maven
 if (Command-Exists "mvn") {
     $mvnOutput = & mvn -v 2>&1 | Out-String
-    # Remove any character that’s not printable or known whitespace/tab/newline
     $mvnClean = $mvnOutput -replace '[^\u0009\u000A\u000D\u0020-\u007E\u00A0-\u00FF\u2000-\u2FFF]', ''
     Write-Host "✅ Maven is installed: $mvnClean"
-
 } else {
     Write-Host "❌ Maven is NOT installed."
 }
@@ -71,10 +67,39 @@ if ($IsMacOS) {
 } else {
     Write-Host "⚠️ Detected non-macOS/non-Linux system: $os"
 
+    $gitBashAvailable = $false
     if ($env:BASH_VERSION -or (Command-Exists "git" -and (& git --version) -match "git")) {
         Write-Host "✅ Git Bash is present"
+        $gitBashAvailable = $true
     } else {
         Write-Host "❌ Git Bash not found or not in a bash environment"
+    }
+
+    # Check for jq if Git Bash is available
+    if ($gitBashAvailable) {
+        $gitBashPaths = @(
+            "${env:ProgramFiles}\Git\bin\bash.exe",
+            "${env:ProgramFiles(x86)}\Git\bin\bash.exe",
+            "${env:ProgramW6432}\Git\bin\bash.exe"
+        )
+
+        $gitBashExe = $gitBashPaths | Where-Object { Test-Path $_ } | Select-Object -First 1
+
+        if ($gitBashExe) {
+            Write-Host "✅ Git Bash executable found at $gitBashExe"
+            try {
+                $jqCheck = & "$gitBashExe" -c "command -v jq"
+                if ($jqCheck) {
+                    Write-Host "✅ jq is installed in Git Bash: $jqCheck"
+                } else {
+                    Write-Host "❌ jq is NOT installed in Git Bash"
+                }
+            } catch {
+                Write-Host "⚠️ Could not execute jq check in Git Bash: $_"
+            }
+        } else {
+            Write-Host "⚠️ Git Bash executable not found, skipping jq check"
+        }
     }
 }
 
