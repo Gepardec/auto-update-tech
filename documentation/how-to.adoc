@@ -1,0 +1,130 @@
+= Analysis Report How-Tos
+mattias.fankhauser@gepardec.com
+Jul 28, 2025
+:toc:
+:toc-title: Table of Contents
+
+== Gephi
+
+To visualize dependency connections, Gephi – a Graph Viz platform, is used. Gephi was already evaluated in a dedicated Learning-Friday project, and the https://docs.google.com/document/d/1MoyWDXBLoUBCKmDdNLgmk9D32tICtIeHOxkqoaUaDUE/edit?usp=sharing[beginners documentation] contains all necessary information for creating data, importing, etc. [1].
+
+== CodeCharta
+
+=== Software-Cities Visualization
+
+A Software City represents the source code of an application as a three-dimensional city. The mapping is as follows:
+
+* *Project/codebase* = City
+* *Files/classes* = Buildings
+* *Directories/modules/packages* = Districts
+* *Metrics* such as lines of code, change frequency, and complexity influence the height, area, and color of the buildings.
+
+These visualizations help with:
+
+* Identifying complex or neglected code areas
+* Architecture reviews
+* Refactoring preparation
+* Supporting team communication
+
+=== Local Setup of CodeCharta
+
+==== Requirements
+
+* Node.js (≥ v20) installed
+* Git installed
+
+==== Clone repository and start
+
+[source,shell]
+----
+# Clone our code base
+$ git clone https://github.com/MaibornWolff/codecharta.git
+# Navigate into the visualization part
+$ cd codecharta/visualization
+# Install dependencies
+$ npm i
+# Start the dev server
+$ npm run dev
+----
+
+The web app is then accessible at http://localhost:3000. Full documentation can be found on the CodeCharta homepage [2].
+
+=== Creating Visualization Data from a Java Project
+
+This how-to is based on the Hogajama project.
+
+==== 1. Prepare the project
+
+Example: The Java project hogajama
+
+[source,shell]
+----
+git clone https://github.com/Gepardec/Hogarama
+cd hogajama
+----
+The project contains, among other things, Java source code in /src, a pom.xml, resources and typical Maven structure.
+==== 2. Install CodeCharta Analyzer CLI
+
+[source,shell]
+----
+npm install -g codecharta-analysis
+----
+
+==== 3. Analyze code
+
+For Java projects, it's recommended to use the CodeCharta CLI tool for analysis [3]:
+
+[source,shell]
+----
+ccsh unifiedparser <path/to/your/project> java -o hogajama.cc.json
+----
+
+This generates a `.cc.json` file containing all relevant metrics of the project.
+
+=== Visualization with CodeCharta
+
+[source,shell]
+----
+npm run dev
+----
+
+Open in browser: http://localhost:3000
+Load the file `hogajama.cc.json` via "Import".
+
+Explore interactively:
+
+* Building height: e.g. number of lines
+* Color: complexity
+* Area: e.g. number of commits (if Git metrics are included)
+
+=== (Optional) Integrate Git History
+
+Generate additional metrics from Git commits:
+
+[source,shell]
+----
+ccsh git-metrics -p . -o gitmetrics.cc.json
+ccsh merge -i hogajama.cc.json gitmetrics.cc.json -o merged.cc.json
+----
+
+== Conclusion
+
+Using CodeCharta, the complexity and structure of a Java project can be visualized in a comprehensible way, both in technical discussions and workshops. CodeCharta allows teams to explore hotspots, legacy segments, and architectural patterns with intuitive 3D models. Combined with Git metrics, change frequency and ownership patterns can also be mapped effectively.
+
+Visual exploration can thus serve as the basis for:
+
+* Communication and collaboration in development teams
+* Preparing and evaluating refactorings
+* Architecture reviews and technical documentation
+
+image::images/hogajama-software-cities.png[CodeCharta Visualization, width=600, align=center]
+
+If desired, I can generate a print-ready document or a Word file from it.
+
+== References
+
+[1] Gephi.org, “The Open Graph Viz Platform,” [Online]. Available: https://gephi.org.
+
+[2] MaibornWolff GmbH, “CodeCharta Documentation,” [Online]. Available: https://www.codecharta.dev.
+
+[3] MaibornWolff GmbH, “CodeCharta Analyzer CLI,” [Online]. Available: https://github.com/MaibornWolff/codecharta.
