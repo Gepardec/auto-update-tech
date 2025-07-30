@@ -33,27 +33,36 @@ find_modules() {
 # === Process Each Module ===
 process_module() {
   local module="$1"
+  local pom_path="$PROJECT_ROOT/$module/pom.xml"
 
-  if [[ ! -f "$PROJECT_ROOT/$module/pom.xml" ]]; then
-    echo "⚠️ pom.xml not found in $module"
+  if [[ ! -f "$pom_path" ]]; then
+    echo "⚠️ pom.xml not found in $module" >&2
     return
   fi
 
-  if [[ ! -s "$PROJECT_ROOT/$module/pom.xml" ]]; then
-    echo "⚠️ pom.xml is empty in $module"
+  if [[ ! -s "$pom_path" ]]; then
+    echo "⚠️ pom.xml is empty in $module" >&2
     return
   fi
 
-  # ✅ Continue with SonarQube API calls (placeholder)
-  curl -u "$SONAR_USER:$SONAR_PASSWORD" -s "$SONAR_URL/api/measures/component?component=$PROJECT_KEY:$module&metricKeys=coverage,line_coverage,branch_coverage" | jq '{
-                                                                                                                                                                        name: .component.name,
-                                                                                                                                                                        measures: (
-                                                                                                                                                                          .component.measures
-                                                                                                                                                                          | map({key: .metric, value: .value})
-                                                                                                                                                                          | from_entries
-                                                                                                                                                                        )
-                                                                                                                                                                      }'
+  response=$(curl -u "$SONAR_USER:$SONAR_PASSWORD" -s \
+    "$SONAR_URL/api/measures/component?component=$PROJECT_KEY:$module&metricKeys=coverage,line_coverage,branch_coverage")
+
+  if ! echo "$response" | jq .component &>/dev/null; then
+    echo "⚠️ Failed to get valid response for $module. Skipping." >&2
+    return
+  fi
+
+  echo "$response" | jq '{
+    name: .component.name,
+    measures: (
+      .component.measures
+      | map({key: .metric, value: .value})
+      | from_entries
+    )
+  }'
 }
+
 
 # === Main ===
 main() {

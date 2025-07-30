@@ -350,17 +350,34 @@ for module in $modules; do
 
     # Check if <build> exists, add if not
     if ! grep -q "<build>" "$pom_path"; then
-        sed -i '' "/<\/project>/i\\
-        <build>\\
-        </build>" "$pom_path"
+        # Insert <build><plugins> if missing in root pom.xml
+        awk '
+          /<\/project>/ && !buildInjected {
+            print "  <build>"
+            print "    <plugins>"
+            print "      <!-- plugins will be added here -->"
+            print "    </plugins>"
+            print "  </build>"
+            buildInjected=1
+          }
+          { print }
+        ' "$pom_path" > "$pom_path.tmp" && mv "$pom_path.tmp" "$pom_path"
     fi
 
-   # Check if <plugins> exists, add if not
-    if ! grep -q "<plugins>" "$pom_path"; then
-        sed -i '' "/<build>/a\\
-            <plugins>\\
-            </plugins>" "$pom_path"
-    fi
+   # Check if <plugins> exists, add it under <build> if missing
+   if ! grep -q "<plugins>" "$pom_path"; then
+       awk '
+           /<build>/ && !done {
+               print
+               print "    <plugins>"
+               print "    </plugins>"
+               done = 1
+               next
+           }
+           { print }
+       ' "$pom_path" > "$pom_path.tmp" && mv "$pom_path.tmp" "$pom_path"
+   fi
+
 
     # Remove any existing exec-maven-plugin to avoid duplicates
     if grep -q "<plugin>[[:space:]]*.*<groupId>org.codehaus.mojo<\/groupId>[[:space:]]*.*<artifactId>exec-maven-plugin<\/artifactId>.*<\/plugin>" "$pom_path"; then
@@ -456,7 +473,16 @@ EOF
 EOF
 
    # Append the plugin configuration to the <plugins> section
-    sed -i '' "/<plugins>/r $tmp_plugin_config" "$pom_path"
+    awk -v insert_file="$tmp_plugin_config" '
+      /<plugins>/ {
+        print
+        while ((getline line < insert_file) > 0) print line
+        close(insert_file)
+        next
+      }
+      { print }
+    ' "$pom_path" > "$pom_path.tmp" && mv "$pom_path.tmp" "$pom_path"
+
 
    # Clean up temporary file
      rm -f "$tmp_plugin_config"
@@ -481,6 +507,12 @@ EOF
         fi
         echo "------------------------------------------------------------------------------------"
         continue
+    fi
+
+    # Now check for the output
+    if [ ! -s "./gepardec-reports/dependency-relocated-date.json" ]; then
+        echo "❌ Missing or empty: $module/gepardec-reports/dependency-relocated-date.json"
+        exit 1
     fi
 
     #Restore original pom.xml

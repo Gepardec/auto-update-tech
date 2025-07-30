@@ -85,7 +85,7 @@ esac
 if [ "$OS_TYPE" = "macOS" ]; then
   cd "$AUTO_UPDATE_ROOT/mac"
 else
-  cd "$AUTO_UPDATE_ROOT/linux"
+  cd "$AUTO_UPDATE_ROOT/mac"
 fi
 
 source ./add-env.sh
