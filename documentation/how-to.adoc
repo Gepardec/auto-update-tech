@@ -121,6 +121,119 @@ image::images/hogajama-software-cities.png[CodeCharta Visualization, width=600, 
 
 If desired, I can generate a print-ready document or a Word file from it.
 
+
+== SonarQube API
+
+This chapter documents the usage of a reusable and executable `.http` file to retrieve complete project information from a SonarQube instance using its official REST API. The described requests cover relevant needs for project analysis needed at the moment. All information has been gathered from the official SonarQube documentation [4].
+
+The file consists of six main API requests:
+
+1. Project Metadata
+2. Project Measures (Quality Metrics)
+3. Quality Gate Status
+4. Issues
+5. Analysis History
+6. Project Settings
+
+Each section includes inline comments and documentation to describe the request and the metrics it covers.
+
+=== Variable Configuration
+
+Before executing any requests, you must define the following variables at the top of your `.http` file:
+
+[source,http]
+----
+@sonarHost = http://localhost:9000
+@projectKey = hogajama
+@authToken = abc1234567890TOKEN
+@base64Auth = {{authToken}}: | base64
+----
+
+- `@sonarHost`: Base URL of your SonarQube server
+- `@projectKey`: Key of the target project in SonarQube
+- `@authToken`: Your SonarQube API token
+- `@base64Auth`: Base64-encoded version of `<TOKEN>:` used for Basic Auth
+
+'''
+
+=== REST Requests
+
+[source,http]
+----
+### 1. Project Metadata
+# Retrieves metadata for the specified project, such as its name, visibility, and type.
+GET {{sonarHost}}/api/components/show?component={{projectKey}}
+Authorization: Basic {{base64Auth}}
+
+### 2. Project Measures
+# Fetches key quality metrics for the project across all quality domains.
+# @metrics
+# - alert_status: Quality Gate status (OK / ERROR)
+# - bugs: Reliability issues
+# - vulnerabilities: Security issues
+# - security_hotspots: Code locations needing security review
+# - security_hotspots_reviewed: Reviewed hotspots count
+# - code_smells: Maintainability issues
+# - sqale_rating: Maintainability rating (A–E)
+# - sqale_index: Technical debt in minutes
+# - sqale_debt_ratio: Technical debt as % of development cost
+# - reliability_rating: Reliability rating (A–E)
+# - reliability_remediation_effort: Time to fix reliability issues
+# - security_rating: Security rating (A–E)
+# - security_remediation_effort: Time to fix security issues
+# - coverage: Code coverage overall
+# - line_coverage: Line-specific test coverage
+# - branch_coverage: Branch-specific test coverage
+# - tests: Total number of tests
+# - test_errors: Tests with errors
+# - test_failures: Tests with failures
+# - duplicated_lines: Number of duplicated lines
+# - duplicated_blocks: Number of duplicated code blocks
+# - duplicated_lines_density: % of duplicated code
+# - ncloc: Non-comment lines of code
+# - lines: Total lines
+# - files: Number of files
+# - functions: Number of functions
+# - classes: Number of classes
+# - statements: Number of statements
+# - complexity: Cyclomatic complexity
+# - cognitive_complexity: Human-perceived complexity
+GET {{sonarHost}}/api/measures/component?component={{projectKey}}&metricKeys=alert_status,bugs,vulnerabilities,security_hotspots,security_hotspots_reviewed,code_smells,sqale_rating,sqale_index,sqale_debt_ratio,reliability_rating,reliability_remediation_effort,security_rating,security_remediation_effort,coverage,line_coverage,branch_coverage,tests,test_errors,test_failures,duplicated_lines,duplicated_blocks,duplicated_lines_density,ncloc,lines,files,functions,classes,statements,complexity,cognitive_complexity
+Authorization: Basic {{base64Auth}}
+
+### 3. Quality Gate Status
+# Returns whether the project passed or failed the configured quality gate, along with details about which conditions were met or violated.
+GET {{sonarHost}}/api/qualitygates/project_status?projectKey={{projectKey}}
+Authorization: Basic {{base64Auth}}
+
+### 4. Issues (First Page)
+# Retrieves the first 500 issues (bugs, vulnerabilities, code smells) for the project.
+# Use pagination (p=2,3,...) to fetch additional results.
+GET {{sonarHost}}/api/issues/search?componentKeys={{projectKey}}&p=1&ps=500
+Authorization: Basic {{base64Auth}}
+
+### 5. Analysis History
+# Fetches the scan history of the project, including timestamps and version tags.
+GET {{sonarHost}}/api/project_analyses/search?project={{projectKey}}
+Authorization: Basic {{base64Auth}}
+
+### 6. Project Settings
+# Retrieves project-specific configuration including exclusions, branch settings, and plugin-defined options.
+GET {{sonarHost}}/api/settings/values?component={{projectKey}}
+Authorization: Basic {{base64Auth}}
+----
+
+=== Execution Notes
+
+To run the REST requests, follow these steps:
+
+1. Create a new http file in your preferred HTTP client (e.g., Postman, Insomnia, or any REST client that supports `.http` files).
+2. Copy the above code into the file (configuration and requests).
+3. Ensure you have the necessary permissions to access the SonarQube API.
+4. Replace placeholder variables with your actual values.
+5. Execute the wanted requests one by one or all at once, depending on your client capabilities.
+6. Review the responses for project metrics, issues, and settings.
+
 == References
 
 [1] Gephi.org, “The Open Graph Viz Platform,” [Online]. Available: https://gephi.org.
@@ -128,3 +241,5 @@ If desired, I can generate a print-ready document or a Word file from it.
 [2] MaibornWolff GmbH, “CodeCharta Documentation,” [Online]. Available: https://www.codecharta.dev.
 
 [3] MaibornWolff GmbH, “CodeCharta Analyzer CLI,” [Online]. Available: https://github.com/MaibornWolff/codecharta.
+
+[4] SonarSource, “Metric Definitions - SonarQube Documentation,” SonarSource, 2024. [Online]. Available: https://docs.sonarsource.com/sonarqube/latest/user-guide/metric-definitions/
