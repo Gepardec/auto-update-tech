@@ -1,0 +1,41 @@
+= Template Report Generator – Overview & Setup
+
+This project demonstrates how to automate the generation of structured technical reports – for example, for software dependency, security, or license analysis – using a combination of templates, structured input files, and ChatGPT-based assistance.
+
+== Goal
+
+* Automated generation of standardized Word reports based on a prefined template
+* Integration of various data sources (e.g., vulnerability scans, SBOMs, license reports, code metrics)
+* Consistent formatting and structure for easy readability and auditing
+* IEEE citation and reference management
+
+== Requirements
+
+* Template file in Word format (e.g., `Empty-Analysebericht-V1.0.docx`)
+* ChatGPT instructions set
+* ChatGPT prompt input based on prompt template
+* Gepardec AutoUpdate analyzes data files (e.g., vulnerability scans, SBOMs, license, SonarQube reports) and/or other sources
+* (Optional) Additional input files such as images or graphs
+* (Optimal) Additional completed (anonymized) example reports for reference
+
+== Required Input Files (Examples)
+
+[cols="1,2", options="header"]
+|===
+| File Type | Description
+
+| `*-vulnerabilities.json` / `.txt` | Vulnerability scan results (e.g., from Trivy or Grype)
+| `*-licenses.txt`                  | License reports
+| `*-sbom.json` (CycloneDX or SPDX) | Software Bill of Materials
+| `*-dependency-analysis.json`      | Resolved dependency trees and usage scopes
+| `*-sonar-component.json`          | Code quality and technical debt metrics
+| `.png` Images                     | Visuals (e.g., dependency trees, coverage graphs)
+| IST-Zustand                       | Textual summaries of the current state of the project
+| Roadmap                           | Planned improvements and next steps
+| Gepardec AutoUpdate               | Automated analysis results
+
+|===
+
+== ChatGPT Prompt Input
+
+<TBH: This section will be filled with the specific ChatGPT prompt template and instructions to guide the AI in generating the report content based on the provided data files.>
