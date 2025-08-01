@@ -5,7 +5,7 @@ DIRECTORY="./../../final-csv/sonar"
 OUTPUT_FILE="$DIRECTORY/test_coverage.csv"
 
 # Parse options (macOS doesn't support long options with getopt)
-while [[ $# -gt 0 ]]; do
+while [ $# -gt 0 ]; do
   case "$1" in
     --json-file)
       JSON_FILE="$2"
@@ -20,7 +20,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 # Validate input file
-if [[ -z "$JSON_FILE" || ! -f "$JSON_FILE" ]]; then
+if [ -z "$JSON_FILE" ] || [ ! -f "$JSON_FILE" ]; then
   echo "❌ Error: Provide a valid JSON file."
   echo "Usage: --json-file <json_file_path>"
   exit 1
