@@ -15,6 +15,12 @@ done
 prepare_pom() {
   cd "$PROJECT_ROOT" || exit 1
 
+  # Robust JaCoCo presence check (handles indentation/spacing)
+  if grep -E -q "<artifactId>\s*jacoco-maven-plugin\s*</artifactId>" pom.xml; then
+    echo "ℹ️ JaCoCo plugin already exists in pom.xml. Skipping insertion."
+    return 0
+  fi
+
   plugin_file=$(mktemp)
   temp_files+=("$plugin_file")
 
@@ -85,13 +91,11 @@ EOF
     return 1
   }
 
-  # Remove used temp_file from list
   temp_files=("${temp_files[@]/$temp_file}")
 }
 
 run_sonar_analysis() {
   echo "🧪 Running SonarQube analysis..."
-#  cd "$PROJECT_ROOT" || exit 1
 
   mvn clean verify sonar:sonar \
     -Dsonar.projectKey="$PROJECT_KEY" \
