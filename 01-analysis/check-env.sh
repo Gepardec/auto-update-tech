@@ -49,6 +49,72 @@ check_intellij() {
   echo "❌ IntelliJ IDEA NOT found"
 }
 
+check_java() {
+  echo "☕ Checking Java installation..."
+
+  if command_exists java; then
+    JAVA_VERSION=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
+    echo "✅ Java is installed: version $JAVA_VERSION"
+  else
+    echo "❌ Java is NOT installed."
+    return
+  fi
+
+  if command_exists javac; then
+    JAVAC_VERSION=$(javac -version 2>&1)
+    echo "✅ javac is installed: $JAVAC_VERSION"
+  else
+    echo "❌ javac is NOT installed."
+  fi
+
+  echo -n "📌 JAVA_HOME is "
+  if [ -n "$JAVA_HOME" ]; then
+    echo "set to '$JAVA_HOME'"
+    if [ -x "$JAVA_HOME/bin/java" ]; then
+      JAVA_HOME_VER=$("$JAVA_HOME/bin/java" -version 2>&1 | awk -F '"' '/version/ {print $2}')
+      echo "   ➤ JAVA_HOME points to Java version $JAVA_HOME_VER"
+    else
+      echo "   ⚠️ But 'java' executable not found under JAVA_HOME"
+    fi
+  else
+    echo "❌ NOT set"
+    echo -n "🔧 Attempting to set JAVA_HOME automatically... "
+
+    JAVA_PATH=$(readlink -f "$(command -v java)" 2>/dev/null)
+    if [ -n "$JAVA_PATH" ]; then
+      JAVA_HOME_CANDIDATE=$(dirname "$(dirname "$JAVA_PATH")")
+      if [ -x "$JAVA_HOME_CANDIDATE/bin/java" ]; then
+        export JAVA_HOME="$JAVA_HOME_CANDIDATE"
+        echo "✅ Set to '$JAVA_HOME'"
+
+        # Determine shell rc file (default to bashrc)
+        SHELL_RC="$HOME/.bashrc"
+        [[ "$SHELL" =~ "zsh" ]] && SHELL_RC="$HOME/.zshrc"
+
+        # Persist if not already present
+        if grep -q "^export JAVA_HOME=" "$SHELL_RC"; then
+          echo "ℹ️ JAVA_HOME already set in $SHELL_RC"
+        else
+          echo "export JAVA_HOME=\"$JAVA_HOME\"" >> "$SHELL_RC"
+          echo "✅ Persisted JAVA_HOME to $SHELL_RC"
+          # Warn user to source script only if we just persisted JAVA_HOME
+          if [[ "$0" == "$BASH_SOURCE" ]]; then
+            echo "⚠️  JAVA_HOME was set, but this script was not sourced."
+            echo "   Please run the script using: source $0"
+            echo "   This ensures JAVA_HOME is applied to your current terminal session."
+            exit 1
+          fi
+        fi
+      else
+        echo "❌ Could not determine JAVA_HOME"
+      fi
+    else
+      echo "❌ Could not resolve java path"
+    fi
+  fi
+}
+
+
 echo "🔍 Checking system environment..."
 
 # 1. Maven
@@ -69,7 +135,6 @@ case "$OS_TYPE" in
     ;;
   *)
     echo "⚠️ Detected non-macOS/non-Linux system: $OS_TYPE"
-    # On Windows, check Git Bash
     if [ -n "$BASH_VERSION" ] && command_exists git && git --version | grep -qi "git"; then
       echo "✅ Git Bash is present"
     else
@@ -92,10 +157,13 @@ else
   echo "❌ Python 3 is NOT installed."
 fi
 
-# 5. IntelliJ IDEA
+# 5. Java
+check_java
+
+# 6. IntelliJ IDEA
 check_intellij
 
-# 6. Network access
+# 7. Network access
 echo "🌐 Checking network access..."
 check_url "https://nodejs.org/dist/"
 check_url "https://gepardec-sonarqube.apps.cloudscale-lpg-2.appuio.cloud"

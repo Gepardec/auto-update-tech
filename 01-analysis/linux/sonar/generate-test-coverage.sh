@@ -69,10 +69,10 @@ main() {
 
   modules=$(find_modules)
 
-  if [[ -z "$modules" ]]; then
-    echo "❌ No modules with pom.xml found."
-    exit 1
-  fi
+#  if [[ -z "$modules" ]]; then
+#    echo "❌ No modules with pom.xml found."
+#    exit 1
+#  fi
 
   echo "Generating report..."
 
