@@ -48,9 +48,26 @@ get_technical_debt() {
     | jq -r '.component.measures[0].value'
 }
 
+sleep_seconds_for_results() {
+  counter=$1
+  echo "💤 Sleep for $counter seconds to wait on result at sonar-qube..."
+  while [ $counter -gt 0 ]
+  do
+    echo -n "$counter..."
+    counter=$(( counter - 1 ))
+    sleep 1
+  done
+  echo "$counter"
+}
+
 # === Main Execution ===
 echo "Requesting lines of code (ncloc)..."
 LINES_OF_CODE=$(get_lines_of_code)
+result=$((($LINES_OF_CODE / 1000)-10))
+if [ "$LINES_OF_CODE" -gt 10000 ]; then
+  sleep_seconds_for_results "$result"
+fi
+
 echo "Requesting issues data..."
 ISSUES=$(get_issues)
 echo "Requesting security hotspots..."

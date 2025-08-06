@@ -16,6 +16,12 @@ done
 prepare_pom() {
 cd "$PROJECT_ROOT" || exit 1
 
+# Robust JaCoCo presence check (handles indentation/spacing)
+  if grep -E -q "<artifactId>\s*jacoco-maven-plugin\s*</artifactId>" pom.xml; then
+    echo "ℹ️ JaCoCo plugin already exists in pom.xml. Skipping insertion."
+    return 0
+  fi
+
 plugin_file=$(mktemp)
 temp_files+=("$plugin_file")
 cat << 'EOF' > "$plugin_file"

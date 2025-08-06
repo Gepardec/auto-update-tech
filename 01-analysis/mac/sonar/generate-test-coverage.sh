@@ -70,11 +70,6 @@ main() {
 
   modules=$(find_modules)
 
-  if [[ -z "$modules" ]]; then
-    echo "❌ No modules with pom.xml found."
-    exit 1
-  fi
-
   results=""
 
   for module in $modules; do
