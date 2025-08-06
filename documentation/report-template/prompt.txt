@@ -1,1 +1,166 @@
-TODO MF
+## Titel des Berichts:
+**Analysebericht Mega-Backend – Sicherheits- und Abhängigkeitsanalyse (Vx.x)**
+
+## Ziel:
+Erstellung eines vollständigen, detaillierten und technisch fundierten Analyseberichts zur Bewertung des aktuellen Zustands („IST-Zustand“) der Anwendung **Mega-Backend**.
+Der Bericht soll bestehende Technologien, Sicherheitslücken, Abhängigkeiten, Lizenzlagen, Architektur und Modernisierungspotenzial umfassend erfassen und aufzeigen, wie die Anwendung zukunftssicher und sicherheitskonform weiterentwickelt werden kann.
+
+Der Bericht dient als Entscheidungsgrundlage für Updates, Architekturmaßnahmen und CI/CD-Strategien.
+
+---
+
+## Format & Stil:
+
+- Der **gesamte Bericht muss auf Deutsch** verfasst werden.  
+- **Technologien, Frameworks und Toolnamen** bleiben in ihrer **Originalsprache (Englisch)**.  
+- Der Stil ist **technisch präzise, sachlich und ausführlich** (außer im Kapitel *Management Summary*, das **nicht-technisch** formuliert sein soll).  
+- **Zitate und Quellenverweise müssen nach dem IEEE-Zitationsstandard** erfolgen.  
+  Sie sind im Fließtext mit **fortlaufenden Nummern in eckigen Klammern** zu kennzeichnen (z.B. [1], [2]) und im Kapitel **„Referenzen“** am Ende des Dokuments vollständig anzugeben.
+  Weitere Informationen: [IEEE Referencing Guide – Victoria University](https://libraryguides.vu.edu.au/ieeereferencing/standardsandpatents)  
+- **Fußnoten oder Symbole (z.B. †)** sind **nicht zulässig**.
+- **Alle Bilder und Diagramme** (z.B. Dependency Trees, Sonar-Übersichten) werden als **[Placeholder: Beschreibung]** eingefügt.
+- Der Bericht wird im **.docx-Format (Microsoft Word)** ausgegeben.  
+- Die Formatierung (Layout, Deckblatt, Schriftarten etc.) muss exakt der Datei **"Empty-Analysebericht-V1.0.docx"** entsprechen.  
+- Die Struktur, Inhalte und Kapitelreihenfolge basieren vollständig auf **"Anom-Analysebericht-V1.0.docx"**.  
+- Die **Versionsnummer des Berichts** muss automatisch erhöht werden (z.B. V1.0 → V1.1).
+
+---
+
+## Verbindliche Kapitelübersicht (gemäß Instruktion & Formatvorgabe):
+
+```
+1. Management Summary  
+2. Einleitung  
+3. IST-Zustand  
+   3.1 Technologien & Architektur  
+   3.2 Allgemeine Metriken  
+   3.3 Dependency Status  
+	  3.3.1 Besonders auffällig
+   3.4 Sicherheitslage (Vulnerabilities)  
+       3.4.1 Kritische Schwachstellen (Critical)  
+       3.4.2 Hochpriorisierte Schwachstellen (High)  
+   3.5 Sonar Metriken  
+   3.6 Tests & Qualitätssicherung  
+   3.7 Automatisierung & CI/CD  
+4. Ziele  
+5. Vorgeschlagene Roadmap  
+   5.1 Vorbereitende Maßnahmen  
+   5.2 Durchführung der Updates  
+   5.2.1 Arbeitsweise
+   5.2.2 Risikomanagement
+   5.2.3 Verwendete Tools und Technologie
+   5.3 Post-Update Tätigkeiten
+   5.4 Empfehlungen für die Zukunft und langfristige 
+Optimierungen
+   5.4.1 Angebot: Service „up2date bleiben“ von gepardec  
+6. Fazit 
+7. Referenzen
+```
+
+---
+
+## Eingebundene Quelldateien (Pflichtintegration)
+
+### Architektur & Technologie
+- pom.xml
+
+### Abhängigkeits- und Lizenzanalyse
+-
+
+### AutoUpdater / Update-Analyse (adapted POM)
+- MEGA-Analysebericht-Rohdaten.xlsx
+- test_coverage.csv
+- summary.csv
+- security_hotspots.csv
+- issues_by_type.csv
+- issues_by_severity.csv
+
+### Weitere Quellen
+- Empty-Analysebericht-V1.0.docx (leere Vorlage mit Inhaltverzeichnis und Formatierung)
+- Anom-Analysebericht-V1.0.docx (Bericht von einem anderem Produkt; dienst als Vorlage für Struktur und Stil)
+- Guardian-Analysebericht-V1.3.docx (Bericht von einem anderem Produkt; dienst als Vorlage für Struktur und Stil)
+
+---
+
+## Inhaltliche Anforderungen:
+
+- **Technologien & Architektur:** Übersicht über Backend, Frontend, Authentifizierung, CI/CD, Deployment-Umgebung  
+- **Allgemeine Metriken:** LOC, Klassen, Komplexität, Duplikate – sollen als Tabelle dargestellt werden mit den Spaltennamen "Name und "Wert"
+- **Dependency Status:** Bibliotheken mit Version, Scope, Updates, Fix-Version  
+- **Sicherheitslage:**  
+  - Tabelle mit mindestens **10 Critical** und **10 High Vulnerabilities**  
+  - Die Tabellen sollen mit folgenden Spaltennamen aufbaut werden: *Komponente, CVE-ID, Beschreibung, CVSS, Fix-Version, Quelle*. Die Spalte *Beschreibung* beinhält eine kurze Zusammenfassung des CVEs in deutsch
+- **SonarQube-Metriken:** Bugs, Code Smells, Coverage etc. sollen als Tabelle dargestellt werden mit den Spaltennamen "Name und "Wert"
+- **Tests & Qualitätssicherung:** Tools, Testarten, Coverage  
+- **CI/CD:** Tools, Pipelines, Deployments  
+- **Ziele & Roadmap:** Java-Version, Multimodul, CI/CD-Ausbau  
+- **Service "up2date bleiben"** von gepardec als eigener Abschnitt. Dieses Kapitel kann aus **"Anom-Analysebericht-V1.0.docx"** direkt übernommen werden.
+- **Dependency-Tree-Bilder** als Platzhalter einfügen
+- Die Kapitel "Risikomanagement" und "Angebot: Service „up2date bleiben“ von gepardec" sollen mit einem Platzhalter mit der Nachricht "Kapitel können 1:1 aus Basis-Report übernommen werden" und müssen abschließend Reviewed werden.".
+---
+
+### Mögliche Modernisierungsschritte (technisch empfohlen)
+
+
+1. **Technische Infrastruktur modernisieren:**
+   - Upgraden der Dependencies
+
+2. **Automatisiertes Dependency-Management einführen:**
+   - Integration von **Renovate** für automatische Pull-Requests bei neuen Bibliotheksversionen.  
+   - **OpenRewrite** einsetzen, um automatisiert Codeanpassungen bei API-Breaks durchzuführen.
+
+---
+
+
+## Ausgabeformat
+
+- **Microsoft Word (.docx)**  
+- Deckblatt, Inhaltsverzeichnis, Kapitelnummerierung  
+- Alle Kapitel mit inhalt vollständig erstellt
+- Referenzen als letztes Kapitel im IEEE-Stil
+
+
+## Abfolge:
+1. Analysiere den kompletten Prompt
+2. Alle Anforderunge aus dem prompt (Titel des Berichts, Ziel, Format & Stil, Verbindliche Kapitelübersicht (gemäß Instruktion & Formatvorgabe), Eingebundene Quelldateien (Pflichtintegration), Inhaltliche Anforderungen, Ausgabeformat) müssen befolgt werden
+3. Die Assitent Instructions müssen eingehalten werden
+4. Alle Daten müssen eingelesen und analysiert werden
+5. Der vollständige Bericht mit allen fertigstellten Kapiteln strukturiert in deutsch zur verfügung gestellt werden:
+- Struktur nach Kapitelvorgabe
+	- Inhaltsverzeichnis mit Platzhaltern
+- Deckblatt, Seitenzahlen, Kopf-/Fußzeilen
+	- Inhaltlich vollständige Auswertung aller Datenquellen
+- Alle Tabellen oder Grafiken (Grafiken als **[Placeholder: Beschreibung]**)
+6. Das Datum von heute soll im Bericht gesetzt werden
+7. Starte in dieser Kapitel reinfolge mit der abarbeitung:
+```
+1. Management Summary  
+2. Einleitung  
+3. IST-Zustand  
+   3.1 Technologien & Architektur  
+   3.2 Allgemeine Metriken  
+   3.3 Dependency Status  
+	  3.3.1 Besonders auffällig
+   3.4 Sicherheitslage (Vulnerabilities)  
+       3.4.1 Kritische Schwachstellen (Critical)  
+       3.4.2 Hochpriorisierte Schwachstellen (High)  
+   3.5 Sonar Metriken  
+   3.6 Tests & Qualitätssicherung  
+   3.7 Automatisierung & CI/CD  
+4. Ziele  
+5. Vorgeschlagene Roadmap  
+   5.1 Vorbereitende Maßnahmen  
+   5.2 Durchführung der Updates  
+   5.2.1 Arbeitsweise
+   5.2.2 Risikomanagement
+   5.2.3 Verwendete Tools und Technologie
+   5.3 Post-Update Tätigkeiten
+   5.4 Empfehlungen für die Zukunft und langfristige 
+Optimierungen
+   5.4.1 Angebot: Service „up2date bleiben“ von gepardec  
+6. Fazit 
+7. Referenzen
+``` 
+füge alle Tabellen und Grafiken-Platzhalter mit ein.
+8. Prüfe ob jedes Kapitel detailiert beschrieben oder mit Platzhalter versehrt wurde, ist das nicht der fallt muss das Kapitel überarbeitet werden.
+9. Die Kaptiel aus "Verbindliche Kapitelübersicht" sind schon als Überschrift in der Vorlage Empty-Analysebericht-V1.0.docx enthalten, diese müssen nicht mehr hinzugefügt werden.
