@@ -74,9 +74,12 @@ Optimierungen
 - security_hotspots.csv
 - issues_by_type.csv
 - issues_by_severity.csv
+- sonar-report.json
 
 ### Weitere Quellen
 - Empty-Analysebericht-V1.0.docx (leere Vorlage mit Inhaltverzeichnis und Formatierung)
+
+### Referenz Bericht(e) (Beispiele wie andere Berichte augebaut sind)
 - Anom-Analysebericht-V1.0.docx (Bericht von einem anderem Produkt; dienst als Vorlage für Struktur und Stil)
 - Guardian-Analysebericht-V1.3.docx (Bericht von einem anderem Produkt; dienst als Vorlage für Struktur und Stil)
 
@@ -88,7 +91,7 @@ Optimierungen
 - **Allgemeine Metriken:** LOC, Klassen, Komplexität, Duplikate – sollen als Tabelle dargestellt werden mit den Spaltennamen "Name und "Wert"
 - **Dependency Status:** Bibliotheken mit Version, Scope, Updates, Fix-Version  
 - **Sicherheitslage:**  
-  - Tabelle mit mindestens **10 Critical** und **10 High Vulnerabilities**  
+  - Tabelle mit mindestens **10 Critical** und **10 High Vulnerabilities**, sofern vorhanden.
   - Die Tabellen sollen mit folgenden Spaltennamen aufbaut werden: *Komponente, CVE-ID, Beschreibung, CVSS, Fix-Version, Quelle*. Die Spalte *Beschreibung* beinhält eine kurze Zusammenfassung des CVEs in deutsch
 - **SonarQube-Metriken:** Bugs, Code Smells, Coverage etc. sollen als Tabelle dargestellt werden mit den Spaltennamen "Name und "Wert"
 - **Tests & Qualitätssicherung:** Tools, Testarten, Coverage  
@@ -125,6 +128,7 @@ Optimierungen
 2. Alle Anforderunge aus dem prompt (Titel des Berichts, Ziel, Format & Stil, Verbindliche Kapitelübersicht (gemäß Instruktion & Formatvorgabe), Eingebundene Quelldateien (Pflichtintegration), Inhaltliche Anforderungen, Ausgabeformat) müssen befolgt werden
 3. Die Assitent Instructions müssen eingehalten werden
 4. Alle Daten müssen eingelesen und analysiert werden
+4.1 Sofern vorhanden analyse die "Referenz Bericht(e)" diese können als Vorlage dienen, die dort erwähnten Daten dürfen aber nicht übernommen werden.
 5. Der vollständige Bericht mit allen fertigstellten Kapiteln strukturiert in deutsch zur verfügung gestellt werden:
 - Struktur nach Kapitelvorgabe
 	- Inhaltsverzeichnis mit Platzhaltern

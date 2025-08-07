@@ -355,12 +355,15 @@ Describes the prescribed execution steps in generating the report, from parsing 
 * ChatGPT sometimes struggles with complex formatting in Word documents, especially when it comes to table-of-content, tables and images (therefore, for images only placeholders are placed)
 * ChatGPT sometimes struggles with rendering  the Word document and has problems providing the download-Link. 💡 *Solution*: Sadly, the only solution for now is to just start over again.
 * ChatGPT most of the time, even told different, generates each chapter separately. 💡 *Solution*: Just provided "fortsetzen" or similar commands  to continue the report generation until it is finalized
+* Sometimes ChatGPT claims to have finished the report generation, but the document is not complete. 💡 *Solution*: Just start over again and provide the same prompt, it will continue from where it left off.
 
 === Tips
 
-* Use a project for each report generation to keep the files and results organized.
+* ⚠️ BE CARFUL -  ALWAYS review the report and check the data. ChatGPT is not perfect and can make mistakes, especially with complex data.
+* Use a project forANT: each report generation to keep the files and results organized.
 * More data and context means better results. Provide as much relevant information as possible in the prompt, as data set or textual e.g. IST-Stand
 * Do shy away from just starting from scratch, most of the time it is easier and results in better results.
+* It is smart to copy-past the prompt output of seperate sections into the Word document, because sometimes ChatGPT does not finish the report generation and you have to start over again.
 
 == References
 
