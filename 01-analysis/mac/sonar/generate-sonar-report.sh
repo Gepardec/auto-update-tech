@@ -26,22 +26,27 @@ get_issues() {
 
 get_security_hotspots() {
   curl -u "$SONAR_USER:$SONAR_PASSWORD" -s "$SONAR_URL/api/hotspots/search?component=$PROJECT_KEY&project=$PROJECT_KEY" | \
-    jq '  .hotspots
-        | group_by(.vulnerabilityProbability)
-        | map({
-            (.[0].vulnerabilityProbability): {
-              total: length,
-              categories: (
-                group_by(.securityCategory)
-                | map({
-                    name: .[0].securityCategory,
-                    number: length
-                  })
-              )
-            }
-          })
-        | add'
+    jq '
+      .hotspots
+      | if length == 0 then {} else
+          group_by(.vulnerabilityProbability)
+          | map({
+              (.[0].vulnerabilityProbability): {
+                total: length,
+                categories: (
+                  group_by(.securityCategory)
+                  | map({
+                      name: .[0].securityCategory,
+                      number: length
+                    })
+                )
+              }
+            })
+          | add
+        end
+    '
 }
+
 
 get_technical_debt() {
   curl -u "$TOKEN:" -s "$SONAR_URL/api/measures/component?component=$PROJECT_KEY&metricKeys=sqale_index" \
