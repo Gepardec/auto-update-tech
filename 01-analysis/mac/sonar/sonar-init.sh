@@ -129,7 +129,7 @@ main() {
   create_project
   associate_quality_profile
   initialize_project_analysis
-  sleep_seconds_for_results 10
+  sleep_seconds_for_results 20
   generate_report
   generate_test_coverage
   delete_project

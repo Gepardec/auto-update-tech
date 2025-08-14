@@ -64,6 +64,18 @@ A folder **final-reports** will be created, which contains:
 * auto-update-report.json,
 * *<module-name>* -dependency-analysis.json &
 * dependency-track-vulnerability-report.json (this one is already included in auto-update-report.json, it's still here just in case you want to check it)
+* sonar-report.json
+* test-coverage-report.json
 
-> **NOTE** <br>
-> Json conversion to csv is still in development.
+A folder **final-csv** will be created, which contains:
+* main_artifacts.csv
+* new_version.csv
+* relocations.csv
+* vulnerabilities.csv
+* vulnerability_summary.csv
+* Another folder called 'sonar', which contains:
+  * issues_by_severity.csv
+  * issues_by_type.csv
+  * security_hotspots.csv
+  * summary.csv
+  * test_coverage.csv
