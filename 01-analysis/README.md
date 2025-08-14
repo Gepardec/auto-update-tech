@@ -58,7 +58,7 @@ sh check-env.sh
 
 ## Results:
 > **INFO** <br>
-    Examples, for all outcomes mentioned below, are provided in the demo-final-reports folder.
+    Examples, for all outcomes mentioned below, are provided in the demo-final-reports and demo-final-csv folders.
 
 A folder **final-reports** will be created, which contains:
 * auto-update-report.json,
