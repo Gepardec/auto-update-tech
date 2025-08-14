@@ -17,25 +17,35 @@
 
 * Der Bericht folgt der **Kapitelstruktur von "Anom-Analysebericht-V1.0.docx"**, bestehend aus:
 
-    * Management Summary
-    * Einleitung
-    * IST-Zustand
-        * Technologien & Architektur
-        * Allgemeine Metriken
-        * Dependency Status
-        * Sicherheitslage (Vulnerabilities)
-            * Kritische Schwachstellen (Critical)
-            * Hochpriorisierte Schwachstellen (High)
-        * Sonar Metriken
-        * Tests & Qualitätssicherung
-        * Automatisierung & CI/CD
-    * Ziele
-    * Vorgeschlagene Roadmap
-        * Vorbereitende Maßnahmen
-        * Durchführung der Updates
-        * Empfehlungen für die Zukunft und langfristige Optimierungen
-    * Konkrete nächste Schritte / Arbeitspakete
-    * Referenzen
+  * Management Summary
+  * Einleitung
+  * IST-Zustand
+     * Technologien & Architektur
+       * Architekturübersicht
+     * Allgemeine Metriken
+     * Dependency Status
+       * Besonders auffällig
+     * Sicherheitslage (Vulnerabilities)
+       * Kritische Schwachstellen (Critical)
+       * Hochpriorisierte Schwachstellen (High)
+     * Sonar Metriken
+     * Tests & Qualitätssicherung
+       * Aktuelle Test-Situation
+       * Für eine zukünftige Qualitätssicherung wird empfohlen
+     * Automatisierung & CI/CD
+     * NIS2 Abweichungen
+  * Vorgeschlagene Update-Roadmap
+    * Vorbereitende Maßnahmen
+    * Durchführung der Updates
+      * Arbeitsweise
+      * Risikomanagement
+      * Verwendete Tools und Technologie
+    * Post-Update Tätigkeiten
+    * Empfehlungen für die Zukunft
+    * Update Investition
+  * Fazit
+  * Ausblick: Auto-Update für SEQiFY-Guardian
+  * Referenzen
 
 #### **4\. Inhaltliche Anforderungen**
 

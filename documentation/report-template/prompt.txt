@@ -29,31 +29,34 @@ Der Bericht dient als Entscheidungsgrundlage für Updates, Architekturmaßnahmen
 ## Verbindliche Kapitelübersicht (gemäß Instruktion & Formatvorgabe):
 
 ```
-1. Management Summary  
-2. Einleitung  
-3. IST-Zustand  
-   3.1 Technologien & Architektur  
-   3.2 Allgemeine Metriken  
-   3.3 Dependency Status  
-	  3.3.1 Besonders auffällig
-   3.4 Sicherheitslage (Vulnerabilities)  
-       3.4.1 Kritische Schwachstellen (Critical)  
-       3.4.2 Hochpriorisierte Schwachstellen (High)  
-   3.5 Sonar Metriken  
-   3.6 Tests & Qualitätssicherung  
-   3.7 Automatisierung & CI/CD  
-4. Ziele  
-5. Vorgeschlagene Roadmap  
-   5.1 Vorbereitende Maßnahmen  
-   5.2 Durchführung der Updates  
-   5.2.1 Arbeitsweise
-   5.2.2 Risikomanagement
-   5.2.3 Verwendete Tools und Technologie
-   5.3 Post-Update Tätigkeiten
-   5.4 Empfehlungen für die Zukunft und langfristige 
-Optimierungen
-   5.4.1 Angebot: Service „up2date bleiben“ von gepardec  
-6. Fazit 
+1. Management Summary
+2. Einleitung
+3. IST-Zustand
+    3.1 Technologien & Architektur
+        3.1.1 Architekturübersicht
+    3.2 Allgemeine Metriken
+    3.3 Dependency Status
+        3.3.1 Besonders auffällig
+        3.4 Sicherheitslage (Vulnerabilities)
+        3.4.1 Kritische Schwachstellen (Critical)
+        3.4.2 Hochpriorisierte Schwachstellen (High)
+    3.5 Sonar Metriken
+    3.6 Tests & Qualitätssicherung
+        3.6.1 Aktuelle Test-Situation
+        3.6.2 Für eine zukünftige Qualitätssicherung wird empfohlen
+    3.7 Automatisierung & CI/CD
+    3.8 NIS2 Abweichungen
+4. Vorgeschlagene Update-Roadmap
+    4.1 Vorbereitende Maßnahmen
+    4.2 Durchführung der Updates
+        4.2.1 Arbeitsweise
+        4.2.2 Risikomanagement
+        4.2.3 Verwendete Tools und Technologie
+    4.3 Post-Update Tätigkeiten
+    4.4 Empfehlungen für die Zukunft
+    4.5 Update Investition
+5. Fazit
+6. Ausblick: Auto-Update für SEQiFY-Guardian
 7. Referenzen
 ```
 
@@ -78,6 +81,7 @@ Optimierungen
 
 ### Weitere Quellen
 - Empty-Analysebericht-V1.0.docx (leere Vorlage mit Inhaltverzeichnis und Formatierung)
+- ENISA_Technical_implementation_guidance_on_cybersecurity_risk_management_measures_version_1.0.pdf (NIS2 guideline)
 
 ### Referenz Bericht(e) (Beispiele wie andere Berichte augebaut sind)
 - Anom-Analysebericht-V1.0.docx (Bericht von einem anderem Produkt; dienst als Vorlage für Struktur und Stil)
@@ -87,19 +91,61 @@ Optimierungen
 
 ## Inhaltliche Anforderungen:
 
+- **Management Summary:**
+  - Das Management Summary soll für die MEGA-Applikation anhand der Daten neu beschrieben werden.
+    Management Summary soll aus Sicht eines IT-Security-Experte verfasst werden.
+    Fasse folgenden technischen Bericht in einer Management Summary für CEO, CIO und CTO zusammen.
+    Anforderungen:
+    – Keine technischen Begriffe oder Jargon
+    – Risiken konkret & alltagsverständlich erklären
+    – Positive Aspekte benennen – aber realistisch, nicht schönreden
+    – Empfehlungen klar, realistisch und priorisiert formulieren
+    – Struktur wie folgt:
+    🛑 Risikobewertung → in Worten + Skala 0–10
+
+    ❗ Kritische Risiken
+
+    ⚠️ Weitere Schwächen
+
+    ✅ Positive Aspekte
+
+    🔄 Empfehlung
+
+    ⏳ Fazit
+    Formulierungsregeln:
+
+    – Keine Begriffe wie „Maven“, „Multimodul“, etc.
+    – Statt „keine Tests“ → „keine automatisierten Tests“
+    – Für Wartungsangebot immer: „Auto Update Service von gepardec“ verwenden
+    – Füge folgenden Satz direkt unter die Risikobewertung ein, wenn Verstöße gegen DORA / NIS enthalten sind:
+    „Zudem verstößt Guardian gegen zentrale Anforderungen von NIS2 und DORA, da es weder laufende Sicherheitsüberwachung noch automatisierte Tests, nachvollziehbare Änderungen oder ein Risikomanagement gibt.“
+    – Textlänge: kompakt, verständlich, auf 1 max A4-Seite reduziert
+
+    Eingabetext:
+    👉 [Hier kompletten technischen Bericht einfügen]
+
 - **Technologien & Architektur:** Übersicht über Backend, Frontend, Authentifizierung, CI/CD, Deployment-Umgebung  
 - **Allgemeine Metriken:** LOC, Klassen, Komplexität, Duplikate – sollen als Tabelle dargestellt werden mit den Spaltennamen "Name und "Wert"
 - **Dependency Status:** Bibliotheken mit Version, Scope, Updates, Fix-Version  
-- **Sicherheitslage:**  
+- **Sicherheitslage:**
+  - Zum Kapitel "Sicherheitslage (Vulnerabilities)" diesen Text einfügen.
+    "
+    In den folgenden Kapiteln werden alle schwerwiegenden und zehn High-Schwachstellen nach EPSS aufgelistet, wobei der EPSS-Score (Exploit Prediction Scoring System)
+    die geschätzte Wahrscheinlichkeit angibt, dass eine Schwachstelle innerhalb der nächsten 30 Tage in der Praxis ausgenutzt wird. Der EPSS-Percentile ordnet diese
+    Wahrscheinlichkeit im Vergleich zu allen bekannten Schwachstellen ein und zeigt damit, wie hoch das Risiko relativ zum Gesamtbestand ist (z. B. Percentile 99
+    bedeutet, dass die Schwachstelle zu den 1 % am wahrscheinlichsten ausnutzbaren CVEs gehört). Die EPSS-Werte und Percentiles stammen aus der öffentlichen Datenbank
+    von epsslookup.com (<DATE>).
+    "
   - Tabelle mit mindestens **10 Critical** und **10 High Vulnerabilities**, sofern vorhanden.
-  - Die Tabellen sollen mit folgenden Spaltennamen aufbaut werden: *Komponente, CVE-ID, Beschreibung, CVSS, Fix-Version, Quelle*. Die Spalte *Beschreibung* beinhält eine kurze Zusammenfassung des CVEs in deutsch
+  - Die Tabellen sollen mit folgenden Spaltennamen aufbaut werden: *Komponente, CVE-ID, Beschreibung, CVSS, EPSS, Percentile, Fix-Version*. Die Spalte *Beschreibung* beinhält eine kurze Zusammenfassung des CVEs in deutsch
 - **SonarQube-Metriken:** Bugs, Code Smells, Coverage etc. sollen als Tabelle dargestellt werden mit den Spaltennamen "Name und "Wert"
 - **Tests & Qualitätssicherung:** Tools, Testarten, Coverage  
-- **CI/CD:** Tools, Pipelines, Deployments  
+- **CI/CD:** Tools, Pipelines, Deployments
+- **NIS2 Abweichungen:** Abweichungen von den NIS2-Anforderungen, sofern vorhanden.
 - **Ziele & Roadmap:** Java-Version, Multimodul, CI/CD-Ausbau  
-- **Service "up2date bleiben"** von gepardec als eigener Abschnitt. Dieses Kapitel kann aus **"Anom-Analysebericht-V1.0.docx"** direkt übernommen werden.
+- **Ausblick: Auto-Update für SEQiFY-Guardian** placeholder setzen "[Aus letzem bericht übernehmen, review und anpassen]"
 - **Dependency-Tree-Bilder** als Platzhalter einfügen
-- Die Kapitel "Risikomanagement" und "Angebot: Service „up2date bleiben“ von gepardec" sollen mit einem Platzhalter mit der Nachricht "Kapitel können 1:1 aus Basis-Report übernommen werden" und müssen abschließend Reviewed werden.".
+- Die Kapitel "Risikomanagement" soll mit einem Platzhalter mit der Nachricht "Kapitel können 1:1 aus Basis-Report übernommen werden" und müssen abschließend Reviewed werden.".
 ---
 
 ### Mögliche Modernisierungsschritte (technisch empfohlen)
@@ -129,6 +175,7 @@ Optimierungen
 3. Die Assitent Instructions müssen eingehalten werden
 4. Alle Daten müssen eingelesen und analysiert werden
 4.1 Sofern vorhanden analyse die "Referenz Bericht(e)" diese können als Vorlage dienen, die dort erwähnten Daten dürfen aber nicht übernommen werden.
+4.2 NIS2 Guideline muss analysiert werden (file: ENISA_Technical_implementation_guidance_on_cybersecurity_risk_management_measures_version_1.0.pdf)
 5. Der vollständige Bericht mit allen fertigstellten Kapiteln strukturiert in deutsch zur verfügung gestellt werden:
 - Struktur nach Kapitelvorgabe
 	- Inhaltsverzeichnis mit Platzhaltern
@@ -138,31 +185,34 @@ Optimierungen
 6. Das Datum von heute soll im Bericht gesetzt werden
 7. Starte in dieser Kapitel reinfolge mit der abarbeitung:
 ```
-1. Management Summary  
-2. Einleitung  
-3. IST-Zustand  
-   3.1 Technologien & Architektur  
-   3.2 Allgemeine Metriken  
-   3.3 Dependency Status  
-	  3.3.1 Besonders auffällig
-   3.4 Sicherheitslage (Vulnerabilities)  
-       3.4.1 Kritische Schwachstellen (Critical)  
-       3.4.2 Hochpriorisierte Schwachstellen (High)  
-   3.5 Sonar Metriken  
-   3.6 Tests & Qualitätssicherung  
-   3.7 Automatisierung & CI/CD  
-4. Ziele  
-5. Vorgeschlagene Roadmap  
-   5.1 Vorbereitende Maßnahmen  
-   5.2 Durchführung der Updates  
-   5.2.1 Arbeitsweise
-   5.2.2 Risikomanagement
-   5.2.3 Verwendete Tools und Technologie
-   5.3 Post-Update Tätigkeiten
-   5.4 Empfehlungen für die Zukunft und langfristige 
-Optimierungen
-   5.4.1 Angebot: Service „up2date bleiben“ von gepardec  
-6. Fazit 
+1. Management Summary
+2. Einleitung
+3. IST-Zustand
+    3.1 Technologien & Architektur
+        3.1.1 Architekturübersicht
+    3.2 Allgemeine Metriken
+    3.3 Dependency Status
+        3.3.1 Besonders auffällig
+        3.4 Sicherheitslage (Vulnerabilities)
+        3.4.1 Kritische Schwachstellen (Critical)
+        3.4.2 Hochpriorisierte Schwachstellen (High)
+    3.5 Sonar Metriken
+    3.6 Tests & Qualitätssicherung
+        3.6.1 Aktuelle Test-Situation
+        3.6.2 Für eine zukünftige Qualitätssicherung wird empfohlen
+    3.7 Automatisierung & CI/CD
+    3.8 NIS2 Abweichungen
+4. Vorgeschlagene Update-Roadmap
+    4.1 Vorbereitende Maßnahmen
+    4.2 Durchführung der Updates
+        4.2.1 Arbeitsweise
+        4.2.2 Risikomanagement
+        4.2.3 Verwendete Tools und Technologie
+    4.3 Post-Update Tätigkeiten
+    4.4 Empfehlungen für die Zukunft
+    4.5 Update Investition
+5. Fazit
+6. Ausblick: Auto-Update für SEQiFY-Guardian
 7. Referenzen
 ``` 
 füge alle Tabellen und Grafiken-Platzhalter mit ein.
