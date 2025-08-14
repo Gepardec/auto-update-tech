@@ -1,15 +1,23 @@
 # Automized analysis for "secure java code upgrade"
 
 ## Prerequisites:
-* mvn clean install has to result in **BUILD SUCCESS**
+* ```mvn clean install``` has to result in **BUILD SUCCESS**
   * use normal settings.xml (without private registries)
   * __ATTENTION__ if you haven't installed *mvn* you need to add those two lines below ```#!/bin/bash``` in your ``` autoUpdateAnalyse.sh``` file:
     * ```shopt -s expand_aliases```
     * ```alias mvn='<path to your mvnd.cmd>'```
+
+## Requirements:
 * *Windows:* GitBash has to be available
 * Permission to download sth. on your machine, in that case it is node (via script) automatically
 * Firewall activation towards our dependency track and sonar qube
   * if absolutely not possible docker must be provided for dependency track and the url must be changed *(dependency-track(-mac).sh)*
+### Quick check for requirements:
+* To make things easier just run this script in the '01-analysis'-folder:
+```bash
+sh check-env.sh
+```
+* If everything comes out green then you can continue with the Preparation and Usage.
 
 # Preparation:
 * Dependency Track Api Key:
@@ -21,28 +29,33 @@
       ![Navigate to Access Management > Teams](img/teams.png)
     * Navigate to **Administrators** and copy the **Api Key**:
       ![Navigate to Administrators and copy the Api Key](img/apikey.png)
+* SonarQube Admin Password:
+  * To get the Admin Password please contact [Christoph Ruhsam](mailto:christoph.ruhsam@gepardec.com)
 
 ## Usage:
-1. Copy folder (01-analysis) into your project root directory
-2. Execute
+1. Git pull this repository
+2. Change directory to '01-analysis'
+3. Execute
    * Change to executable
      * ```chmod +x autoUpdateAnalyse.sh ``` or <br>
        ```chmod 777 autoUpdateAnalyse.sh```<br><br>
 
-   * Run it (works with both relative and absolute paths)
+   * Run it with absolute paths
      ```bash
-     # ./autoUpdateAnalyse.sh --project-root <path-to-project-root> --maven-project-root <path-to-maven-project-root> --dependency-track-api-key <dependency-track-api-key>
-     ./autoUpdateAnalyse.sh --project-root ./../ --maven-project-root ./../ --dependency-track-api-key testapikey
+     # ./autoUpdateAnalyse.sh --project-root <absolute-path-to-project-root>
+     ./autoUpdateAnalyse.sh --project-root /home/test/project/test-project/
      ```
      or
      ```bash 
-     # sh autoUpdateAnalyse.sh --project-root <path-to-project-root> --maven-project-root <path-to-maven-project-root> --dependency-track-api-key <dependency-track-api-key>
-     sh autoUpdateAnalyse.sh --project-root ./../ --maven-project-root ./../ --dependency-track-api-key testapikey
+     # sh autoUpdateAnalyse.sh --project-root <absolute-path-to-project-root> --maven-project-root <absolute-path-to-maven-project-root>
+     sh autoUpdateAnalyse.sh --project-root /home/test/project/test-project/ --maven-project-root /home/test/project/test-project/maven/
      ```
      
      > **INFO** <br>
      As a default setting cleanup is activated, which deletes all files that are no longer needed. If you want to change it you can extend the command above with **--cleanup false**
-     
+   
+   * Next you will be asked to put in the "Dependency Track Api Key" and "SonarQube Admin Password", which will be set as environment variables at the beginning and deleted at the end.
+
 ## Results:
 > **INFO** <br>
     Examples, for all outcomes mentioned below, are provided in the demo-final-reports folder.
