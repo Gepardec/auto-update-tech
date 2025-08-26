@@ -16,6 +16,12 @@ done
 prepare_pom() {
 cd "$PROJECT_ROOT" || exit 1
 
+# Robust JaCoCo presence check (handles indentation/spacing)
+  if grep -E -q "<artifactId>\s*jacoco-maven-plugin\s*</artifactId>" pom.xml; then
+    echo "ℹ️ JaCoCo plugin already exists in pom.xml. Skipping insertion."
+    return 0
+  fi
+
 plugin_file=$(mktemp)
 temp_files+=("$plugin_file")
 cat << 'EOF' > "$plugin_file"
@@ -96,6 +102,7 @@ mv "$temp_file" pom.xml || {
     echo "Fehler beim Aktualisieren der pom.xml"
     return
 }
+
 temp_files=("${temp_files[@]/$temp_file}")
 }
 
@@ -123,9 +130,12 @@ else
   echo "Warnung: pom.xml.bak nicht gefunden, kann nicht wiederhergestellt werden"
 fi
 
-for file in "${temp_files[@]}"; do
-    [ -f "$file" ] && rm -f "$file"
-done
+if [ ${#temp_files[@]} -gt 0 ]; then
+  for file in "${temp_files[@]}"; do
+      [ -f "$file" ] && rm -f "$file"
+  done
+fi
+
 rm -f "$plugin_file"
 }
 
