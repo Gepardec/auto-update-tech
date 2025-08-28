@@ -31,6 +31,29 @@ sh check-env.sh
       ![Navigate to Administrators and copy the Api Key](img/apikey.png)
 * SonarQube Admin Password:
   * To get the Admin Password please contact [Christoph Ruhsam](mailto:christoph.ruhsam@gepardec.com)
+* Jacoco-Maven-Plugin:
+  * if already defined in your project (--project-root), configure it exactly like this:
+    ```xml
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.8.10</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>report</id>
+              <phase>prepare-package</phase>
+              <goals>
+                <goal>report</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+    ```
 
 ## Usage:
 1. Git pull this repository
