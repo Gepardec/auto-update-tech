@@ -1,0 +1,3 @@
+severity,total,category_name,category_number
+LOW,1,insecure-conf,1
+MEDIUM,2,dos,2
