@@ -205,4 +205,4 @@ getDependencyTrackInformation();
 
 
 
-fs.writeFileSync("final-reports/" + AUTO_UPDATE_REPORT_FILE, JSON.stringify(customJsonModuleReport), 'utf8');
+fs.writeFileSync("./../final-reports/" + AUTO_UPDATE_REPORT_FILE, JSON.stringify(customJsonModuleReport), 'utf8');

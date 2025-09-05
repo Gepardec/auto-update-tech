@@ -119,7 +119,33 @@ EOF
           { print }
       ' "$POM_FILE" > "${POM_FILE}.new" && mv "${POM_FILE}.new" "$POM_FILE" || die "Fehler beim Aktualisieren der pom.xml"
   else
-      die "<plugins> block not found in pom.xml"
+      # Fall: <plugins> nicht vorhanden – neuen <plugins>-Block unter <build> einfügen oder <build> erzeugen
+                if grep -q "<build>" "$POM_FILE"; then
+                    awk '
+                        /<build>/ {
+                            print
+                            print "    <plugins>"
+                            while ((getline line < "'"$PLUGIN_TMP"'") > 0) print "        " line
+                            print "    </plugins>"
+                            close("'"$PLUGIN_TMP"'")
+                            next
+                        }
+                        { print }
+                    ' "$POM_FILE" > "${POM_FILE}.new" && mv "${POM_FILE}.new" "$POM_FILE" || die "Fehler beim Hinzufügen von <plugins> zu <build>"
+                else
+                    # Weder <plugins> noch <build> vorhanden – <build>-Block mit <plugins> erzeugen vor </project>
+                    awk '
+                        /<\/project>/ {
+                            print "  <build>"
+                            print "    <plugins>"
+                            while ((getline line < "'"$PLUGIN_TMP"'") > 0) print "      " line
+                            print "    </plugins>"
+                            print "  </build>"
+                            close("'"$PLUGIN_TMP"'")
+                        }
+                        { print }
+                    ' "$POM_FILE" > "${POM_FILE}.new" && mv "${POM_FILE}.new" "$POM_FILE" || die "Fehler beim Einfügen von <build> und <plugins>"
+                fi
   fi
 }
 
@@ -221,7 +247,15 @@ createDependencyTrackResultFile(){
 
 
 # Registriere die Cleanup-Funktion für verschiedene Signale
-trap cleanup EXIT INT TERM
+exit_handler() {
+  exit_code=$?
+  if [ "$exit_code" -eq 1 ]; then
+    cleanup
+  fi
+  exit "$exit_code"
+}
+
+trap exit_handler EXIT
 
 addCycloneDxToPom
 
@@ -236,3 +270,5 @@ uploadBomFile
 dependencyTrackAnalysis
 
 createDependencyTrackResultFile
+
+cleanup

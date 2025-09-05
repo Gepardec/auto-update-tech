@@ -1,0 +1,777 @@
+{
+  "title": "Dependency Analysis",
+  "sections": [
+    {
+      "name": "Dependency Analysis",
+      "subsections": [
+        {
+          "name": "Used and Declared Dependencies",
+          "dependencies": [
+            {
+              "GroupId": "com.google.api-client",
+              "ArtifactId": "google-api-client",
+              "Version": "2.3.0",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "com.google.apis",
+              "ArtifactId": "google-api-services-gmail",
+              "Version": "v1-rev20231218-2.0.0",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "com.google.auth",
+              "ArtifactId": "google-auth-library-oauth2-http",
+              "Version": "1.23.0",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-oidc",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-hibernate-orm-panache",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-arc",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-mailer",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-cache",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "org.apache.commons",
+              "ArtifactId": "commons-lang3",
+              "Version": "3.14.0",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "commons-io",
+              "ArtifactId": "commons-io",
+              "Version": "2.16.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "com.google.guava",
+              "ArtifactId": "guava",
+              "Version": "33.2.1-jre",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "com.sun.xml.ws",
+              "ArtifactId": "rt",
+              "Version": "4.0.2",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.rest-assured",
+              "ArtifactId": "rest-assured",
+              "Version": "5.4.0",
+              "Scope": "test",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-junit5-mockito",
+              "Version": "3.12.1",
+              "Scope": "test",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "org.mockito",
+              "ArtifactId": "mockito-junit-jupiter",
+              "Version": "5.12.0",
+              "Scope": "test",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "org.assertj",
+              "ArtifactId": "assertj-core",
+              "Version": "3.23.1",
+              "Scope": "test",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-test-security-oidc",
+              "Version": "3.12.1",
+              "Scope": "test",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "jakarta.mail",
+              "ArtifactId": "jakarta.mail-api",
+              "Version": "2.1.2",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            }
+          ]
+        },
+        {
+          "name": "Used but Undeclared Dependencies",
+          "dependencies": [
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-core",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "jakarta.xml.ws",
+              "ArtifactId": "jakarta.xml.ws-api",
+              "Version": "4.0.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "org.hibernate.validator",
+              "ArtifactId": "hibernate-validator",
+              "Version": "8.0.1.Final",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "com.fasterxml.jackson.core",
+              "ArtifactId": "jackson-databind",
+              "Version": "2.17.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "org.eclipse.microprofile.context-propagation",
+              "ArtifactId": "microprofile-context-propagation-api",
+              "Version": "1.3",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "com.google.http-client",
+              "ArtifactId": "google-http-client",
+              "Version": "1.44.2",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "org.eclipse.microprofile.health",
+              "ArtifactId": "microprofile-health-api",
+              "Version": "4.0.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "org.hibernate.orm",
+              "ArtifactId": "hibernate-core",
+              "Version": "6.5.2.Final",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-junit5",
+              "Version": "3.12.1",
+              "Scope": "test",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "jakarta.interceptor",
+              "ArtifactId": "jakarta.interceptor-api",
+              "Version": "2.2.0",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "jakarta.enterprise",
+              "ArtifactId": "jakarta.enterprise.cdi-api",
+              "Version": "4.1.0",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-test-security",
+              "Version": "3.12.1",
+              "Scope": "test",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "org.eclipse.microprofile.jwt",
+              "ArtifactId": "microprofile-jwt-auth-api",
+              "Version": "2.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "org.apache.httpcomponents",
+              "ArtifactId": "httpcore",
+              "Version": "4.4.16",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-scheduler-api",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "org.mockito",
+              "ArtifactId": "mockito-core",
+              "Version": "5.12.0",
+              "Scope": "test",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.rest-assured",
+              "ArtifactId": "rest-assured-common",
+              "Version": "5.4.0",
+              "Scope": "test",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "jakarta.persistence",
+              "ArtifactId": "jakarta.persistence-api",
+              "Version": "3.1.0",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "org.eclipse.microprofile.config",
+              "ArtifactId": "microprofile-config-api",
+              "Version": "3.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-test-common",
+              "Version": "3.12.1",
+              "Scope": "test",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "jakarta.transaction",
+              "ArtifactId": "jakarta.transaction-api",
+              "Version": "2.0.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "org.slf4j",
+              "ArtifactId": "slf4j-api",
+              "Version": "2.0.6",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "com.fasterxml.jackson.core",
+              "ArtifactId": "jackson-annotations",
+              "Version": "2.17.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "com.fasterxml.jackson.datatype",
+              "ArtifactId": "jackson-datatype-jsr310",
+              "Version": "2.17.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "jakarta.validation",
+              "ArtifactId": "jakarta.validation-api",
+              "Version": "3.0.2",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "jakarta.xml.bind",
+              "ArtifactId": "jakarta.xml.bind-api",
+              "Version": "4.0.2",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "jakarta.annotation",
+              "ArtifactId": "jakarta.annotation-api",
+              "Version": "3.0.0",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "jakarta.ws.rs",
+              "ArtifactId": "jakarta.ws.rs-api",
+              "Version": "3.1.0",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "de.focus-shift",
+              "ArtifactId": "jollyday-core",
+              "Version": "0.16.0",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.smallrye",
+              "ArtifactId": "smallrye-health-api",
+              "Version": "4.1.0",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "com.google.http-client",
+              "ArtifactId": "google-http-client-gson",
+              "Version": "1.44.2",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "jakarta.inject",
+              "ArtifactId": "jakarta.inject-api",
+              "Version": "2.0.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "org.junit.jupiter",
+              "ArtifactId": "junit-jupiter-api",
+              "Version": "5.10.2",
+              "Scope": "test",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.smallrye.common",
+              "ArtifactId": "smallrye-common-constraint",
+              "Version": "2.3.0",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus.security",
+              "ArtifactId": "quarkus-security",
+              "Version": "2.1.0",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "com.google.auth",
+              "ArtifactId": "google-auth-library-credentials",
+              "Version": "1.23.0",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "org.hamcrest",
+              "ArtifactId": "hamcrest",
+              "Version": "2.2",
+              "Scope": "test",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-panache-common",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "org.junit.jupiter",
+              "ArtifactId": "junit-jupiter-params",
+              "Version": "5.10.2",
+              "Scope": "test",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "com.fasterxml.jackson.core",
+              "ArtifactId": "jackson-core",
+              "Version": "2.17.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "org.eclipse.microprofile.openapi",
+              "ArtifactId": "microprofile-openapi-api",
+              "Version": "3.1.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "org.eclipse.microprofile.rest.client",
+              "ArtifactId": "microprofile-rest-client-api",
+              "Version": "3.0.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "jakarta.servlet",
+              "ArtifactId": "jakarta.servlet-api",
+              "Version": "6.0.0",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "org.liquibase",
+              "ArtifactId": "liquibase-core",
+              "Version": "4.27.0",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            }
+          ]
+        },
+        {
+          "name": "Unused but Declared Dependencies",
+          "dependencies": [
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-resteasy",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-resteasy-jackson",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-config-yaml",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-resteasy-client",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-resteasy-client-jackson",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-smallrye-openapi",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-smallrye-health",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-smallrye-context-propagation",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-smallrye-metrics",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-hibernate-orm",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-jdbc-postgresql",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "org.postgresql",
+              "ArtifactId": "postgresql",
+              "Version": "42.7.2",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-hibernate-validator",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-scheduler",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-undertow",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-liquibase",
+              "Version": "3.12.1",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "com.sun.org.apache.xml.internal",
+              "ArtifactId": "resolver",
+              "Version": "20050927",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "de.focus-shift",
+              "ArtifactId": "jollyday-jaxb",
+              "Version": "0.16.0",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-jdbc-h2",
+              "Version": "3.12.1",
+              "Scope": "test",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            },
+            {
+              "GroupId": "io.quarkus",
+              "ArtifactId": "quarkus-jacoco",
+              "Version": "3.12.1",
+              "Scope": "test",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            }
+          ]
+        },
+        {
+          "name": "Compile Scoped Test Dependencies",
+          "dependencies": [
+            {
+              "GroupId": "io.smallrye.common",
+              "ArtifactId": "smallrye-common-constraint",
+              "Version": "2.3.0",
+              "Scope": "compile",
+              "Classifier": "-",
+              "Type": "jar",
+              "Optional": "false"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

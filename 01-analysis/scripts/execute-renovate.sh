@@ -10,6 +10,10 @@ while [[ $# -gt 0 ]]; do
             NODE_MODULES_PATH="$2"
             shift 2
             ;;
+        --project-root)
+            PROJECT_ROOT="$2"
+            shift 2
+            ;;
         *)
             echo "Unexpected option: $1"
             exit 1
@@ -18,9 +22,9 @@ while [[ $# -gt 0 ]]; do
 done
 
 # Check if all required arguments are provided
-if [ -z "$NODE_PATH" ] || [ -z "$NODE_MODULES_PATH" ]; then
+if [ -z "$NODE_PATH" ] || [ -z "$NODE_MODULES_PATH" ] || [ -z "$PROJECT_ROOT" ]; then
     echo "Error: All arguments must be provided."
-    echo "Usage: $0 --node-path <NODE_PATH> --node-modules <NODE_MODULES_PATH>"
+    echo "Usage: $0 --node-path <NODE_PATH> --node-modules <NODE_MODULES_PATH> --project-root <absolute-project-root-path>"
     exit 1
 fi
 
@@ -31,7 +35,7 @@ RENOVATE_LOGFILE="renovate.json"
 RENOVATE_FILTERED_LOGFILE="renovate-filtered.json"
 
 # find all folders with pom.xml, exclude target/, und save them sorted
-modules=$(find ../ -type f -name "pom.xml" | grep -v "/target/" | while read -r pom; do
+modules=$(find "$PROJECT_ROOT" -type f -name "pom.xml" | grep -v "/target/" | while read -r pom; do
     # extract file path; if pom.xml is in root dir return .
     dir=$(dirname "$pom")
     echo "${dir#./}"

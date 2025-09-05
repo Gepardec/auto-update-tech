@@ -13,16 +13,31 @@
 # ================================
 
 # Input JSON file
-JSON_FILE="$1"
-DIRECTORY="final-csv"
+JSON_FILE=""
+DIRECTORY="./../final-csv"
 
-# Shift arguments so that $2 becomes $1 in function calls
+mkdir -p "$DIRECTORY"
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --json-file)
+            JSON_FILE="$2"
+            shift 2
+            ;;
+        *)
+            echo "Unexpected option: $1"
+            exit 1
+            ;;
+    esac
+done
+
 shift
 
-# Check if the file is provided and exists
+# Check input file
+echo $JSON_FILE
 if [[ -z "$JSON_FILE" || ! -f "$JSON_FILE" ]]; then
-  echo "❌ Error: Please provide a valid JSON file as the first argument."
-  echo "Usage: $0 <json_file> [function]"
+  echo "❌ Error: Provide a valid JSON file."
+  echo "Usage: --json-file <json_file_path>"
   exit 1
 fi
 

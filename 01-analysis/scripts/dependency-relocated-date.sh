@@ -1,22 +1,16 @@
 #!/bin/bash
-
 PROJECT_ROOT=""
 
-# Parse command-line options using getopt
-OPTS=$(getopt -o "" --long project-root: -- "$@")
-
-if [ $? -ne 0 ]; then
-    echo "Error parsing options."
-    exit 1
-fi
-
-eval set -- "$OPTS"
-
-while true; do
+while [[ $# -gt 0 ]]; do
     case "$1" in
-        --project-root) PROJECT_ROOT="$2"; shift 2 ;;
-        --) shift; break ;;
-        *) echo "Unexpected option: $1"; exit 1 ;;
+        --project-root)
+            PROJECT_ROOT="$2"
+            shift 2
+            ;;
+        *)
+            echo "Unexpected option: $1"
+            exit 1
+            ;;
     esac
 done
 
@@ -314,7 +308,7 @@ for module in $modules; do
     mvn_output=$(mvn biz.lermitage.oga:oga-maven-plugin:check 2>&1)
     echo "$mvn_output"
 
-    # Array to collect mappings
+    #Array to collect mappings
     dependency_mappings=()
 
     # Parse for deprecated dependency lines
@@ -342,8 +336,9 @@ for module in $modules; do
             dependency_mappings+=("$old_group_id:$old_artifact_id:$new_group_id:$new_artifact_id")
         fi
     done <<< "$mvn_output"
-
-    # Update pom.xml without xmlstarlet
+#
+    echo "CHECK 2"
+#    # Update pom.xml without xmlstarlet
     pom_path="$path/pom.xml"
     if [ ! -f "$pom_path" ]; then
         echo "❌ No root pom.xml found at: $pom_path"
@@ -355,16 +350,43 @@ for module in $modules; do
 
     # Check if <build> exists, add if not
     if ! grep -q "<build>" "$pom_path"; then
-        sed -i "/<\/project>/i \ \ <build>\n\ \ </build>" "$pom_path"
+        # Insert <build><plugins> if missing in root pom.xml
+        awk '
+          /<\/project>/ && !buildInjected {
+            print "  <build>"
+            print "    <plugins>"
+            print "      <!-- plugins will be added here -->"
+            print "    </plugins>"
+            print "  </build>"
+            buildInjected=1
+          }
+          { print }
+        ' "$pom_path" > "$pom_path.tmp" && mv "$pom_path.tmp" "$pom_path"
     fi
 
-    # Check if <plugins> exists, add if not
-    if ! grep -q "<plugins>" "$pom_path"; then
-        sed -i "/<build>/a \ \ \ \ <plugins>\n\ \ \ \ </plugins>" "$pom_path"
-    fi
+   # Check if <plugins> exists, add it under <build> if missing
+   if ! grep -q "<plugins>" "$pom_path"; then
+       awk '
+           /<build>/ && !done {
+               print
+               print "    <plugins>"
+               print "    </plugins>"
+               done = 1
+               next
+           }
+           { print }
+       ' "$pom_path" > "$pom_path.tmp" && mv "$pom_path.tmp" "$pom_path"
+   fi
+
 
     # Remove any existing exec-maven-plugin to avoid duplicates
-    sed -i "/<plugin>[[:space:]]*.*<groupId>org.codehaus.mojo<\/groupId>[[:space:]]*.*<artifactId>exec-maven-plugin<\/artifactId>.*<\/plugin>/d" "$pom_path"
+    if grep -q "<plugin>[[:space:]]*.*<groupId>org.codehaus.mojo<\/groupId>[[:space:]]*.*<artifactId>exec-maven-plugin<\/artifactId>.*<\/plugin>" "$pom_path"; then
+      echo "exec-maven-plugin gefunden"
+      sed -i '' "/<plugin>[[:space:]]*.*<groupId>org.codehaus.mojo<\/groupId>[[:space:]]*.*<artifactId>exec-maven-plugin<\/artifactId>.*<\/plugin>/d" "$pom_path"
+    else
+      echo "exec-maven-plugin nicht gefunden"
+    fi
+
 
     # Prepare exec-maven-plugin configuration in a temporary file
     tmp_plugin_config=$(mktemp)
@@ -392,6 +414,7 @@ for module in $modules; do
 EOF
 
     # Add executions for dependency mappings
+    echo "CHECK 1"
     if [ ${#dependency_mappings[@]} -gt 0 ]; then
         echo "Dependency Mappings Found:"
         printf '%s\n' "${dependency_mappings[@]}" | while IFS=':' read -r old_group old_artifact new_group new_artifact; do
@@ -449,11 +472,20 @@ EOF
       </plugin>
 EOF
 
-    # Append the plugin configuration to the <plugins> section
-    sed -i "/<plugins>/r $tmp_plugin_config" "$pom_path"
+   # Append the plugin configuration to the <plugins> section
+    awk -v insert_file="$tmp_plugin_config" '
+      /<plugins>/ {
+        print
+        while ((getline line < insert_file) > 0) print line
+        close(insert_file)
+        next
+      }
+      { print }
+    ' "$pom_path" > "$pom_path.tmp" && mv "$pom_path.tmp" "$pom_path"
 
-    # Clean up temporary file
-    rm -f "$tmp_plugin_config"
+
+   # Clean up temporary file
+     rm -f "$tmp_plugin_config"
 
     echo "✅ Plugins added successfully to root pom.xml"
 
@@ -477,7 +509,13 @@ EOF
         continue
     fi
 
-    # Restore original pom.xml
+    # Now check for the output
+    if [ ! -s "./gepardec-reports/dependency-relocated-date.json" ]; then
+        echo "❌ Missing or empty: $module/gepardec-reports/dependency-relocated-date.json"
+        exit 1
+    fi
+
+    #Restore original pom.xml
     if [ -f "pom.xml.bak" ]; then
         mv "pom.xml.bak" "pom.xml"
         if [ $? -ne 0 ]; then
@@ -487,7 +525,7 @@ EOF
         echo "Warning: pom.xml.bak not found in $module, cannot restore"
     fi
 
-    # Delete Python scripts
+    #Delete Python scripts
     if [ -f "convert.py" ]; then
         rm "convert.py"
         if [ $? -ne 0 ]; then
