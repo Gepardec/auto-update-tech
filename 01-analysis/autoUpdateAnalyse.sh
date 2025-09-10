@@ -206,7 +206,7 @@ echoHeader_yellow "Move dependency-track-vulnerability-report.json"
 mv "${AUTO_UPDATE_ROOT_SYSTEM}/dependency-track-vulnerability-report.json" "${AUTO_UPDATE_ROOT}/final-reports/dependency-track-vulnerability-report.json"
 
 echoHeader_yellow "Create CSV files"
-"$AUTO_UPDATE_ROOT_SYSTEM" || return
+cd "$AUTO_UPDATE_ROOT_SYSTEM" || return
 source ./create-all-csvs.sh --json-file ./../final-reports/auto-update-report.json
 
 echoHeader_yellow "Create Sonar Report"
