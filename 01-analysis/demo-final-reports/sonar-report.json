@@ -1,0 +1,64 @@
+{
+  "lines_of_code": 18425,
+  "technical_debt_min": 3047,
+  "issues": {
+    "by_severity": [
+      {
+        "severity": "MAJOR",
+        "count": 346
+      },
+      {
+        "severity": "MINOR",
+        "count": 181
+      },
+      {
+        "severity": "INFO",
+        "count": 89
+      },
+      {
+        "severity": "CRITICAL",
+        "count": 15
+      },
+      {
+        "severity": "BLOCKER",
+        "count": 5
+      }
+    ],
+    "by_type": [
+      {
+        "type": "CODE_SMELL",
+        "count": 621
+      },
+      {
+        "type": "BUG",
+        "count": 15
+      },
+      {
+        "type": "VULNERABILITY",
+        "count": 0
+      }
+    ]
+  },
+  "security_hotspots": [
+    {
+      "severity": "LOW",
+      "total": 1,
+      "categories": [
+        {
+          "name": "insecure-conf",
+          "number": 1
+        }
+      ]
+    },
+    {
+      "severity": "MEDIUM",
+      "total": 2,
+      "categories": [
+        {
+          "name": "dos",
+          "number": 2
+        }
+      ]
+    }
+  ]
+}

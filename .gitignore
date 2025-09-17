@@ -6,5 +6,11 @@
 
 target/
 
+
+### Helm ###
+# Chart dependencies
+**/charts/*.tgz
+**/Chart.lock
+
 # MacOS
 .DS_Store

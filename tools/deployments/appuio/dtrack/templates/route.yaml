@@ -1,0 +1,35 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: dtrack-frontend
+spec:
+  host: gepardec-dtrack.apps.cloudscale-lpg-2.appuio.cloud
+  to:
+    kind: Service
+    name: dtrack-dependency-track-frontend
+  port:
+    targetPort: web
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: None
+  wildcardPolicy: None
+
+---
+
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: dtrack-api
+spec:
+  host: gepardec-dtrack.apps.cloudscale-lpg-2.appuio.cloud
+  path: /api
+  to:
+    kind: Service
+    name: dtrack-dependency-track-api-server
+  port:
+    targetPort: web
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: None
+  wildcardPolicy: None
+
