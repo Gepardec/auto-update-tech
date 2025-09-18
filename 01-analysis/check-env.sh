@@ -117,12 +117,18 @@ check_java() {
 
 echo "🔍 Checking system environment..."
 
-# 1. Maven
+# 1. Maven and or Gradle
 if command_exists mvn; then
   echo "✅ Maven is installed: $(mvn -v | head -n 1)"
 else
-  echo "❌ Maven is NOT installed."
+  if command_exists gradle; then
+    echo "✅ Gradle is installed: $(gradle -v | head -n 1)"
+  else
+    echo "❌ Gradle or MAVEN is NOT installed."
+  fi
 fi
+
+
 
 # 2. OS detection
 OS_TYPE="$(uname)"

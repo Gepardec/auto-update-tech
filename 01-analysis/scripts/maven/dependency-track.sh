@@ -17,7 +17,7 @@ API_KEY=""
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        --maven-project-root)
+        --build-project-root)
             PROJECT_ROOT="$2"
             shift 2
             ;;

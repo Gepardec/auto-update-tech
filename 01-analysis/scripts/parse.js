@@ -7,6 +7,7 @@ const DEPENDENCY_RELOCATED = "dependency-relocated-date.json"
 const RENOVATE_FILTERED = "renovate-filtered.json"
 const DEPENDENCY_TRACK_VULNERABILITY_REPORT = "dependency-track-vulnerability-report.json"
 const PROJECT_ROOT_PATH = args[1]
+const BUILD_TOOL = args[2]
 const AUTO_UPDATE_REPORT_PATH = __dirname
 
 
@@ -60,7 +61,13 @@ function getRenovateInformation() {
 
     for(let file of files){
         let data = require(file);
-        let entries = data.config.maven[0].deps
+        let entries = null;
+        if (BUILD_TOOL === "Maven"){
+            entries = data.config.maven[0].deps
+        }
+        if (BUILD_TOOL === "Gradle"){
+            entries = data.config.gradle[0].deps
+        }
         for (let e of entries) {
             if (e.updates.length > 0) {
                 let updateInformationList = getUpdateInformation(e);
