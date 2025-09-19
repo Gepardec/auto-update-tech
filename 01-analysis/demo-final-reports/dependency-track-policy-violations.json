@@ -1,0 +1,3134 @@
+[
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-vertx-latebound-mdc-provider",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "ab295075-0e89-4bf5-a2fa-7ab26891e047"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.reactive",
+      "name": "smallrye-mutiny-vertx-runtime",
+      "version": "3.12.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "f5ffa9eb-fe9f-40e6-a536-459b563f6ab2"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.google.oauth-client",
+      "name": "google-oauth-client",
+      "version": "1.35.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "e7284141-bd08-4ceb-abfd-56ced8f34e36"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.fasterxml.jackson.jakarta.rs",
+      "name": "jackson-jakarta-rs-json-provider",
+      "version": "2.17.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "89649123-90a6-4c25-8f09-9f893139eb27"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.grpc",
+      "name": "grpc-context",
+      "version": "1.64.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "80f9c33f-853f-4a2a-8bc5-f48da1e720dd"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.jboss.narayana.jts",
+      "name": "narayana-jts-integration",
+      "version": "7.0.1.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "ed3109e8-a8a3-4525-b7ec-87b5ff06de16"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-jdbc-postgresql",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "9aa95c05-f63b-451c-98d1-3596b42fc225"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.reactive",
+      "name": "mutiny-zero-flow-adapters",
+      "version": "1.1.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "e8ac53e2-8a50-4a47-82e0-e489c144d109"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "de.focus-shift",
+      "name": "jollyday-jaxb",
+      "version": "0.16.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "1d2594dd-bd48-4587-8a3d-96cd81710684"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye",
+      "name": "jandex",
+      "version": "3.2.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "c1fd10e3-7d10-4fd3-934b-cc063e855714"
+    }
+  },
+  {
+    "violationState": "WARN",
+    "type": "LICENSE",
+    "policyName": "Weak Copyleft",
+    "component": {
+      "group": "com.github.java-json-tools",
+      "name": "msg-simple",
+      "version": "1.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "db78728f-a0fc-4ee1-b53e-ad7fcc2c1b1e"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.reactive",
+      "name": "smallrye-mutiny-vertx-web-common",
+      "version": "3.12.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "9693d5a1-6e07-4b49-85df-768fb6279f40"
+    }
+  },
+  {
+    "violationState": "WARN",
+    "type": "LICENSE",
+    "policyName": "Weak Copyleft",
+    "component": {
+      "group": "jakarta.persistence",
+      "name": "jakarta.persistence-api",
+      "version": "3.1.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "579c09b1-de96-42ec-816c-f67e6bf77107"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.common",
+      "name": "smallrye-common-net",
+      "version": "2.3.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "7a176ebe-9f3d-4c48-9320-84b380670531"
+    }
+  },
+  {
+    "violationState": "WARN",
+    "type": "LICENSE",
+    "policyName": "Weak Copyleft",
+    "component": {
+      "group": "jakarta.mail",
+      "name": "jakarta.mail-api",
+      "version": "2.1.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "17080ace-e04f-4390-9d21-1d7dbcaf9a03"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.postgresql",
+      "name": "postgresql",
+      "version": "42.7.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "ebd86e77-fd55-42ca-8eaa-550525bc7acb"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-bootstrap-runner",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "87c3ac07-ea5c-48a3-be18-b38c4aa9b8e0"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.netty",
+      "name": "netty-transport",
+      "version": "4.1.108.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "44d0e055-1840-494d-bf80-8a390d7969fa"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.apache.commons",
+      "name": "commons-collections4",
+      "version": "4.4",
+      "lastBomImport": 1757446113205,
+      "uuid": "f367c0ae-a2d2-46a6-ae4d-c057a259e3b3"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "jakarta.xml.soap",
+      "name": "jakarta.xml.soap-api",
+      "version": "3.0.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "95e63f9f-9514-44e7-b8cb-9321f7ec8593"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.jboss.logmanager",
+      "name": "jboss-logmanager",
+      "version": "3.0.6.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "ccdc8be4-fce5-47e4-ab5e-92209243677c"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.sun.xml.ws",
+      "name": "policy",
+      "version": "4.0.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "f1252e7a-47a5-4aad-a2a5-337f8a983ead"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.common",
+      "name": "smallrye-common-vertx-context",
+      "version": "2.3.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "2ccf7e6b-e073-45e8-8fee-cdd1de8099d9"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.reactive",
+      "name": "mutiny-smallrye-context-propagation",
+      "version": "2.6.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "93d636f0-9db7-4f97-b5ce-8b3eeb629c1a"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-panache-common",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "414d82a3-fc0d-40a7-902e-c503dca22cd7"
+    }
+  },
+  {
+    "violationState": "WARN",
+    "type": "LICENSE",
+    "policyName": "Weak Copyleft",
+    "component": {
+      "group": "org.hibernate.common",
+      "name": "hibernate-commons-annotations",
+      "version": "6.0.6.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "97b0112a-fa2b-48f3-a310-91170d8fe826"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.jboss.logging",
+      "name": "jboss-logging",
+      "version": "3.6.0.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "ffcc0a28-05f0-47ed-90c5-55c2dc2d3350"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.reactivestreams",
+      "name": "reactive-streams",
+      "version": "1.0.4",
+      "lastBomImport": 1757446113205,
+      "uuid": "3bf84204-4afa-4074-80d3-eeadd6067918"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.common",
+      "name": "smallrye-common-ref",
+      "version": "2.3.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "d7f38e06-e001-48dd-8a76-489ef324007e"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.opentelemetry.instrumentation",
+      "name": "opentelemetry-instrumentation-api",
+      "version": "1.32.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "2f7c215a-fed0-4846-8ac9-14ab1f005d8f"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.osgi",
+      "name": "osgi.core",
+      "version": "6.0.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "9edc7d26-ed54-4aea-a5ac-4de5a93140b3"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-netty",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "dfa72afb-6bc3-4af3-be5b-1d1c215296ae"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-cache-runtime-spi",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "f6d4f161-573c-45e9-b279-1211ff207761"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.agroal",
+      "name": "agroal-pool",
+      "version": "2.4",
+      "lastBomImport": 1757446113205,
+      "uuid": "5d01410c-a6ef-4169-a377-7151ce8cd8e9"
+    }
+  },
+  {
+    "violationState": "WARN",
+    "type": "LICENSE",
+    "policyName": "Weak Copyleft",
+    "component": {
+      "group": "jakarta.annotation",
+      "name": "jakarta.annotation-api",
+      "version": "3.0.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "7d7b033f-1421-4bca-90a0-44dc54e374c6"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.eclipse.microprofile.reactive-streams-operators",
+      "name": "microprofile-reactive-streams-operators-api",
+      "version": "3.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "0303f0d2-56c1-4106-a3ef-ae8064a17387"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "jakarta.xml.bind",
+      "name": "jakarta.xml.bind-api",
+      "version": "4.0.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "17bf07f5-0e4d-4659-acab-73701a95447b"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.checkerframework",
+      "name": "checker-qual",
+      "version": "3.44.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "80f44b50-142e-4779-a90c-88427189a9d8"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "jakarta.inject",
+      "name": "jakarta.inject-api",
+      "version": "2.0.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "a5a93d1f-190a-42e5-8dfa-43f13921139a"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "commons-io",
+      "name": "commons-io",
+      "version": "2.16.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "f7cf23b5-706b-4257-9c08-9c5219a21b31"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.bitbucket.b_c",
+      "name": "jose4j",
+      "version": "0.9.6",
+      "lastBomImport": 1757446113205,
+      "uuid": "7a23c01e-f1c1-4a0b-863d-1853dd8069d7"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "de.focus-shift",
+      "name": "jollyday-core",
+      "version": "0.16.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "dd1ab7b6-d94f-477d-a1ad-4ae49720cca4"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-datasource-common",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "b2d05087-a5ba-4f13-9945-43323f74afd8"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.opentelemetry",
+      "name": "opentelemetry-extension-incubator",
+      "version": "1.32.0-alpha",
+      "lastBomImport": 1757446113205,
+      "uuid": "cf40d036-09d0-4d46-9b53-267b53c61c9e"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus.http",
+      "name": "quarkus-http-http-core",
+      "version": "5.2.2.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "d7ebd082-8856-4e76-9e02-f345c8d9da44"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.vertx",
+      "name": "vertx-uri-template",
+      "version": "4.5.7",
+      "lastBomImport": 1757446113205,
+      "uuid": "56a7a1e3-1ff8-43f4-9170-91db2c078ec7"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.aayushatharva.brotli4j",
+      "name": "service",
+      "version": "1.16.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "e65dea36-4dd7-4a30-9deb-8e07e7babe34"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-core",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "078fcb3d-6e55-4a4f-adfe-eb8912bab95b"
+    }
+  },
+  {
+    "violationState": "WARN",
+    "type": "LICENSE",
+    "policyName": "Weak Copyleft",
+    "component": {
+      "group": "org.eclipse.parsson",
+      "name": "parsson",
+      "version": "1.1.6",
+      "lastBomImport": 1757446113205,
+      "uuid": "cd1706c7-ec25-4988-8d80-7f8750bdbfa3"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye",
+      "name": "smallrye-health",
+      "version": "4.1.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "e07f47c3-a63d-4d94-b6be-b119c1c7b054"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.google.http-client",
+      "name": "google-http-client-gson",
+      "version": "1.44.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "ba832169-255d-4c0b-ace9-d39dabf8e348"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-scheduler-kotlin",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "2db86803-8a4d-4b8e-8578-c084b3fbfbca"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.common",
+      "name": "smallrye-common-cpu",
+      "version": "2.3.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "c75253b1-99e6-421d-a05f-27e05d76a17c"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.jboss.resteasy.microprofile",
+      "name": "microprofile-rest-client",
+      "version": "2.1.5.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "f8dc228f-ab7c-4917-860a-fa8954c12999"
+    }
+  },
+  {
+    "violationState": "WARN",
+    "type": "LICENSE",
+    "policyName": "Weak Copyleft",
+    "component": {
+      "group": "jakarta.interceptor",
+      "name": "jakarta.interceptor-api",
+      "version": "2.2.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "b4b560cf-ecb5-4135-9834-735ace530f5f"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.netty",
+      "name": "netty-codec-socks",
+      "version": "4.1.108.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "1fe68824-4080-4752-bb0e-0b4d843f1833"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.eclipse.angus",
+      "name": "angus-activation",
+      "version": "2.0.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "0abf0f8c-b348-4929-9bea-29be01eee45f"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.config",
+      "name": "smallrye-config",
+      "version": "3.8.3",
+      "lastBomImport": 1757446113205,
+      "uuid": "c93c4055-68d8-455c-9f33-4ef3afc2c5f2"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus.security",
+      "name": "quarkus-security",
+      "version": "2.1.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "2609cf82-385d-4170-b06e-184852174a54"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-mailer",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "348d2f95-cbe6-42b9-b97c-ee248ceef99d"
+    }
+  },
+  {
+    "violationState": "WARN",
+    "type": "LICENSE",
+    "policyName": "Weak Copyleft",
+    "component": {
+      "group": "jakarta.transaction",
+      "name": "jakarta.transaction-api",
+      "version": "2.0.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "b5815001-973a-42cd-a8e8-94756f96504d"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.config",
+      "name": "smallrye-config-validator",
+      "version": "3.8.3",
+      "lastBomImport": 1757446113205,
+      "uuid": "11ad4fce-7d05-45d1-af08-f51ab0372126"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.jboss.resteasy",
+      "name": "resteasy-client-api",
+      "version": "6.2.9.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "dc38ac33-f302-48d7-be33-eb65112dd852"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.google.auto.value",
+      "name": "auto-value-annotations",
+      "version": "1.10.4",
+      "lastBomImport": 1757446113205,
+      "uuid": "67207f24-177e-4d05-beb0-5fb955104b7e"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.fasterxml.jackson.core",
+      "name": "jackson-core",
+      "version": "2.17.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "286ed8ae-01da-44dc-8ab3-a2858ec8f9e4"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.fasterxml.jackson.datatype",
+      "name": "jackson-datatype-jsr310",
+      "version": "2.17.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "9c29d537-4978-4873-b2cc-0afdaa71b82a"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.reactive",
+      "name": "smallrye-mutiny-vertx-bridge-common",
+      "version": "3.12.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "94ff1e37-1e93-412c-836b-c38627886e36"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.vertx",
+      "name": "vertx-web-client",
+      "version": "4.5.7",
+      "lastBomImport": 1757446113205,
+      "uuid": "9e385262-7c07-4d88-86f8-00b9a2d1a1f2"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.google.code.gson",
+      "name": "gson",
+      "version": "2.11.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "91dd7509-7dfd-4536-ac7e-cf4948900ffb"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus.http",
+      "name": "quarkus-http-servlet",
+      "version": "5.2.2.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "a3e37111-2eff-47e8-bb1a-627d91952913"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.netty",
+      "name": "netty-codec-http2",
+      "version": "4.1.108.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "ea9ddacf-e42a-4017-a134-5185b34ebce7"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-jaxb",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "c4d7fa2a-e5d2-4d32-ac49-63a1a6b74eae"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.antlr",
+      "name": "antlr4-runtime",
+      "version": "4.13.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "d888d8f0-d53c-4a99-93e4-c90af02bff63"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.aayushatharva.brotli4j",
+      "name": "brotli4j",
+      "version": "1.16.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "55ead183-3adb-41ea-b46d-d8fd2685339f"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-mutiny",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "4030b151-cc28-4f9f-99e6-36f9239952f8"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-undertow",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "ddd0be2d-f41c-4067-86bf-2b81abe6c424"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-ide-launcher",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "35160563-4a32-4ff0-85a7-fe9c4200de3c"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.reactive",
+      "name": "smallrye-mutiny-vertx-mail-client",
+      "version": "3.12.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "c08cfd79-05a0-42e6-aafe-512b51e70d0c"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-vertx-http",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "efdd1a43-a5fb-43c1-8a77-82353785d60c"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye",
+      "name": "smallrye-open-api-core",
+      "version": "3.10.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "a2d73b31-9b14-406c-9c48-bc5dcf33beab"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.glassfish.jaxb",
+      "name": "txw2",
+      "version": "4.0.5",
+      "lastBomImport": 1757446113205,
+      "uuid": "ba474967-d218-4780-a380-dd115db27894"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.google.errorprone",
+      "name": "error_prone_annotations",
+      "version": "2.28.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "5e3a196d-05a3-4a7f-b9c9-8231ff189ddc"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.reactive",
+      "name": "smallrye-mutiny-vertx-web-client",
+      "version": "3.12.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "ba64c657-495c-4e15-afa5-9c19a543d029"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus.http",
+      "name": "quarkus-http-core",
+      "version": "5.2.2.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "300c955c-18a0-4fd7-a8ed-67c1dbbb55d7"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-hibernate-orm",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "6fa5959c-7400-444e-accc-8b7a3834afc1"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "jakarta.enterprise",
+      "name": "jakarta.enterprise.lang-model",
+      "version": "4.1.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "cc318d93-9620-40eb-9534-0a32b12b30af"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.wildfly.common",
+      "name": "wildfly-common",
+      "version": "1.7.0.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "3ec98378-41eb-4044-a012-acc996657220"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.vertx",
+      "name": "vertx-auth-common",
+      "version": "4.5.7",
+      "lastBomImport": 1757446113205,
+      "uuid": "3442ca06-2027-4734-bdc4-8b4aa35411d6"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.opencensus",
+      "name": "opencensus-api",
+      "version": "0.31.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "bf6f673c-43b9-4030-8a77-7ecd94acbbe0"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.aayushatharva.brotli4j",
+      "name": "native-windows-x86_64",
+      "version": "1.16.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "e094225c-a58a-46e4-84e3-3f11ecd86edd"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.eclipse.microprofile.health",
+      "name": "microprofile-health-api",
+      "version": "4.0.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "c821b4cb-4224-472c-adee-8e90620c3d4e"
+    }
+  },
+  {
+    "violationState": "WARN",
+    "type": "LICENSE",
+    "policyName": "Weak Copyleft",
+    "component": {
+      "group": "com.github.java-json-tools",
+      "name": "json-patch",
+      "version": "1.13",
+      "lastBomImport": 1757446113205,
+      "uuid": "4a0a1bbd-cfca-42be-b1bf-803e27493af5"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.common",
+      "name": "smallrye-common-expression",
+      "version": "2.3.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "e5329668-a3d3-4acf-9452-bf7fafb05c1d"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.reactive",
+      "name": "mutiny",
+      "version": "2.6.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "aedc73f8-6b7d-44fa-a294-0d7fbcb6f583"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.google.auth",
+      "name": "google-auth-library-credentials",
+      "version": "1.23.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "c10ab37b-7960-4abb-832b-e5dfc988f1fe"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.ibm.async",
+      "name": "asyncutil",
+      "version": "0.1.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "3244739e-2044-4df9-b269-6dae756369dd"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.github.ben-manes.caffeine",
+      "name": "caffeine",
+      "version": "3.1.5",
+      "lastBomImport": 1757446113205,
+      "uuid": "040b3b55-306d-4de7-81c7-c8d82d3490dd"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.google.http-client",
+      "name": "google-http-client",
+      "version": "1.44.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "03598ad9-b961-4a44-a9b4-e63afe931e87"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-resteasy-common",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "fcb90291-1e01-4596-a688-4a7606a158aa"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-hibernate-orm-panache",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "2c7d62f6-472d-44af-b8f5-663fc7b7ab21"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.cronutils",
+      "name": "cron-utils",
+      "version": "9.2.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "9114d150-f29f-4bc6-add9-3dbf66da9f16"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.netty",
+      "name": "netty-codec-http",
+      "version": "4.1.108.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "00174f24-0ef0-47ee-aead-b5ef2ffc366c"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.google.auth",
+      "name": "google-auth-library-oauth2-http",
+      "version": "1.23.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "006de0d3-ea87-4449-96cb-e897396cc339"
+    }
+  },
+  {
+    "violationState": "WARN",
+    "type": "LICENSE",
+    "policyName": "Weak Copyleft",
+    "component": {
+      "group": "jakarta.json",
+      "name": "jakarta.json-api",
+      "version": "2.1.3",
+      "lastBomImport": 1757446113205,
+      "uuid": "c116bfac-30d7-41e3-81e5-4da713447a85"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.fasterxml",
+      "name": "classmate",
+      "version": "1.7.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "a020b705-80d0-4918-a45b-a672bef23e55"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.jboss.resteasy.microprofile",
+      "name": "microprofile-rest-client-base",
+      "version": "2.1.5.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "ae74d102-0e74-4c5a-887b-d6cee8849488"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-smallrye-metrics",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "4be40069-0978-44c5-93e3-a0a0c8abadd5"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.hibernate",
+      "name": "quarkus-local-cache",
+      "version": "0.3.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "a765283e-9193-49f2-9c0e-4b712b4d2211"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.apache.commons",
+      "name": "commons-lang3",
+      "version": "3.14.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "7fc527a4-2e3a-4f38-9a1b-cd28a8d10bf6"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.netty",
+      "name": "netty-resolver-dns",
+      "version": "4.1.108.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "6f73e342-c278-47ac-a060-564ebb84771c"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.sun.xml.ws",
+      "name": "rt",
+      "version": "4.0.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "44349d95-fba4-4d88-a368-4abacb7dad4c"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.google.apis",
+      "name": "google-api-services-gmail",
+      "version": "v1-rev20231218-2.0.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "32e58b44-647c-4e09-aebb-3ab8244d9616"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.vertx",
+      "name": "vertx-web-common",
+      "version": "4.5.7",
+      "lastBomImport": 1757446113205,
+      "uuid": "00372ff1-45c1-4016-a483-b05b70e2ed94"
+    }
+  },
+  {
+    "violationState": "WARN",
+    "type": "LICENSE",
+    "policyName": "Weak Copyleft",
+    "component": {
+      "group": "jakarta.el",
+      "name": "jakarta.el-api",
+      "version": "5.0.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "1b59da80-4045-44f6-86a3-3eb2a0192641"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.netty",
+      "name": "netty-codec-haproxy",
+      "version": "4.1.108.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "6758ce9d-2218-4387-b4ca-3d9cf95a910e"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.config",
+      "name": "smallrye-config-source-yaml",
+      "version": "3.8.3",
+      "lastBomImport": 1757446113205,
+      "uuid": "b5b02d60-e316-454f-914a-08711c4d937d"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.jboss.slf4j",
+      "name": "slf4j-jboss-logmanager",
+      "version": "2.0.0.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "da00a633-9553-4573-bff2-118ff9cdadcc"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye",
+      "name": "smallrye-jwt-build",
+      "version": "4.5.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "cc71e970-b0ef-4f69-afff-d47e3cbb19f1"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.jboss.resteasy.microprofile",
+      "name": "microprofile-config",
+      "version": "2.1.5.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "b060e766-11fc-437a-a9a7-3540bcadd92d"
+    }
+  },
+  {
+    "violationState": "WARN",
+    "type": "LICENSE",
+    "policyName": "Weak Copyleft",
+    "component": {
+      "group": "jakarta.ws.rs",
+      "name": "jakarta.ws.rs-api",
+      "version": "3.1.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "9c14354b-79b5-495b-80ef-dcebeb59b9ae"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.common",
+      "name": "smallrye-common-annotation",
+      "version": "2.3.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "c80390b7-a91b-42e5-9941-0263d0e481de"
+    }
+  },
+  {
+    "violationState": "WARN",
+    "type": "LICENSE",
+    "policyName": "Weak Copyleft",
+    "component": {
+      "group": "org.eclipse.angus",
+      "name": "angus-mail",
+      "version": "2.0.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "41911ba3-c423-4f23-8762-95bda655e29f"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.reactive",
+      "name": "smallrye-mutiny-vertx-web",
+      "version": "3.12.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "48a0266f-c0d5-4412-8688-b0dae75a3c6a"
+    }
+  },
+  {
+    "violationState": "WARN",
+    "type": "LICENSE",
+    "policyName": "Weak Copyleft",
+    "component": {
+      "group": "org.glassfish.ha",
+      "name": "ha-api",
+      "version": "3.1.13",
+      "lastBomImport": 1757446113205,
+      "uuid": "384f45ea-5e46-44cd-ab1b-c6be3f1e53a6"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.grpc",
+      "name": "grpc-api",
+      "version": "1.64.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "3a57484b-a3d9-49ad-8cac-788184f3ce10"
+    }
+  },
+  {
+    "violationState": "WARN",
+    "type": "LICENSE",
+    "policyName": "Weak Copyleft",
+    "component": {
+      "group": "com.github.java-json-tools",
+      "name": "jackson-coreutils",
+      "version": "2.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "95f064a3-a962-4671-9607-5032116fad15"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-caffeine",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "d58ea3bb-9883-4ea6-bcd7-da66839fad0c"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.netty",
+      "name": "netty-codec",
+      "version": "4.1.108.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "ec6785bb-7a0d-494e-9380-ed5fb96c172d"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.fasterxml.jackson.dataformat",
+      "name": "jackson-dataformat-yaml",
+      "version": "2.17.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "5af9b312-2575-47f2-865e-821de2bd6e1b"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.apache.httpcomponents",
+      "name": "httpasyncclient",
+      "version": "4.1.5",
+      "lastBomImport": 1757446113205,
+      "uuid": "343f128d-5ded-42df-93a2-1e039edda272"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.jctools",
+      "name": "jctools-core",
+      "version": "4.0.3",
+      "lastBomImport": 1757446113205,
+      "uuid": "17666d41-0a15-431f-aa18-9319c9192e10"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye",
+      "name": "smallrye-context-propagation-api",
+      "version": "2.1.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "3ab644d0-d17f-47ad-89b8-d4ab996f6357"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.fasterxml.jackson.core",
+      "name": "jackson-databind",
+      "version": "2.17.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "dd6114fe-2ad6-4c47-97ac-d8c50aa147bb"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "jakarta.activation",
+      "name": "jakarta.activation-api",
+      "version": "2.1.3",
+      "lastBomImport": 1757446113205,
+      "uuid": "ce2bbed1-3553-4407-a7f8-19be1e9108a9"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.jvnet.staxex",
+      "name": "stax-ex",
+      "version": "2.1.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "9f5985a1-41e2-42a1-99ad-ff29f915eee3"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-security",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "f0bcfec8-2183-414b-a5e3-05737944da60"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.jboss.resteasy",
+      "name": "resteasy-client",
+      "version": "6.2.9.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "8847fbda-830b-40c4-96ec-6c5ca294e985"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-virtual-threads",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "17894d66-2263-4fa1-9a9d-7dca7677c014"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-hibernate-validator",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "250594d0-5d6d-477d-b35f-108f5e6710f3"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus.qute",
+      "name": "qute-core",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "76c212da-e5e1-48d2-8d7a-6f25ef68dc1e"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-arc",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "03e0c6f3-e928-4184-a8f4-e1194de107a0"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-jackson",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "344b857d-adb9-4760-8aa6-cd34aef9720a"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.vertx",
+      "name": "vertx-bridge-common",
+      "version": "4.5.7",
+      "lastBomImport": 1757446113205,
+      "uuid": "05684321-2c5b-477e-8703-06d70bc8f87c"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.hibernate.validator",
+      "name": "hibernate-validator",
+      "version": "8.0.1.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "78c0e797-a2ef-4663-b009-81d9c18199c9"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.google.code.findbugs",
+      "name": "jsr305",
+      "version": "3.0.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "a458afcc-f34b-4816-a7d0-4fae6ebcd701"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-resteasy-jackson",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "3657ab22-ee87-4c2e-9110-4c3b1661a52f"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus.vertx.utils",
+      "name": "quarkus-vertx-utils",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "86760bb7-5928-40b9-905d-8053ecba9b8f"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.liquibase",
+      "name": "liquibase-core",
+      "version": "4.27.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "5573f1aa-f90d-4633-a45a-5be8bd8fa737"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.netty",
+      "name": "netty-common",
+      "version": "4.1.108.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "5cf43536-6eea-4927-b274-8aa45edcf5c0"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.jboss.resteasy",
+      "name": "resteasy-jackson2-provider",
+      "version": "6.2.9.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "cd1f9ccb-7992-40a8-ba1e-89496e17eb23"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-smallrye-health",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "603af0a9-3aea-4f55-aa86-4cecfe70af85"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.common",
+      "name": "smallrye-common-os",
+      "version": "2.3.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "f0826916-a458-4e26-995a-add73a24440f"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.sun.xml.messaging.saaj",
+      "name": "saaj-impl",
+      "version": "3.0.3",
+      "lastBomImport": 1757446113205,
+      "uuid": "3d16b3da-3600-4d63-89f6-9a08cc6cdcd3"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.apache.commons",
+      "name": "commons-text",
+      "version": "1.12.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "9e0666b8-a311-4d12-abc7-325d11f4b4a9"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.jboss.logging",
+      "name": "jboss-logging-annotations",
+      "version": "2.2.1.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "d824ef43-69aa-40f8-bb52-03e1f0d30efe"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-narayana-jta",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "2ecbb8ff-4686-4437-870f-bb18dcb9b896"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye",
+      "name": "smallrye-context-propagation-storage",
+      "version": "2.1.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "d140abb4-7536-4660-addf-d58052fb6002"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.netty",
+      "name": "netty-handler-proxy",
+      "version": "4.1.108.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "724d38a8-ee82-4795-a1e8-4c5a6fd64c24"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.fasterxml.jackson.core",
+      "name": "jackson-annotations",
+      "version": "2.17.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "0a6d86b6-68bd-413e-a43b-adf94c211f78"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.eclipse.microprofile.openapi",
+      "name": "microprofile-openapi-api",
+      "version": "3.1.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "17e76428-f8cd-44d5-bf9a-7946d5f84cb9"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.jboss.resteasy",
+      "name": "resteasy-cdi",
+      "version": "6.2.9.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "66e63dd1-9d3b-4c5f-89e0-5c76c96c4844"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.vertx",
+      "name": "vertx-core",
+      "version": "4.5.7",
+      "lastBomImport": 1757446113205,
+      "uuid": "e04aac54-4fb7-4007-93b5-284f78fff32e"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.netty",
+      "name": "netty-codec-dns",
+      "version": "4.1.108.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "447f1d5a-88da-447f-bc3d-9b4404e2ef35"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.opencensus",
+      "name": "opencensus-contrib-http-util",
+      "version": "0.31.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "7835e2a3-0a8b-4be8-a056-deede1af6e07"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.reactive",
+      "name": "smallrye-mutiny-vertx-uri-template",
+      "version": "3.12.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "0ddc760c-09c3-441c-9a5c-7671e5b0c6dc"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-config-yaml",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "1ce38522-896d-43ff-8ef5-4acad1f80176"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.google.guava",
+      "name": "guava",
+      "version": "33.2.1-jre",
+      "lastBomImport": 1757446113205,
+      "uuid": "3053f13f-f312-4a8a-b5a9-ced8f44cb18a"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.config",
+      "name": "smallrye-config-core",
+      "version": "3.8.3",
+      "lastBomImport": 1757446113205,
+      "uuid": "a9633ad4-a577-4567-9140-93a306a12653"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye",
+      "name": "smallrye-metrics",
+      "version": "4.0.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "893fcd8a-595f-4a45-bd53-aa16ec8460ca"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.opentelemetry",
+      "name": "opentelemetry-api",
+      "version": "1.32.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "66795d67-4603-456c-98ea-823505c00a21"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.reactive",
+      "name": "smallrye-reactive-converter-api",
+      "version": "3.0.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "37ddc283-3955-4d33-b60c-1726652062d6"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.reactive",
+      "name": "smallrye-mutiny-vertx-core",
+      "version": "3.12.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "f28ce5bd-4567-44bf-ac51-60331023f56a"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-resteasy-server-common",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "bf3343e4-1e66-46d5-a270-aa87c08b0a7d"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.vertx",
+      "name": "vertx-mail-client",
+      "version": "4.5.7",
+      "lastBomImport": 1757446113205,
+      "uuid": "35651d01-e5cc-480f-a130-2a1fe43f7bdf"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-resteasy-client",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "ff6a8621-bc84-480b-9951-235c7f365627"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-agroal",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "1cde4c8b-568a-42af-94e7-8cebb41c2b65"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-smallrye-jwt-build",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "6f8a4215-4588-45d3-8787-f7ecdea66962"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.yaml",
+      "name": "snakeyaml",
+      "version": "2.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "b87763fa-831d-496e-bdfa-5736b916df20"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.opentelemetry",
+      "name": "opentelemetry-context",
+      "version": "1.32.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "c2833dc6-f633-437e-b332-217e1847ad32"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.reactive",
+      "name": "smallrye-mutiny-vertx-auth-common",
+      "version": "3.12.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "2263f380-4ddd-46e2-a509-c7a8a24cfc7b"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.reactive",
+      "name": "vertx-mutiny-generator",
+      "version": "3.12.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "2e6f5e0a-97dd-4bb3-88df-94f6d896b08e"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.github.crac",
+      "name": "org-crac",
+      "version": "0.1.3",
+      "lastBomImport": 1757446113205,
+      "uuid": "8ed623a1-d1a4-46bc-8236-bb11be568419"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-scheduler-api",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "d93483b0-3305-4feb-88ed-ef4ea0d48fd4"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.agroal",
+      "name": "agroal-api",
+      "version": "2.4",
+      "lastBomImport": 1757446113205,
+      "uuid": "ed5b3864-fea0-4873-8437-14b17740b381"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.sun.istack",
+      "name": "istack-commons-runtime",
+      "version": "4.1.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "80f26d61-bf50-44ca-bacc-ee6fb4cf2c95"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.jboss.logging",
+      "name": "commons-logging-jboss-logging",
+      "version": "1.0.0.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "356648a9-8157-4aba-8367-c920e8aa2be7"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-credentials",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "55db4050-46af-47ce-8044-bde213c52ce7"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus.http",
+      "name": "quarkus-http-vertx-backend",
+      "version": "5.2.2.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "58da9ac4-f07d-47e9-9037-9ba2bf3e0dad"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.common",
+      "name": "smallrye-common-function",
+      "version": "2.3.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "22d65484-6664-4512-bc03-32d17e9db082"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-resteasy-client-jackson",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "094b728f-34c6-440b-afc7-b42ead45008a"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.eclipse.microprofile.config",
+      "name": "microprofile-config-api",
+      "version": "3.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "5ef8ee6c-c903-4da8-a94e-4e17f7860232"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-hibernate-orm-panache-common",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "918ee099-d5ca-4fdd-8824-5ce8dbc9f180"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-security-runtime-spi",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "33572fda-4f0d-4c1f-a6b3-f0e6b2b8b9f8"
+    }
+  },
+  {
+    "violationState": "WARN",
+    "type": "LICENSE",
+    "policyName": "Weak Copyleft",
+    "component": {
+      "group": "org.hibernate.orm",
+      "name": "hibernate-graalvm",
+      "version": "6.5.2.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "cafe967e-b217-4c84-9961-a08e1bde6004"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-transaction-annotations",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "3d3fec90-224a-4b37-9987-48f5cdf01ae4"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "net.bytebuddy",
+      "name": "byte-buddy",
+      "version": "1.14.15",
+      "lastBomImport": 1757446113205,
+      "uuid": "b806eeeb-2caa-49d5-8c75-3770602141a2"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-oidc",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "5bd485ea-1574-473d-81c0-dbbe538b34be"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-smallrye-openapi",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "af81a991-1c34-419e-8c59-563a4db99af1"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.threeten",
+      "name": "threeten-extra",
+      "version": "1.7.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "27b05061-fe0b-418b-bd65-1a0dc64145e9"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.common",
+      "name": "smallrye-common-classloader",
+      "version": "2.3.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "806f0f11-09c3-476e-8f29-7462547ce485"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.eclipse.microprofile.metrics",
+      "name": "microprofile-metrics-api",
+      "version": "4.0.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "45845d04-8dca-435f-bdf7-b9e990407678"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.agroal",
+      "name": "agroal-narayana",
+      "version": "2.4",
+      "lastBomImport": 1757446113205,
+      "uuid": "dcefa1a6-7f8a-4e9c-98f5-c11b4c37405b"
+    }
+  },
+  {
+    "violationState": "WARN",
+    "type": "LICENSE",
+    "policyName": "Weak Copyleft",
+    "component": {
+      "group": "jakarta.servlet",
+      "name": "jakarta.servlet-api",
+      "version": "6.0.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "4782fa46-13ab-42da-8752-ec3087f6a898"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-qute",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "dc2246a9-eec6-4e45-bd5c-4fa9fa517bdd"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.config",
+      "name": "smallrye-config-common",
+      "version": "3.8.3",
+      "lastBomImport": 1757446113205,
+      "uuid": "b99841aa-2a1f-42b9-af5d-84819073cad8"
+    }
+  },
+  {
+    "violationState": "WARN",
+    "type": "LICENSE",
+    "policyName": "Weak Copyleft",
+    "component": {
+      "group": "jakarta.resource",
+      "name": "jakarta.resource-api",
+      "version": "2.1.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "7926f7aa-bc89-42aa-8c38-df4cc88eeda4"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.fasterxml.woodstox",
+      "name": "woodstox-core",
+      "version": "6.5.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "fc459b26-bb5b-44bf-acc8-d4ad2f3c84ea"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.codehaus.woodstox",
+      "name": "stax2-api",
+      "version": "4.2.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "3496d38b-e9cd-4625-a67a-67e8078f0aad"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-jsonp",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "e25b1d45-a570-470c-be84-1419f4ff7cc8"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.fasterxml.jackson.module",
+      "name": "jackson-module-parameter-names",
+      "version": "2.17.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "faaac51a-1ca8-400d-9b60-bab7dc7dab9b"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-scheduler-spi",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "6d63bb59-6da6-499a-8532-38842f41d44f"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-development-mode-spi",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "c10d8da3-cbdb-420f-8075-298ecf075ee7"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "jakarta.xml.ws",
+      "name": "jakarta.xml.ws-api",
+      "version": "4.0.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "e0d488e7-3b94-411a-aec9-5089c635eed5"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.jboss.resteasy",
+      "name": "resteasy-core",
+      "version": "6.2.9.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "3f387b38-2439-49a8-8fb8-71a3e29822cb"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.fasterxml.jackson.module",
+      "name": "jackson-module-jakarta-xmlbind-annotations",
+      "version": "2.17.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "7cae1ee6-558c-4004-a4db-2b5e6f609afb"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.slf4j",
+      "name": "slf4j-api",
+      "version": "2.0.6",
+      "lastBomImport": 1757446113205,
+      "uuid": "b33e6edb-c1be-4e89-bdf1-5dc835470f18"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye",
+      "name": "smallrye-jwt",
+      "version": "4.5.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "a5da5656-f6ea-4c53-a862-92a78a7f9c26"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-vertx",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "8012fa32-34f6-4b42-b6f9-e7514e8adb3e"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.netty",
+      "name": "netty-handler",
+      "version": "4.1.108.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "966374c6-8904-4253-b191-8470df977b08"
+    }
+  },
+  {
+    "violationState": "WARN",
+    "type": "LICENSE",
+    "policyName": "Weak Copyleft",
+    "component": {
+      "group": "com.github.java-json-tools",
+      "name": "btf",
+      "version": "1.3",
+      "lastBomImport": 1757446113205,
+      "uuid": "33f8a898-2839-4a28-8b63-a5c5b932d5de"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.glassfish.gmbal",
+      "name": "gmbal-api-only",
+      "version": "4.0.3",
+      "lastBomImport": 1757446113205,
+      "uuid": "1a760c53-030c-41e4-8a57-be8ef57991a7"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.google.j2objc",
+      "name": "j2objc-annotations",
+      "version": "2.8",
+      "lastBomImport": 1757446113205,
+      "uuid": "cfa570db-1da6-44a2-a1b6-e5855295de20"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye",
+      "name": "smallrye-jwt-common",
+      "version": "4.5.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "f7aa6049-8aee-490f-9f5e-923dab234a94"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.common",
+      "name": "smallrye-common-constraint",
+      "version": "2.3.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "c356e0e5-02f4-4987-a5fd-ec63a9d7c1b3"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.vertx",
+      "name": "vertx-codegen",
+      "version": "4.5.7",
+      "lastBomImport": 1757446113205,
+      "uuid": "8983ff83-c4bf-4218-93d0-746fd0735ea7"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-liquibase",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "7f9042fd-d006-4515-8515-77843c97c2a7"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-scheduler",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "16bba89e-c875-4a2e-b287-801950c9eb5d"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye",
+      "name": "smallrye-health-provided-checks",
+      "version": "4.1.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "2f6daa06-8e3c-4d92-93d9-de2125be3958"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-rest-client-config",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "6a840fad-373f-41df-b345-d6e941dcceaa"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.vertx",
+      "name": "vertx-web",
+      "version": "4.5.7",
+      "lastBomImport": 1757446113205,
+      "uuid": "377020f7-fc7f-43f9-ab60-95c436d1d16b"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-scheduler-common",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "b216f3dc-57fd-4239-b007-2eee5fb59c75"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye.common",
+      "name": "smallrye-common-io",
+      "version": "2.3.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "17482dd6-81d9-4ab4-a6c9-c411e1c8a061"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.fasterxml.jackson.jakarta.rs",
+      "name": "jackson-jakarta-rs-base",
+      "version": "2.17.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "d6e50746-0aa7-4e5f-beef-87ee93fd8945"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "commons-codec",
+      "name": "commons-codec",
+      "version": "1.17.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "892e6871-9ae1-41ce-89da-74c59e992544"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-swagger-ui",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "0fe656dd-1b07-4943-b661-0d22311abfec"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-oidc-common",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "fdd4c800-5ec4-474a-82fc-24e07d3fe210"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.google.api-client",
+      "name": "google-api-client",
+      "version": "2.3.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "5d22072e-9987-4303-be6b-2639f8a5062d"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.opencsv",
+      "name": "opencsv",
+      "version": "5.9",
+      "lastBomImport": 1757446113205,
+      "uuid": "c8b6ee86-d233-4d22-b3f8-443ab7a1d085"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-tls-registry",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "cc811fc8-0bc5-4c03-866b-98cc63b0abf6"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.eclipse.microprofile.jwt",
+      "name": "microprofile-jwt-auth-api",
+      "version": "2.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "bb454b3a-79ca-42fb-be14-1522e196f028"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-fs-util",
+      "version": "0.0.10",
+      "lastBomImport": 1757446113205,
+      "uuid": "6fd7aa28-e17e-4ddd-97e8-2ca1f8b808d0"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.jboss.resteasy",
+      "name": "resteasy-core-spi",
+      "version": "6.2.9.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "115d2430-7226-42ba-a59e-f2bd2d4edf20"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.glassfish.jaxb",
+      "name": "jaxb-runtime",
+      "version": "4.0.5",
+      "lastBomImport": 1757446113205,
+      "uuid": "74dc1342-a290-4741-9748-22d4f3602252"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.jboss.narayana.jta",
+      "name": "narayana-jta",
+      "version": "7.0.1.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "40ab9bbe-89e3-4d79-a1b1-71fc09b0fbc9"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.apache.httpcomponents",
+      "name": "httpcore",
+      "version": "4.4.16",
+      "lastBomImport": 1757446113205,
+      "uuid": "35212ac1-06bd-4a00-b139-7a5ce34c1477"
+    }
+  },
+  {
+    "violationState": "WARN",
+    "type": "LICENSE",
+    "policyName": "Weak Copyleft",
+    "component": {
+      "group": "org.hibernate.orm",
+      "name": "hibernate-core",
+      "version": "6.5.2.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "49b98a9a-7833-4d28-b415-6b6375b4dff6"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.fasterxml.jackson.datatype",
+      "name": "jackson-datatype-jdk8",
+      "version": "2.17.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "031e6f3f-0fe9-43e0-86b3-d24831d60cb5"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.apache.httpcomponents",
+      "name": "httpclient",
+      "version": "4.5.14",
+      "lastBomImport": 1757446113205,
+      "uuid": "24b301e4-5b9e-4558-a43d-e38e2ea83b30"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.sun.xml.stream.buffer",
+      "name": "streambuffer",
+      "version": "2.1.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "7098e2a1-52e0-4ea0-a327-e86b727d1b65"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-datasource",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "4bfa3995-cac9-4d43-ab93-e3a9bbcf4fa9"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.jboss.invocation",
+      "name": "jboss-invocation",
+      "version": "2.0.0.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "0d8a1b29-a4a3-46be-970a-352bf4250a04"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.glassfish.external",
+      "name": "management-api",
+      "version": "3.2.3",
+      "lastBomImport": 1757446113205,
+      "uuid": "833f203a-b521-43cc-a005-fbb757e18033"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.netty",
+      "name": "netty-resolver",
+      "version": "4.1.108.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "48b26314-2ba9-4680-85cc-41c3bb7f118f"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.google.guava",
+      "name": "failureaccess",
+      "version": "1.0.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "3ec22845-5782-4cbc-a0e6-b09d896b4105"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-resteasy",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "5236ad71-91f4-4f95-a1d3-6622d227d3a1"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.jboss.threads",
+      "name": "jboss-threads",
+      "version": "3.6.1.Final",
+      "lastBomImport": 1757446113205,
+      "uuid": "248ccbea-e7c0-48cd-a6c0-dc6161416eb2"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.smallrye",
+      "name": "smallrye-health-api",
+      "version": "4.1.0",
+      "lastBomImport": 1757446113205,
+      "uuid": "353292e6-f9f8-4923-b507-9d2d6fc72754"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "org.glassfish.jaxb",
+      "name": "jaxb-core",
+      "version": "4.0.5",
+      "lastBomImport": 1757446113205,
+      "uuid": "7007bcc7-4eec-4d13-a348-6ab1816873d1"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "com.google.http-client",
+      "name": "google-http-client-apache-v2",
+      "version": "1.44.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "4a43c892-6fbc-4f27-9016-691027d8b94c"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "io.quarkus",
+      "name": "quarkus-classloader-commons",
+      "version": "3.12.1",
+      "lastBomImport": 1757446113205,
+      "uuid": "4ed04361-325c-497e-b90a-6d5be1cde2dc"
+    }
+  },
+  {
+    "violationState": "INFO",
+    "type": "LICENSE",
+    "policyName": "Permissive",
+    "component": {
+      "group": "jakarta.validation",
+      "name": "jakarta.validation-api",
+      "version": "3.0.2",
+      "lastBomImport": 1757446113205,
+      "uuid": "bd3167c8-70a0-4801-bcd3-e1e61f903a3d"
+    }
+  }
+]

@@ -105,6 +105,21 @@ vulnerabilities() {
   echo "✓ vulnerability_summary.csv"
 }
 
+# ================================
+# Function: policy_violations
+# ================================
+policy_violations() {
+  jq -r '.[]
+    | select(.policyViolations != null and (.policyViolations | length > 0))
+    | . as $parent
+    | .policyViolations[]
+    | [.violationState, .type, .policyName, $parent.groupId, $parent.artifactId]
+    | @csv' "$JSON_FILE" \
+  | awk 'BEGIN { print "\"violationState\",\"type\",\"policyName\",\"groupId\",\"artifactId\"" } { print }' \
+  > $DIRECTORY/policyViolations.csv
+
+  echo "✓ policyViolations.csv"
+}
 
 
 # ================================
@@ -128,6 +143,7 @@ createAll() {
   main_artifacts
   relocations
   vulnerabilities
+  policy_violations
   new_versions
   echo "🎉 All CSVs generated successfully."
 }
