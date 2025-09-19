@@ -94,7 +94,7 @@ def main():
 if __name__ == "__main__":
     main()
 EOF
-    echo "Created $PROJECT_ROOT/convert.py"
+    echo "Created convert.py"
 else
     echo "Found existing convert.py"
 fi
@@ -143,7 +143,7 @@ if __name__ == "__main__":
         sys.exit(1)
     update_dependencies_with_dates(sys.argv[1], sys.argv[2])
 EOF
-    echo "Created $PROJECT_ROOT/dated.py"
+    echo "Created dated.py"
 else
     echo "Found existing dated.py"
 fi
@@ -172,7 +172,7 @@ if __name__ == "__main__":
         sys.exit(1)
     update_dependencies_with_relocations(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
 EOF
-    echo "Created $PROJECT_ROOT/relocated.py"
+    echo "Created relocated.py"
 else
     echo "Found existing relocated.py"
 fi
@@ -194,34 +194,38 @@ fi
 for module in $modules; do
     echo "Processing module: $module"
 
-    cd "$PROJECT_ROOT/$module" || exit 1
-    mkdir -p build/reports
+    mkdir -p "$PROJECT_ROOT/$module/build/reports"
 
+    ########################################
+    # GENERATE DEPENDENCY TREE
+    ########################################
     echo "Generating dependency tree for $module..."
-    ./gradlew dependencies --configuration runtimeClasspath > build/reports/dependency-tree.txt
+    if [ "$module" = "." ]; then
+        "$PROJECT_ROOT/gradlew" dependencies --configuration runtimeClasspath > "$PROJECT_ROOT/$module/build/reports/dependency-tree.txt"
+    else
+        gradle_module="${module#./}"
+        gradle_module="${gradle_module//\//\:}"
+        "$PROJECT_ROOT/gradlew" ":$gradle_module:dependencies" --configuration runtimeClasspath > "$PROJECT_ROOT/$module/build/reports/dependency-tree.txt"
+    fi
+
     if [ $? -ne 0 ]; then
         echo "Error generating dependency tree for $module"
-        cd "$PROJECT_ROOT" || exit 1
         continue
     fi
 
-    python3 "$PROJECT_ROOT/convert.py" build/reports/dependency-tree.txt build/reports/dependency-tree.json
+    python3 "$PROJECT_ROOT/convert.py" "$PROJECT_ROOT/$module/build/reports/dependency-tree.txt" "$PROJECT_ROOT/$module/build/reports/dependency-tree.json"
 
     ########################################
     # ENSURE OGA PLUGIN IS PRESENT (WITH BACKUP)
     ########################################
-    build_file_kts="$PROJECT_ROOT/$module/build.gradle.kts"
-    build_file_groovy="$PROJECT_ROOT/$module/build.gradle"
     build_file=""
-    backup_file=""
-
-    if [ -f "$build_file_kts" ]; then
-        build_file="$build_file_kts"
-    elif [ -f "$build_file_groovy" ]; then
-        build_file="$build_file_groovy"
+    if [ -f "$PROJECT_ROOT/$module/build.gradle.kts" ]; then
+        build_file="$PROJECT_ROOT/$module/build.gradle.kts"
+    elif [ -f "$PROJECT_ROOT/$module/build.gradle" ]; then
+        build_file="$PROJECT_ROOT/$module/build.gradle"
     else
-        echo "❌ No build.gradle.kts or build.gradle found for $module"
-        exit 1
+        echo "❌ No build.gradle or build.gradle.kts found for $module"
+        continue
     fi
 
     backup_file="${build_file}.bak"
@@ -230,30 +234,34 @@ for module in $modules; do
 
     if [[ "$build_file" == *".kts" ]]; then
         if ! grep -q 'id("biz.lermitage.oga")' "$build_file"; then
-            echo "Adding OGA plugin to $build_file (Kotlin DSL)..."
             sed -i '/plugins[[:space:]]*{/a \    id("biz.lermitage.oga") version("1.1.1")' "$build_file"
         fi
     else
         if ! grep -q "id 'biz.lermitage.oga'" "$build_file"; then
-            echo "Adding OGA plugin to $build_file (Groovy DSL)..."
             sed -i "/plugins[[:space:]]*{/a \    id 'biz.lermitage.oga' version '1.1.1'" "$build_file"
         fi
-    fi
-
-    if ! grep -q "biz.lermitage.oga" "$build_file"; then
-        echo "❌ Failed to insert OGA plugin into $build_file"
-        mv "$backup_file" "$build_file"
-        exit 1
     fi
 
     ########################################
     # RUN OGA GRADLE PLUGIN
     ########################################
     echo "Running OGA Gradle plugin check..."
-    ./gradlew biz-lermitage-oga-gradle-check > build/reports/oga-output.txt 2>&1
+    if [ "$module" = "." ]; then
+        "$PROJECT_ROOT/gradlew" --refresh-dependencies biz-lermitage-oga-gradle-check > "$PROJECT_ROOT/$module/build/reports/oga-output.txt" 2>&1
+    else
+        "$PROJECT_ROOT/gradlew" --refresh-dependencies ":$gradle_module:biz-lermitage-oga-gradle-check" > "$PROJECT_ROOT/$module/build/reports/oga-output.txt" 2>&1
+    fi
 
-    echo "Generating relocations from OGA output..."
-    > build/reports/relocations.json
+    if [ ! -s "$PROJECT_ROOT/$module/build/reports/oga-output.txt" ]; then
+        echo "⚠ OGA plugin did not produce any output for $module, skipping relocations"
+        mv "$backup_file" "$build_file"
+        continue
+    fi
+
+    ########################################
+    # GENERATE RELOCATIONS JSON
+    ########################################
+    > "$PROJECT_ROOT/$module/build/reports/relocations.json"
     while IFS= read -r line; do
         if [[ $line =~ \'([^\']+):([^\']+)\'[[:space:]]should[[:space:]]be[[:space:]]replaced[[:space:]]by[[:space:]]\'([^\']+)\' ]]; then
             old_group="${BASH_REMATCH[1]}"
@@ -267,11 +275,11 @@ for module in $modules; do
                 new_group="$first_replacement"
                 new_artifact="$first_replacement"
             fi
-            echo "$old_group:$old_artifact:$new_group:$new_artifact" >> build/reports/relocations.json
+            echo "$old_group:$old_artifact:$new_group:$new_artifact" >> "$PROJECT_ROOT/$module/build/reports/relocations.json"
         fi
-    done < build/reports/oga-output.txt
+    done < "$PROJECT_ROOT/$module/build/reports/oga-output.txt"
 
-    if [ -f build/reports/relocations.json ]; then
+    if [ -f "$PROJECT_ROOT/$module/build/reports/relocations.json" ]; then
         while IFS= read -r mapping; do
             old_group=$(echo "$mapping" | cut -d':' -f1)
             old_artifact=$(echo "$mapping" | cut -d':' -f2)
@@ -279,32 +287,30 @@ for module in $modules; do
             new_artifact=$(echo "$mapping" | cut -d':' -f4)
 
             python3 "$PROJECT_ROOT/relocated.py" \
-                build/reports/dependency-tree.json \
-                build/reports/dependency-tree.json \
+                "$PROJECT_ROOT/$module/build/reports/dependency-tree.json" \
+                "$PROJECT_ROOT/$module/build/reports/dependency-tree.json" \
                 "$old_group" "$old_artifact" "$new_group" "$new_artifact"
-        done < build/reports/relocations.json
+        done < "$PROJECT_ROOT/$module/build/reports/relocations.json"
     fi
 
-    # Add last updated dates
+    ########################################
+    # ADD LAST UPDATED DATES
+    ########################################
     python3 "$PROJECT_ROOT/dated.py" \
-        build/reports/dependency-tree.json \
-        build/reports/dependency-relocated-date.json
+        "$PROJECT_ROOT/$module/build/reports/dependency-tree.json" \
+        "$PROJECT_ROOT/$module/build/reports/dependency-relocated-date.json"
 
-    # Create gepardec-reports folder and move JSON
+    ########################################
+    # MOVE JSON TO gepardec-reports
+    ########################################
     gepardec_dir="$PROJECT_ROOT/$module/gepardec-reports"
     mkdir -p "$gepardec_dir"
-    if [ -s build/reports/dependency-relocated-date.json ]; then
-        mv build/reports/dependency-relocated-date.json "$gepardec_dir/"
+    if [ -s "$PROJECT_ROOT/$module/build/reports/dependency-relocated-date.json" ]; then
+        mv "$PROJECT_ROOT/$module/build/reports/dependency-relocated-date.json" "$gepardec_dir/"
         echo "✅ dependency-relocated-date.json moved to $gepardec_dir"
     else
-        echo "❌ Missing or empty: build/reports/dependency-relocated-date.json"
-        exit 1
+        echo "⚠ Missing or empty: $PROJECT_ROOT/$module/build/reports/dependency-relocated-date.json"
     fi
-
-    ########################################
-    # DELETE PYTHON HELPER SCRIPTS
-    ########################################
-    rm -f convert.py relocated.py dated.py
 
     ########################################
     # RESTORE ORIGINAL BUILD FILE
@@ -314,9 +320,13 @@ for module in $modules; do
         echo "Restored original build file: $build_file"
     fi
 
-    cd "$PROJECT_ROOT" || exit 1
     echo "✅ Finished processing $module"
     echo "----------------------------------------------------------"
 done
+
+########################################
+# DELETE PYTHON HELPER SCRIPTS
+########################################
+rm -f "$PROJECT_ROOT/convert.py" "$PROJECT_ROOT/relocated.py" "$PROJECT_ROOT/dated.py"
 
 echo "Gradle dependency processing completed successfully."

@@ -46,9 +46,36 @@ parse_args() {
 }
 
 extract_project_metadata() {
-  echo "📦 Extracting project metadata from pom.xml..."
-  PROJECT_KEY=$(mvn help:evaluate -f "$PROJECT_ROOT/pom.xml" -Dexpression=project.artifactId -q -DforceStdout)
-  PROJECT_NAME=$PROJECT_KEY
+  echo "📦 Extracting project metadata from Gradle files..."
+
+  # Try to read from settings.gradle(.kts) first
+  if [[ -f "$PROJECT_ROOT/settings.gradle" ]]; then
+    PROJECT_KEY=$(grep -E "rootProject\.name\s*=" "$PROJECT_ROOT/settings.gradle" | sed -E 's/.*=\s*"([^"]+)".*/\1/' | head -n 1)
+  elif [[ -f "$PROJECT_ROOT/settings.gradle.kts" ]]; then
+    PROJECT_KEY=$(grep -E "rootProject\.name\s*=" "$PROJECT_ROOT/settings.gradle.kts" | sed -E 's/.*=\s*"([^"]+)".*/\1/' | head -n 1)
+  fi
+
+  # Fallback: try to read from build.gradle(.kts)
+  if [[ -z "$PROJECT_KEY" ]]; then
+    if [[ -f "$PROJECT_ROOT/build.gradle" ]]; then
+      PROJECT_KEY=$(grep -E "^rootProject\.name\s*=" "$PROJECT_ROOT/build.gradle" | sed -E 's/.*=\s*"([^"]+)".*/\1/' | head -n 1)
+      [[ -z "$PROJECT_KEY" ]] && PROJECT_KEY=$(grep -E "^name\s*=" "$PROJECT_ROOT/build.gradle" | sed -E 's/.*=\s*"([^"]+)".*/\1/' | head -n 1)
+    elif [[ -f "$PROJECT_ROOT/build.gradle.kts" ]]; then
+      PROJECT_KEY=$(grep -E "^rootProject\.name\s*=" "$PROJECT_ROOT/build.gradle.kts" | sed -E 's/.*=\s*"([^"]+)".*/\1/' | head -n 1)
+      [[ -z "$PROJECT_KEY" ]] && PROJECT_KEY=$(grep -E "^name\s*=" "$PROJECT_ROOT/build.gradle.kts" | sed -E 's/.*=\s*"([^"]+)".*/\1/' | head -n 1)
+    fi
+  fi
+
+  # Final fallback: use directory name
+  if [[ -z "$PROJECT_KEY" ]]; then
+    PROJECT_KEY=$(basename "$PROJECT_ROOT")
+  fi
+
+  PROJECT_NAME="$PROJECT_KEY"
+
+  echo "🔑 PROJECT_KEY = $PROJECT_KEY"
+  echo "📛 PROJECT_NAME = $PROJECT_NAME"
+
   export PROJECT_KEY PROJECT_NAME
 }
 
@@ -80,15 +107,14 @@ associate_quality_profile() {
 
 initialize_project_analysis() {
   echo "🚀 Running project analysis initialization..."
-  cd $WORKSPACE
-  source ./maven/initialize-project.sh
+  cd "$WORKSPACE"
+  source ./gradle/initialize-project-gradle.sh
 }
 
 sleep_seconds_for_results() {
   counter=$1
   echo "💤 Sleep for $counter seconds to wait on result at sonar-qube..."
-  while [ $counter -gt 0 ]
-  do
+  while [ $counter -gt 0 ]; do
     echo -n "$counter..."
     counter=$(( counter - 1 ))
     sleep 1
@@ -98,14 +124,14 @@ sleep_seconds_for_results() {
 
 generate_report() {
   echo "📊 Generating Sonar report..."
-  cd $WORKSPACE
+  cd "$WORKSPACE"
   source ./generate-sonar-report.sh
 }
 
 generate_test_coverage() {
   echo "📊 Generating Test Coverage..."
-  cd $WORKSPACE
-  source ./maven/generate-test-coverage.sh
+  cd "$WORKSPACE"
+  source ./gradle/generate-test-coverage-gradle.sh
 }
 
 delete_project() {

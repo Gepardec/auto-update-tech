@@ -257,23 +257,35 @@ echoHeader_yellow "Create CSV files"
 cd "$AUTO_UPDATE_ROOT_SYSTEM" || return
 source ./create-all-csvs.sh --json-file ./../final-reports/auto-update-report.json
 
-#echoHeader_yellow "Create Sonar Report"
-#cd "$AUTO_UPDATE_ROOT_SYSTEM/sonar" || return
-#source ./sonar-init.sh --project-root "$PROJECT_ROOT" --sonar-qube-admin-password "$SONAR_QUBE_ADMIN_PASSWORD"
-#
-#mv "./sonar-report.json" "${AUTO_UPDATE_ROOT}/final-reports/sonar-report.json"
-#mv "./test-coverage-report.json" "${AUTO_UPDATE_ROOT}/final-reports/test-coverage-report.json"
-#
-#echoHeader_yellow "Create Sonar CSV files"
-#cd "$AUTO_UPDATE_ROOT_SYSTEM/sonar" || return
-#source ./sonar-report-to-csv.sh --json-file ./../../final-reports/sonar-report.json
-#
-#echoHeader_yellow "Create Test Coverage CSV file"
-#cd "$AUTO_UPDATE_ROOT_SYSTEM/sonar" || return
-## needs to be sh command other wise it will not work
-#sh ./test-coverage-report-to-csv.sh --json-file ./../../final-reports/test-coverage-report.json
-#
-#
+if [ "$BUILD_TOOL" = "Gradle" ]; then
+
+  echoHeader_yellow "Create Gradle Sonar Report"
+  cd "$AUTO_UPDATE_ROOT_SYSTEM/sonar" || return
+  source ./sonar-init-gradle.sh --project-root "$PROJECT_ROOT" --sonar-qube-admin-password "$SONAR_QUBE_ADMIN_PASSWORD"
+
+elif [ "$BUILD_TOOL" = "Maven" ]; then
+
+  echoHeader_yellow "Create Maven Sonar Report"
+  cd "$AUTO_UPDATE_ROOT_SYSTEM/sonar" || return
+  source ./sonar-init.sh --project-root "$PROJECT_ROOT" --sonar-qube-admin-password "$SONAR_QUBE_ADMIN_PASSWORD"
+
+else
+  exit 1
+fi
+
+mv "./sonar-report.json" "${AUTO_UPDATE_ROOT}/final-reports/sonar-report.json"
+mv "./test-coverage-report.json" "${AUTO_UPDATE_ROOT}/final-reports/test-coverage-report.json"
+
+echoHeader_yellow "Create Sonar CSV files"
+cd "$AUTO_UPDATE_ROOT_SYSTEM/sonar" || return
+source ./sonar-report-to-csv.sh --json-file ./../../final-reports/sonar-report.json
+
+echoHeader_yellow "Create Test Coverage CSV file"
+cd "$AUTO_UPDATE_ROOT_SYSTEM/sonar" || return
+# needs to be sh command other wise it will not work
+sh ./test-coverage-report-to-csv.sh --json-file ./../../final-reports/test-coverage-report.json
+
+
 if [ "$CLEANUP" = true ]; then
   echoHeader_green "Cleaning up..."
   find "$PROJECT_ROOT" -type d -name "gepardec-reports" -exec rm -rf {} +
