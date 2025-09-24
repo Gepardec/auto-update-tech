@@ -99,7 +99,7 @@ sleep_seconds_for_results() {
 generate_report() {
   echo "📊 Generating Sonar report..."
   cd $WORKSPACE
-  source ./generate-sonar-report.sh
+  source ./../generate-sonar-report.sh
 }
 
 generate_test_coverage() {

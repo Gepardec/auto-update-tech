@@ -31,7 +31,7 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-shift
+#shift
 
 # Check input file
 echo $JSON_FILE

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PROJECT_ROOT=""
-MAVEN_PROJECT_ROOT=""
+BUILD_PROJECT_ROOT=""
 DEPENDENCY_TRACK_API_KEY=""
 SONAR_QUBE_ADMIN_PASSWORD=""
 CLEANUP=true
@@ -31,11 +31,11 @@ fi
       case "$1" in
           --project-root)
               PROJECT_ROOT="$2"
-              MAVEN_PROJECT_ROOT="$2"
+              BUILD_PROJECT_ROOT="$2"
               shift 2
               ;;
-          --maven-project-root)
-              MAVEN_PROJECT_ROOT="$2"
+          --build-project-root)
+              BUILD_PROJECT_ROOT="$2"
               shift 2
               ;;
           --dependency-track-api-key)
@@ -57,7 +57,7 @@ fi
       esac
   done
 
-if [ -z "$PROJECT_ROOT" ] || [ -z "$MAVEN_PROJECT_ROOT" ] ; then
+if [ -z "$PROJECT_ROOT" ] || [ -z "$BUILD_PROJECT_ROOT" ] ; then
     echo "Error: All arguments must be provided."
     echo "Usage: $0 --project-root <absolute-path-to-project-root>"
     exit 1
@@ -92,16 +92,55 @@ if [ -z "$DEPENDENCY_TRACK_API_KEY" ] || [ -z "$SONAR_QUBE_ADMIN_PASSWORD" ] ; t
     exit 1
 fi
 
-POM_FILE="$MAVEN_PROJECT_ROOT/pom.xml"
+# -------------------------------------------------
+# Check if the project is Maven or Gradle
+# -------------------------------------------------
+BUILD_TOOL=""
+if [ -f "$BUILD_PROJECT_ROOT/pom.xml" ]; then
+    echo "✅ Detected Maven project at: $BUILD_PROJECT_ROOT"
+    BUILD_TOOL="Maven"
 
-# Prüfe, ob POM-Datei existiert
-if [ ! -f "$POM_FILE" ]; then
-    echo "Error: pom.xml not found - add --maven-project-root <absolute-path-to-maven-project-root>"
+    # Check if mvn is installed
+    if command -v mvn >/dev/null 2>&1; then
+        echo "⚙️ Using system Maven: $(command -v mvn)"
+    elif [ -f "$BUILD_PROJECT_ROOT/mvnw" ]; then
+        echo "⚙️ System Maven not found, using Maven Wrapper"
+        shopt -s expand_aliases
+        alias mvn="$BUILD_PROJECT_ROOT/mvnw"
+    else
+        echo "❌ Maven not installed and no mvnw wrapper found!"
+        exit 1
+    fi
+
+elif [ -f "$BUILD_PROJECT_ROOT/build.gradle" ] || [ -f "$BUILD_PROJECT_ROOT/build.gradle.kts" ]; then
+    echo "✅ Detected Gradle project at: $BUILD_PROJECT_ROOT"
+    BUILD_TOOL="Gradle"
+
+    # Check if gradle is installed
+    if command -v gradle >/dev/null 2>&1; then
+        echo "⚙️ Using system Gradle: $(command -v gradle)"
+    elif [ -f "$BUILD_PROJECT_ROOT/gradlew" ]; then
+        echo "⚙️ System Gradle not found, using Gradle Wrapper"
+        shopt -s expand_aliases
+        alias gradle="$BUILD_PROJECT_ROOT/gradlew"
+    else
+        echo "❌ Gradle not installed and no gradlew wrapper found!"
+        exit 1
+    fi
+
+else
+    echo "❌ Neither Maven nor Gradle project detected at:"
+    echo "   PROJECT_ROOT=$PROJECT_ROOT"
+    echo "   BUILD_PROJECT_ROOT=$BUILD_PROJECT_ROOT"
+    echo "Please make sure you have either a 'pom.xml' or 'build.gradle'/'build.gradle.kts' file."
+    echo "OR add --build-project-root <absolute-path-to-maven-or-gradle-project-root>"
     exit 1
 fi
 
+#----------------------------------------------------------
+
 echo "Using PROJECT_ROOT: $PROJECT_ROOT"
-echo "Using MAVEN_PROJECT_ROOT: $MAVEN_PROJECT_ROOT"
+echo "Using BUILD_PROJECT_ROOT: $BUILD_PROJECT_ROOT"
 echo "Using DEPENDENCY_TRACK_API_KEY: $DEPENDENCY_TRACK_API_KEY"
 echo "Using SONAR_QUBE_ADMIN_PASSWORD: $SONAR_QUBE_ADMIN_PASSWORD"
 
@@ -162,36 +201,73 @@ echoHeader_green() {
 
 
 # Run sh scripts
-echoHeader_green "Start Scripts"
+echoHeader_green "Start Scripts for $BUILD_TOOL"
 AUTO_UPDATE_ROOT_SYSTEM="$(pwd)"
 
-echoHeader_yellow "Running dependency-relocated-date.sh"
-cd "$AUTO_UPDATE_ROOT_SYSTEM" || return
-source ./dependency-relocated-date.sh --project-root "$PROJECT_ROOT"
+if [ "$BUILD_TOOL" = "Gradle" ]; then
 
-echoHeader_yellow "Running dependency-analysis.sh"
-cd "$AUTO_UPDATE_ROOT_SYSTEM" || return
-source ./dependency-analysis.sh --project-root "$PROJECT_ROOT"
+    echoHeader_yellow "Running dependency-relocated-date-gradle.sh"
+    cd "$AUTO_UPDATE_ROOT_SYSTEM/gradle" || return
+    source ./dependency-relocated-date-gradle.sh --project-root "$PROJECT_ROOT"
 
-echoHeader_yellow "Running dependency-track.sh"
-cd "$AUTO_UPDATE_ROOT_SYSTEM" || return
-source ./dependency-track.sh --maven-project-root "$MAVEN_PROJECT_ROOT" --dependency-track-api-key "$DEPENDENCY_TRACK_API_KEY"
+    echoHeader_yellow "Running dependency-analysis-gradle.sh"
+    cd "$AUTO_UPDATE_ROOT_SYSTEM/gradle" || return
+    source ./dependency-analysis-gradle.sh --project-root "$PROJECT_ROOT"
+
+    echoHeader_yellow "Running dependency-track-gradle.sh"
+    cd "$AUTO_UPDATE_ROOT_SYSTEM/gradle" || return
+    source ./dependency-track-gradle.sh --build-project-root "$BUILD_PROJECT_ROOT" --dependency-track-api-key "$DEPENDENCY_TRACK_API_KEY"
+
+elif [ "$BUILD_TOOL" = "Maven" ]; then
+
+    echoHeader_yellow "Running dependency-relocated-date.sh"
+    cd "$AUTO_UPDATE_ROOT_SYSTEM/maven" || return
+    source ./dependency-relocated-date.sh --project-root "$PROJECT_ROOT"
+
+    echoHeader_yellow "Running dependency-analysis.sh"
+    cd "$AUTO_UPDATE_ROOT_SYSTEM/maven" || return
+    source ./dependency-analysis.sh --project-root "$PROJECT_ROOT"
+
+    echoHeader_yellow "Running dependency-track.sh"
+    cd "$AUTO_UPDATE_ROOT_SYSTEM/maven" || return
+    source ./dependency-track.sh --build-project-root "$BUILD_PROJECT_ROOT" --dependency-track-api-key "$DEPENDENCY_TRACK_API_KEY"
+else
+  exit 1
+fi
+
 
 echoHeader_yellow "Installing Renovate"
 cd "$AUTO_UPDATE_ROOT_SYSTEM" || return
 # source is important so the script runs in the current shell, so any environment variable changes (like PATH) persist in the parent script
 source ./install-renovate.sh --node-version $nodeVersion --node-archive $NODE_ARCHIVE --node-path $NODE_PATH --renovate-version $renovateVersion
 
-echoHeader_yellow "Execute Renovate"
-cd "$AUTO_UPDATE_ROOT_SYSTEM" || return
-# source is important because environment variables are used which are added in the previous script
-source ./execute-renovate.sh --node-path $NODE_PATH --node-modules "$AUTO_UPDATE_ROOT_SYSTEM/node_modules" --project-root "$PROJECT_ROOT"
 
-mkdir "${AUTO_UPDATE_ROOT}/final-reports"
+
+if [ "$BUILD_TOOL" = "Gradle" ]; then
+
+  echoHeader_yellow "Execute Gradle Renovate"
+  cd "$AUTO_UPDATE_ROOT_SYSTEM/gradle" || return
+  # source is important because environment variables are used which are added in the previous script
+  source ./execute-renovate-gradle.sh --node-path $NODE_PATH --node-modules "$AUTO_UPDATE_ROOT_SYSTEM/node_modules" --project-root "$PROJECT_ROOT"
+
+elif [ "$BUILD_TOOL" = "Maven" ]; then
+
+  echoHeader_yellow "Execute Maven Renovate"
+  cd "$AUTO_UPDATE_ROOT_SYSTEM/maven" || return
+  # source is important because environment variables are used which are added in the previous script
+  source ./execute-renovate.sh --node-path $NODE_PATH --node-modules "$AUTO_UPDATE_ROOT_SYSTEM/node_modules" --project-root "$PROJECT_ROOT"
+
+else
+  exit 1
+fi
+
+
+
+mkdir -p "${AUTO_UPDATE_ROOT}/final-reports"
 
 echoHeader_yellow "Create auto-update-report.json"
 cd "$AUTO_UPDATE_ROOT_SYSTEM" || return
-"$AUTO_UPDATE_ROOT_SYSTEM"/$NODE_PATH/node "$AUTO_UPDATE_ROOT_SYSTEM"/parse.js "$PROJECT_ROOT"
+"$AUTO_UPDATE_ROOT_SYSTEM"/$NODE_PATH/node "$AUTO_UPDATE_ROOT_SYSTEM"/parse.js "$PROJECT_ROOT" "$BUILD_TOOL"
 
 echoHeader_yellow "Move module dependency-analysis.json Files"
 
@@ -213,9 +289,21 @@ echoHeader_yellow "Create CSV files"
 cd "$AUTO_UPDATE_ROOT_SYSTEM" || return
 source ./create-all-csvs.sh --json-file ./../final-reports/auto-update-report.json
 
-echoHeader_yellow "Create Sonar Report"
-cd "$AUTO_UPDATE_ROOT_SYSTEM/sonar" || return
-source ./sonar-init.sh --project-root "$PROJECT_ROOT" --sonar-qube-admin-password "$SONAR_QUBE_ADMIN_PASSWORD"
+if [ "$BUILD_TOOL" = "Gradle" ]; then
+
+  echoHeader_yellow "Create Gradle Sonar Report"
+  cd "$AUTO_UPDATE_ROOT_SYSTEM/sonar/gradle" || return
+  source ./sonar-init-gradle.sh --project-root "$PROJECT_ROOT" --sonar-qube-admin-password "$SONAR_QUBE_ADMIN_PASSWORD"
+
+elif [ "$BUILD_TOOL" = "Maven" ]; then
+
+  echoHeader_yellow "Create Maven Sonar Report"
+  cd "$AUTO_UPDATE_ROOT_SYSTEM/sonar/maven" || return
+  source ./sonar-init.sh --project-root "$PROJECT_ROOT" --sonar-qube-admin-password "$SONAR_QUBE_ADMIN_PASSWORD"
+
+else
+  exit 1
+fi
 
 mv "./sonar-report.json" "${AUTO_UPDATE_ROOT}/final-reports/sonar-report.json"
 mv "./test-coverage-report.json" "${AUTO_UPDATE_ROOT}/final-reports/test-coverage-report.json"
@@ -238,7 +326,7 @@ if [ "$CLEANUP" = true ]; then
   rm -rf "${AUTO_UPDATE_ROOT_SYSTEM:?}/node_modules"
   rm -f "${AUTO_UPDATE_ROOT_SYSTEM:?}/package.json"
   rm -f "${AUTO_UPDATE_ROOT_SYSTEM:?}/package-lock.json"
-  source "$AUTO_UPDATE_ROOT_SYSTEM"/remove-env.sh
+#  source "$AUTO_UPDATE_ROOT_SYSTEM"/remove-env.sh
 fi
 
 echoHeader_green "Successful finished"

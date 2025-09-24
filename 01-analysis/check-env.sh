@@ -57,7 +57,7 @@ check_java() {
     echo "✅ Java is installed: version $JAVA_VERSION"
   else
     echo "❌ Java is NOT installed."
-    return
+    return 1
   fi
 
   if command_exists javac; then
@@ -78,70 +78,42 @@ check_java() {
     fi
   else
     echo "❌ NOT set"
-    echo -n "🔧 Attempting to set JAVA_HOME automatically... "
-
-    JAVA_PATH=$(readlink -f "$(command -v java)" 2>/dev/null)
-    if [ -n "$JAVA_PATH" ]; then
-      JAVA_HOME_CANDIDATE=$(dirname "$(dirname "$JAVA_PATH")")
-      if [ -x "$JAVA_HOME_CANDIDATE/bin/java" ]; then
-        export JAVA_HOME="$JAVA_HOME_CANDIDATE"
-        echo "✅ Set to '$JAVA_HOME'"
-
-        # Determine shell rc file (default to bashrc)
-        SHELL_RC="$HOME/.bashrc"
-        [[ "$SHELL" =~ "zsh" ]] && SHELL_RC="$HOME/.zshrc"
-
-        # Persist if not already present
-        if grep -q "^export JAVA_HOME=" "$SHELL_RC"; then
-          echo "ℹ️ JAVA_HOME already set in $SHELL_RC"
-        else
-          echo "export JAVA_HOME=\"$JAVA_HOME\"" >> "$SHELL_RC"
-          echo "✅ Persisted JAVA_HOME to $SHELL_RC"
-          # Warn user to source script only if we just persisted JAVA_HOME
-          if [[ "$0" == "$BASH_SOURCE" ]]; then
-            echo "⚠️  JAVA_HOME was set, but this script was not sourced."
-            echo "   Please run the script using: source $0"
-            echo "   This ensures JAVA_HOME is applied to your current terminal session."
-            exit 1
-          fi
-        fi
-      else
-        echo "❌ Could not determine JAVA_HOME"
-      fi
-    else
-      echo "❌ Could not resolve java path"
-    fi
   fi
 }
 
+check_build_tool() {
+  echo "🔧 Checking build tools (Maven/Gradle)..."
+
+  if command_exists mvn; then
+    if mvn -v >/dev/null 2>&1; then
+      echo "✅ Maven is installed: $(mvn -v | head -n 1)"
+      return
+    else
+      echo "❌ Maven found, but it cannot run (likely missing JAVA_HOME or Java)."
+    fi
+  fi
+
+  if command_exists gradle; then
+    if gradle -v >/dev/null 2>&1; then
+      echo "✅ Gradle is installed: $(gradle -v | head -n 1)"
+      return
+    else
+      echo "❌ Gradle found, but it cannot run."
+    fi
+  fi
+
+  echo "⚠️ No working Maven or Gradle installation detected."
+  echo "If you use the according wrapper, make sure it is available in the project folder."
+}
 
 echo "🔍 Checking system environment..."
 
-# 1. Maven
-if command_exists mvn; then
-  echo "✅ Maven is installed: $(mvn -v | head -n 1)"
-else
-  echo "❌ Maven is NOT installed."
-fi
+# 1. Build tools
+check_build_tool
 
 # 2. OS detection
 OS_TYPE="$(uname)"
-case "$OS_TYPE" in
-  Darwin)
-    echo "✅ Detected macOS"
-    ;;
-  Linux)
-    echo "✅ Detected Linux"
-    ;;
-  *)
-    echo "⚠️ Detected non-macOS/non-Linux system: $OS_TYPE"
-    if [ -n "$BASH_VERSION" ] && command_exists git && git --version | grep -qi "git"; then
-      echo "✅ Git Bash is present"
-    else
-      echo "❌ Git Bash not found or not in a bash environment"
-    fi
-    ;;
-esac
+echo "✅ Detected OS: $(uname)"
 
 # 3. jq
 if command_exists jq; then

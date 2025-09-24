@@ -70,8 +70,8 @@ sh check-env.sh
      ```
      or
      ```bash 
-     # sh autoUpdateAnalyse.sh --project-root <absolute-path-to-project-root> --maven-project-root <absolute-path-to-maven-project-root>
-     sh autoUpdateAnalyse.sh --project-root /home/test/project/test-project/ --maven-project-root /home/test/project/test-project/maven/
+     # sh autoUpdateAnalyse.sh --project-root <absolute-path-to-project-root> --build-project-root <absolute-path-to-maven-or-gradle-project-root>
+     sh autoUpdateAnalyse.sh --project-root /home/test/project/test-project/ --build-project-root /home/test/project/test-project/maven/
      ```
      
      > **INFO** <br>
