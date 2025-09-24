@@ -128,7 +128,7 @@ check_build_tool() {
   fi
 
   echo "⚠️ No working Maven or Gradle installation detected."
-  echo "If you use the wrapper then make sure it is available in the project folder."
+  echo "If you use the according wrapper, make sure it is available in the project folder."
 }
 
 echo "🔍 Checking system environment..."
