@@ -207,30 +207,30 @@ AUTO_UPDATE_ROOT_SYSTEM="$(pwd)"
 if [ "$BUILD_TOOL" = "Gradle" ]; then
 
     echoHeader_yellow "Running dependency-relocated-date-gradle.sh"
-    cd "$AUTO_UPDATE_ROOT_SYSTEM" || return
-    source ./gradle/dependency-relocated-date-gradle.sh --project-root "$PROJECT_ROOT"
+    cd "$AUTO_UPDATE_ROOT_SYSTEM/gradle" || return
+    source ./dependency-relocated-date-gradle.sh --project-root "$PROJECT_ROOT"
 
     echoHeader_yellow "Running dependency-analysis-gradle.sh"
-    cd "$AUTO_UPDATE_ROOT_SYSTEM" || return
-    source ./gradle/dependency-analysis-gradle.sh --project-root "$PROJECT_ROOT"
+    cd "$AUTO_UPDATE_ROOT_SYSTEM/gradle" || return
+    source ./dependency-analysis-gradle.sh --project-root "$PROJECT_ROOT"
 
     echoHeader_yellow "Running dependency-track-gradle.sh"
-    cd "$AUTO_UPDATE_ROOT_SYSTEM" || return
-    source ./gradle/dependency-track-gradle.sh --build-project-root "$BUILD_PROJECT_ROOT" --dependency-track-api-key "$DEPENDENCY_TRACK_API_KEY"
+    cd "$AUTO_UPDATE_ROOT_SYSTEM/gradle" || return
+    source ./dependency-track-gradle.sh --build-project-root "$BUILD_PROJECT_ROOT" --dependency-track-api-key "$DEPENDENCY_TRACK_API_KEY"
 
 elif [ "$BUILD_TOOL" = "Maven" ]; then
 
     echoHeader_yellow "Running dependency-relocated-date.sh"
-    cd "$AUTO_UPDATE_ROOT_SYSTEM" || return
-    source ./maven/dependency-relocated-date.sh --project-root "$PROJECT_ROOT"
+    cd "$AUTO_UPDATE_ROOT_SYSTEM/maven" || return
+    source ./dependency-relocated-date.sh --project-root "$PROJECT_ROOT"
 
     echoHeader_yellow "Running dependency-analysis.sh"
-    cd "$AUTO_UPDATE_ROOT_SYSTEM" || return
-    source ./maven/dependency-analysis.sh --project-root "$PROJECT_ROOT"
+    cd "$AUTO_UPDATE_ROOT_SYSTEM/maven" || return
+    source ./dependency-analysis.sh --project-root "$PROJECT_ROOT"
 
     echoHeader_yellow "Running dependency-track.sh"
-    cd "$AUTO_UPDATE_ROOT_SYSTEM" || return
-    source ./maven/dependency-track.sh --build-project-root "$BUILD_PROJECT_ROOT" --dependency-track-api-key "$DEPENDENCY_TRACK_API_KEY"
+    cd "$AUTO_UPDATE_ROOT_SYSTEM/maven" || return
+    source ./dependency-track.sh --build-project-root "$BUILD_PROJECT_ROOT" --dependency-track-api-key "$DEPENDENCY_TRACK_API_KEY"
 else
   exit 1
 fi
@@ -246,16 +246,16 @@ source ./install-renovate.sh --node-version $nodeVersion --node-archive $NODE_AR
 if [ "$BUILD_TOOL" = "Gradle" ]; then
 
   echoHeader_yellow "Execute Gradle Renovate"
-  cd "$AUTO_UPDATE_ROOT_SYSTEM" || return
+  cd "$AUTO_UPDATE_ROOT_SYSTEM/gradle" || return
   # source is important because environment variables are used which are added in the previous script
-  source ./gradle/execute-renovate-gradle.sh --node-path $NODE_PATH --node-modules "$AUTO_UPDATE_ROOT_SYSTEM/node_modules" --project-root "$PROJECT_ROOT"
+  source ./execute-renovate-gradle.sh --node-path $NODE_PATH --node-modules "$AUTO_UPDATE_ROOT_SYSTEM/node_modules" --project-root "$PROJECT_ROOT"
 
 elif [ "$BUILD_TOOL" = "Maven" ]; then
 
   echoHeader_yellow "Execute Maven Renovate"
-  cd "$AUTO_UPDATE_ROOT_SYSTEM" || return
+  cd "$AUTO_UPDATE_ROOT_SYSTEM/maven" || return
   # source is important because environment variables are used which are added in the previous script
-  source ./maven/execute-renovate.sh --node-path $NODE_PATH --node-modules "$AUTO_UPDATE_ROOT_SYSTEM/node_modules" --project-root "$PROJECT_ROOT"
+  source ./execute-renovate.sh --node-path $NODE_PATH --node-modules "$AUTO_UPDATE_ROOT_SYSTEM/node_modules" --project-root "$PROJECT_ROOT"
 
 else
   exit 1
@@ -292,13 +292,13 @@ source ./create-all-csvs.sh --json-file ./../final-reports/auto-update-report.js
 if [ "$BUILD_TOOL" = "Gradle" ]; then
 
   echoHeader_yellow "Create Gradle Sonar Report"
-  cd "$AUTO_UPDATE_ROOT_SYSTEM/sonar" || return
+  cd "$AUTO_UPDATE_ROOT_SYSTEM/sonar/gradle" || return
   source ./sonar-init-gradle.sh --project-root "$PROJECT_ROOT" --sonar-qube-admin-password "$SONAR_QUBE_ADMIN_PASSWORD"
 
 elif [ "$BUILD_TOOL" = "Maven" ]; then
 
   echoHeader_yellow "Create Maven Sonar Report"
-  cd "$AUTO_UPDATE_ROOT_SYSTEM/sonar" || return
+  cd "$AUTO_UPDATE_ROOT_SYSTEM/sonar/maven" || return
   source ./sonar-init.sh --project-root "$PROJECT_ROOT" --sonar-qube-admin-password "$SONAR_QUBE_ADMIN_PASSWORD"
 
 else

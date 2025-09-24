@@ -176,7 +176,7 @@ dependencyTrackAnalysis() {
 
 createDependencyTrackResultFile() {
     echo "📊 Fetching metrics and findings..."
-    RESULT_FILE="dependency-track-vulnerability-report.json"
+    RESULT_FILE="./../dependency-track-vulnerability-report.json"
     if ! curl -s -X GET "$API_URL/v1/finding/project/$PROJECT_UUID" \
         -H "X-API-Key: $API_KEY" \
         -H "Content-Type: application/json" > "$RESULT_FILE"; then
@@ -188,6 +188,12 @@ createDependencyTrackResultFile() {
     fi
 
     echo "📁 Result saved in: ${RESULT_FILE}"
+}
+
+dependencyTrackPolicyViolations() {
+  echo " ... Pulling Policy Violations ..."
+  cd "./../" || return
+  source ./dependency-track-policy-violations.sh --project-uuid $1 --dependency-track-api-key $API_KEY
 }
 
 ########################
@@ -214,4 +220,5 @@ echo "🔑 Project UUID: $PROJECT_UUID"
 uploadBomFile
 dependencyTrackAnalysis
 createDependencyTrackResultFile
+dependencyTrackPolicyViolations $PROJECT_UUID
 cleanup

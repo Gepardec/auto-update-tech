@@ -113,22 +113,7 @@ check_build_tool
 
 # 2. OS detection
 OS_TYPE="$(uname)"
-case "$OS_TYPE" in
-  Darwin)
-    echo "✅ Detected macOS"
-    ;;
-  Linux)
-    echo "✅ Detected Linux"
-    ;;
-  *)
-    echo "⚠️ Detected non-macOS/non-Linux system: $OS_TYPE"
-    if [ -n "$BASH_VERSION" ] && command_exists git && git --version | grep -qi "git"; then
-      echo "✅ Git Bash is present"
-    else
-      echo "❌ Git Bash not found or not in a bash environment"
-    fi
-    ;;
-esac
+echo "✅ Detected OS: $(uname)"
 
 # 3. jq
 if command_exists jq; then

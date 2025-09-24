@@ -219,7 +219,7 @@ TOKEN_UUID=$(echo "$analyze_response" | sed -n 's/.*"token"[[:space:]]*:[[:space
 # Fetch metrics and findings and create the result file
 createDependencyTrackResultFile(){
   echo "📊 Fetching metrics and findings..."
-  RESULT_FILE="dependency-track-vulnerability-report.json"
+  RESULT_FILE="./../dependency-track-vulnerability-report.json"
   if ! curl -s -X GET "$API_URL/v1/finding/project/$PROJECT_UUID" \
       -H "X-API-Key: $API_KEY" \
       -H "Content-Type: application/json" > "$RESULT_FILE"; then
@@ -232,16 +232,12 @@ createDependencyTrackResultFile(){
 
   TEMP_FILE="${RESULT_FILE}.tmp"
 
-#  if [ "$DEBUG" ]; then
-#    echo -e "\n✅ === RESULT REPORT ===\n"
-#    cat $RESULT_FILE
-#    echo -e "\n\n✅ === REPORT END ===\n"
-#  fi
   echo "📁 Result saved in: ${RESULT_FILE}"
 }
 
 dependencyTrackPolicyViolations() {
   echo " ... Pulling Policy Violations ..."
+  cd "./../" || return
   source ./dependency-track-policy-violations.sh --project-uuid $1 --dependency-track-api-key $API_KEY
 }
 
