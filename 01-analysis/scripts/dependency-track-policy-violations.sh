@@ -7,6 +7,7 @@ API_URL="https://gepardec-dtrack.apps.cloudscale-lpg-2.appuio.cloud/api"
 PROJECT_UUID=""
 API_KEY=""
 
+trap 'rm -f "$TMP_FILE"' EXIT
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -56,6 +57,3 @@ else
   echo "Error: jq is required for proper JSON transformation."
   exit 1
 fi
-
-# Clean up temp file
-rm -f "$TMP_FILE"
