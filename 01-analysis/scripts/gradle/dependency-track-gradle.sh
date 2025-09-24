@@ -49,7 +49,6 @@ fi
 
 ORIGINAL_BUILD_CONTENT=$(<"$BUILD_FILE")
 TMP_BOM_TMP=$(mktemp)
-GRADLE_CMD="$PROJECT_ROOT/gradlew"
 
 # Backup settings file if it exists
 if [[ "$DSL" == "kotlin" ]]; then
@@ -70,7 +69,7 @@ cleanup() {
     if [ -n "$ORIGINAL_BUILD_CONTENT" ]; then
         echo "$ORIGINAL_BUILD_CONTENT" > "$BUILD_FILE"
         echo "📄 Original build file wiederhergestellt"
-        "$GRADLE_CMD" -p "$PROJECT_ROOT" clean > /dev/null 2>&1
+        gradle -p "$PROJECT_ROOT" clean > /dev/null 2>&1
     fi
 
     # Restore original settings file
@@ -124,7 +123,7 @@ addCycloneDxPlugin() {
 generateBomFile() {
     echo "⚙️  Generating BOM with Gradle..."
     mkdir -p "$(dirname "$BOM_FILE")"
-    if ! "$GRADLE_CMD" -p "$PROJECT_ROOT" cyclonedxBom; then
+    if ! gradle -p "$PROJECT_ROOT" cyclonedxBom; then
         die "Gradle BOM generation failed"
     fi
 

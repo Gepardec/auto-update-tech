@@ -90,7 +90,7 @@ fi
 
 # Run buildHealth
 cd "$PROJECT_ROOT"
-./gradlew --quiet buildHealth
+gradle --quiet buildHealth
 
 # Copy the JSON report to root/ gepardec-reports
 REPORT_PATH=$(find "$PROJECT_ROOT/build/reports/dependency-analysis" -type f -name "*.json" | head -n1 || true)

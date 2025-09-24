@@ -99,9 +99,35 @@ BUILD_TOOL=""
 if [ -f "$BUILD_PROJECT_ROOT/pom.xml" ]; then
     echo "✅ Detected Maven project at: $BUILD_PROJECT_ROOT"
     BUILD_TOOL="Maven"
+
+    # Check if mvn is installed
+    if command -v mvn >/dev/null 2>&1; then
+        echo "⚙️ Using system Maven: $(command -v mvn)"
+    elif [ -f "$BUILD_PROJECT_ROOT/mvnw" ]; then
+        echo "⚙️ System Maven not found, using Maven Wrapper"
+        shopt -s expand_aliases
+        alias mvn="$BUILD_PROJECT_ROOT/mvnw"
+    else
+        echo "❌ Maven not installed and no mvnw wrapper found!"
+        exit 1
+    fi
+
 elif [ -f "$BUILD_PROJECT_ROOT/build.gradle" ] || [ -f "$BUILD_PROJECT_ROOT/build.gradle.kts" ]; then
     echo "✅ Detected Gradle project at: $BUILD_PROJECT_ROOT"
     BUILD_TOOL="Gradle"
+
+    # Check if gradle is installed
+    if command -v gradle >/dev/null 2>&1; then
+        echo "⚙️ Using system Gradle: $(command -v gradle)"
+    elif [ -f "$BUILD_PROJECT_ROOT/gradlew" ]; then
+        echo "⚙️ System Gradle not found, using Gradle Wrapper"
+        shopt -s expand_aliases
+        alias gradle="$BUILD_PROJECT_ROOT/gradlew"
+    else
+        echo "❌ Gradle not installed and no gradlew wrapper found!"
+        exit 1
+    fi
+
 else
     echo "❌ Neither Maven nor Gradle project detected at:"
     echo "   PROJECT_ROOT=$PROJECT_ROOT"
@@ -110,6 +136,8 @@ else
     echo "OR add --build-project-root <absolute-path-to-maven-or-gradle-project-root>"
     exit 1
 fi
+
+#----------------------------------------------------------
 
 echo "Using PROJECT_ROOT: $PROJECT_ROOT"
 echo "Using BUILD_PROJECT_ROOT: $BUILD_PROJECT_ROOT"

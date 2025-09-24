@@ -161,22 +161,19 @@ function getUpdateInformation(e) {
         let nonMajor = ""
         let updateType = ""
 
-        if (update.bucket === "non-major") {
+        if ((update.bucket === "non-major") || (update.bucket === "major")) {
             nonMajor = update.newVersion
             updateType = update.updateType
-        }
-        if (update.bucket === "major") {
-            major = update.newVersion
-            updateType = update.updateType
-        }
 
-        updateInformationList.push(
-            {
-                "major": major,
-                "non-major": nonMajor,
-                "updateType": updateType
-            }
-        )
+            updateInformationList.push(
+                {
+                    "major": major,
+                    "non-major": nonMajor,
+                    "updateType": updateType
+                }
+            )
+
+        }
     }
     return updateInformationList;
 }

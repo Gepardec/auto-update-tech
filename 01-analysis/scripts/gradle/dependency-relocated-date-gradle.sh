@@ -38,12 +38,10 @@ echo "Ensuring Python helper scripts are present..."
 # convert.py
 if [ ! -f "$PROJECT_ROOT/convert.py" ]; then
     cat << 'EOF' > "$PROJECT_ROOT/convert.py"
-import json
-import sys
-import re
+import json, sys, re
 from pathlib import Path
 
-def parse_dependency_line(line):
+def parse_dependency_line(line, scope):
     tree_symbols_pattern = r'^[\s|\\+\-]+'
     if not re.match(tree_symbols_pattern, line):
         return None
@@ -53,43 +51,40 @@ def parse_dependency_line(line):
     parts = clean_line.split("->")
     if len(parts) == 2:
         left, version = parts
-        left = left.strip()
-        version = version.strip()
+        left, version = left.strip(), version.strip()
     else:
-        left = clean_line
-        version = None
+        left, version = clean_line, None
     coords = left.split(":")
     if len(coords) < 2:
         return None
-    group_id = coords[0].strip()
-    artifact_id = coords[1].strip()
+    group_id, artifact_id = coords[0].strip(), coords[1].strip()
     if version is None and len(coords) >= 3:
         version = coords[2].strip()
-    return {"groupId": group_id, "artifactId": artifact_id, "version": version or ""}
+    return {
+        "groupId": group_id,
+        "artifactId": artifact_id,
+        "version": version or "",
+        "scope": scope
+    }
 
 def main():
-    if len(sys.argv) != 3:
-        print("Usage: python convert.py <input_file.txt> <output_file.json>")
+    if len(sys.argv) != 4:
+        print("Usage: python convert.py <input_file.txt> <output_file.json> <scope>")
         sys.exit(1)
-    input_file = Path(sys.argv[1])
-    output_file = Path(sys.argv[2])
-    if not input_file.exists():
-        print(f"Error: input file {input_file} does not exist.")
-        sys.exit(1)
-    dependencies = []
-    seen = set()
+    input_file, output_file, scope = Path(sys.argv[1]), Path(sys.argv[2]), sys.argv[3]
+    dependencies, seen = [], set()
     with input_file.open("r", encoding="utf-8") as f:
         for line in f:
-            dep = parse_dependency_line(line)
+            dep = parse_dependency_line(line, scope)
             if dep:
-                key = (dep["groupId"], dep["artifactId"], dep["version"])
+                key = (dep["groupId"], dep["artifactId"], dep["version"], dep["scope"])
                 if key not in seen:
                     seen.add(key)
                     dependencies.append(dep)
     flat_json = {"dependencies": dependencies}
     with output_file.open("w", encoding="utf-8") as f:
         json.dump(flat_json, f, indent=2)
-    print(f"Extracted {len(dependencies)} dependencies into {output_file}")
+    print(f"Extracted {len(dependencies)} {scope} dependencies into {output_file}")
 
 if __name__ == "__main__":
     main()
@@ -129,10 +124,19 @@ def update_dependencies_with_dates(json_file, output_file):
     with open(json_file, 'r') as f:
         data = json.load(f)
     for dependency in data.get("dependencies", []):
+        # Add lastUpdatedDate to dependency itself
         dependency["lastUpdatedDate"] = get_last_updated_date(
             dependency.get("groupId", ""),
             dependency.get("artifactId", "")
         )
+
+        # Add lastUpdatedDate to each relocation if present
+        for relocation in dependency.get("relocations", []):
+            relocation["lastUpdatedDate"] = get_last_updated_date(
+                relocation.get("groupId", ""),
+                relocation.get("artifactId", "")
+            )
+
     with open(output_file, 'w') as f:
         json.dump(data, f, indent=4)
     print(f"Updated JSON written to {output_file}")
@@ -196,24 +200,38 @@ for module in $modules; do
 
     mkdir -p "$PROJECT_ROOT/$module/build/reports"
 
+    gradle_module="${module#./}"
+    gradle_module="${gradle_module//\//\:}"
+
     ########################################
-    # GENERATE DEPENDENCY TREE
+    # runtimeClasspath → compile
     ########################################
-    echo "Generating dependency tree for $module..."
+    echo "Generating compile scope for $module..."
     if [ "$module" = "." ]; then
-        "$PROJECT_ROOT/gradlew" dependencies --configuration runtimeClasspath > "$PROJECT_ROOT/$module/build/reports/dependency-tree.txt"
+        gradle dependencies --configuration runtimeClasspath > "$PROJECT_ROOT/$module/build/reports/dependency-compile.txt"
     else
-        gradle_module="${module#./}"
-        gradle_module="${gradle_module//\//\:}"
-        "$PROJECT_ROOT/gradlew" ":$gradle_module:dependencies" --configuration runtimeClasspath > "$PROJECT_ROOT/$module/build/reports/dependency-tree.txt"
+        gradle ":$gradle_module:dependencies" --configuration runtimeClasspath > "$PROJECT_ROOT/$module/build/reports/dependency-compile.txt"
     fi
+    python3 "$PROJECT_ROOT/convert.py" "$PROJECT_ROOT/$module/build/reports/dependency-compile.txt" "$PROJECT_ROOT/$module/build/reports/dependency-compile.json" "compile"
 
-    if [ $? -ne 0 ]; then
-        echo "Error generating dependency tree for $module"
-        continue
+    ########################################
+    # testRuntimeClasspath → test
+    ########################################
+    echo "Generating test scope for $module..."
+    if [ "$module" = "." ]; then
+        gradle dependencies --configuration testRuntimeClasspath > "$PROJECT_ROOT/$module/build/reports/dependency-test.txt"
+    else
+        gradle ":$gradle_module:dependencies" --configuration testRuntimeClasspath > "$PROJECT_ROOT/$module/build/reports/dependency-test.txt"
     fi
+    python3 "$PROJECT_ROOT/convert.py" "$PROJECT_ROOT/$module/build/reports/dependency-test.txt" "$PROJECT_ROOT/$module/build/reports/dependency-test.json" "test"
 
-    python3 "$PROJECT_ROOT/convert.py" "$PROJECT_ROOT/$module/build/reports/dependency-tree.txt" "$PROJECT_ROOT/$module/build/reports/dependency-tree.json"
+    ########################################
+    # MERGE BOTH JSONS
+    ########################################
+    jq -s '{"dependencies": (.[0].dependencies + .[1].dependencies)}' \
+        "$PROJECT_ROOT/$module/build/reports/dependency-compile.json" \
+        "$PROJECT_ROOT/$module/build/reports/dependency-test.json" \
+        > "$PROJECT_ROOT/$module/build/reports/dependency-tree.json"
 
     ########################################
     # ENSURE OGA PLUGIN IS PRESENT (WITH BACKUP)
@@ -247,9 +265,9 @@ for module in $modules; do
     ########################################
     echo "Running OGA Gradle plugin check..."
     if [ "$module" = "." ]; then
-        "$PROJECT_ROOT/gradlew" --refresh-dependencies biz-lermitage-oga-gradle-check > "$PROJECT_ROOT/$module/build/reports/oga-output.txt" 2>&1
+        gradle --refresh-dependencies biz-lermitage-oga-gradle-check > "$PROJECT_ROOT/$module/build/reports/oga-output.txt" 2>&1
     else
-        "$PROJECT_ROOT/gradlew" --refresh-dependencies ":$gradle_module:biz-lermitage-oga-gradle-check" > "$PROJECT_ROOT/$module/build/reports/oga-output.txt" 2>&1
+        gradle --refresh-dependencies ":$gradle_module:biz-lermitage-oga-gradle-check" > "$PROJECT_ROOT/$module/build/reports/oga-output.txt" 2>&1
     fi
 
     if [ ! -s "$PROJECT_ROOT/$module/build/reports/oga-output.txt" ]; then

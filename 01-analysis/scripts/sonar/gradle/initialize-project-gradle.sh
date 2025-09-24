@@ -183,7 +183,7 @@ run_sonar_analysis() {
   JACOCO_XML="$PROJECT_ROOT/build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"
 
   echo "📊 Running tests and generating Jacoco coverage report..."
-  ./gradlew clean test jacocoRootReport
+  gradle clean test jacocoRootReport
 
   if [[ ! -f "$JACOCO_XML" ]]; then
     echo "❌ Error: Jacoco XML report not found at $JACOCO_XML"
@@ -192,7 +192,7 @@ run_sonar_analysis() {
   echo "✅ Jacoco XML report generated at: $JACOCO_XML"
 
   echo "🔍 Running SonarQube analysis using generated Jacoco report..."
-  ./gradlew clean test jacocoRootReport sonar \
+  gradle clean test jacocoRootReport sonar \
     -Dsonar.projectKey="$PROJECT_KEY" \
     -Dsonar.host.url="$SONAR_URL" \
     -Dsonar.token="$TOKEN" \
