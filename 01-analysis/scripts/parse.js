@@ -6,6 +6,7 @@ const AUTO_UPDATE_REPORT_FILE = "auto-update-report.json"
 const DEPENDENCY_RELOCATED = "dependency-relocated-date.json"
 const RENOVATE_FILTERED = "renovate-filtered.json"
 const DEPENDENCY_TRACK_VULNERABILITY_REPORT = "dependency-track-vulnerability-report.json"
+const DEPENDENCY_TRACK_POLICY_VIOLATIONS = "dependency-track-policy-violations.json"
 const PROJECT_ROOT_PATH = args[1]
 const AUTO_UPDATE_REPORT_PATH = __dirname
 
@@ -142,6 +143,53 @@ function getDependencyTrackInformation(){
 }
 
 /**
+ * Read dependency-track File
+ * @param filePath
+ */
+function getDependencyTrackPolicyViolationInformation(){
+    //add here
+    let dependencyTrackData = require(AUTO_UPDATE_REPORT_PATH + "/" + DEPENDENCY_TRACK_POLICY_VIOLATIONS);
+
+    for (let entry of dependencyTrackData) {
+        let groupId = entry.component.group;
+        let artifactId = entry.component.name;
+        let version = entry.component.version;
+        let policyViolation = {
+            componentUuid: entry.component.uuid,
+            violationState: entry.violationState,
+            type: entry.type,
+            policyName: entry.policyName
+        };
+
+        let foundIndex = customJsonModuleReport.findIndex((item) =>
+            item.groupId === groupId &&
+            item.artifactId === artifactId
+        );
+
+        if (foundIndex >= 0) {
+            // Entry exists, append vulnerability to existing vulnerabilities array or create it
+            if (!customJsonModuleReport[foundIndex].policyViolations) {
+                customJsonModuleReport[foundIndex].policyViolations = [];
+            }
+            customJsonModuleReport[foundIndex].policyViolations.push(policyViolation);
+        } else {
+            // Entry does not exist, create new entry with vulnerability
+            customJsonModuleReport.push({
+                groupId: groupId,
+                artifactId: artifactId,
+                version: version,
+                newVersions: [],
+                scope : "",
+                lastUpdatedDate : "",
+                relocations : [],
+                vulnerabilities: [],
+                policyViolations: [policyViolation]
+            });
+        }
+    }
+}
+
+/**
  * Iterate trough Array of Updates and extract information -> Helper Function for getRenovateInformations
  * @param Updates part of JSON
  * @returns Array of updateInformations
@@ -202,6 +250,7 @@ function findFilesRecursive(directory, targetFilename, results = []) {
 getTreeInformationWithRelocations();
 getRenovateInformation();
 getDependencyTrackInformation();
+getDependencyTrackPolicyViolationInformation();
 
 
 

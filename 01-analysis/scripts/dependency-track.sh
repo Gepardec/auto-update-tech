@@ -240,6 +240,11 @@ createDependencyTrackResultFile(){
   echo "📁 Result saved in: ${RESULT_FILE}"
 }
 
+dependencyTrackPolicyViolations() {
+  echo " ... Pulling Policy Violations ..."
+  source ./dependency-track-policy-violations.sh --project-uuid $1 --dependency-track-api-key $API_KEY
+}
+
 
 ########################
 # PROGRAM STARTS HERE
@@ -270,5 +275,7 @@ uploadBomFile
 dependencyTrackAnalysis
 
 createDependencyTrackResultFile
+
+dependencyTrackPolicyViolations $PROJECT_UUID
 
 cleanup
