@@ -55,12 +55,6 @@ sonarqube:
       ephemeral-storage: 150Mi
 
   postgresql:
-    image:
-      registry: docker.io
-      repository: bitnamilegacy/postgresql
-      tag: 11.14.0-debian-10-r22
-      pullSecrets:
-        - docker-config
     global:
       imagePullSecrets:
         - docker-config
