@@ -54,15 +54,11 @@ sonarqube:
     requests:
       ephemeral-storage: 150Mi
 
-  # new config - @Tobi ok so?
-  sonarQubeDb:
-    auth:
-      username: sonar
-      database: sonar
+  postgresql:
     image:
       registry: docker.io
       repository: bitnamilegacy/postgresql
-      tag: 15.3.0-debian-11-r17
+      tag: 11.14.0-debian-10-r22
       pullSecrets:
         - docker-config
     global:

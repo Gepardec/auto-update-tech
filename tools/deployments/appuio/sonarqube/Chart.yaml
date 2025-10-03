@@ -27,10 +27,3 @@ dependencies:
   - name: sonarqube
     version: 2025.3.0
     repository: https://SonarSource.github.io/helm-chart-sonarqube
-
-# @Tobi ok so?
-#dependencies:
-#  - name: postgresql
-#    alias: sonarQubeDb
-#    version: ~12.5.8
-#    repository: https://charts.bitnami.com/bitnami
